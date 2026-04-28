@@ -2478,10 +2478,10 @@ const renderCopy = (c) => {
       <div class="text-slate-700">${d.text}</div>
     </div>
   `).join('');
-  // 暫存給複製按鈕用
-  window._copy._pmaxShort = pmaxShort;
-  window._copy._pmaxLong = pmaxLong;
-  window._copy._pmaxDescs = pmaxDescs;
+  // 暫存給複製按鈕用（直接寫到 c，避免 window._copy 還沒設定的 race condition）
+  c._pmaxShort = pmaxShort;
+  c._pmaxLong = pmaxLong;
+  c._pmaxDescs = pmaxDescs;
 
   // ===== 依策略動態顯示 / 隱藏分頁 =====
   const campaigns = (currentResult && currentResult.campaigns) || [];
