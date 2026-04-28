@@ -328,8 +328,14 @@
     </div>
 
     <!-- 進階版專屬提示 -->
-    <div id="advanced-mode-hint" class="hidden bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 mb-4 text-sm text-slate-700">
-      🔧 <strong>進階版</strong>：這版會提供策略邏輯與優化方式，適合已開始投廣告的人
+    <div id="advanced-mode-hint" class="hidden bg-orange-50 border-2 border-orange-300 rounded-xl p-4 mb-4">
+      <div class="flex items-start gap-3">
+        <div class="text-2xl flex-shrink-0">⚠️</div>
+        <div>
+          <div class="font-bold text-orange-900 mb-1">這是「進階版」內容</div>
+          <p class="text-sm text-orange-800 leading-relaxed">這版會提供策略邏輯與優化方式，<strong>適合已開始投廣告的人</strong>。<br/>新手請點上方「🌱 新手版」，直接看可以照做的精簡版。</p>
+        </div>
+      </div>
     </div>
 
     <!-- 轉換追蹤前置提醒（雙模式都顯示） -->
@@ -2142,6 +2148,19 @@ const renderStrategy = (r) => {
   document.getElementById('r-conv-extra').textContent = r.convExtra;
 };
 
+// 每個廣告類型的「為什麼配這 %」白話解釋
+const explainPercentReason = (campaignName, decision, goal) => {
+  if (campaignName.includes('搜尋廣告')) {
+    if (decision === 'consult') return '抓主動搜尋「療程／服務＋地區」的人——這類客戶最有意圖';
+    if (decision === 'impulse') return '抓主動找品牌／商品名的買家——他們最容易下單';
+    return '抓主動研究比較的人——他們已經接近購買了';
+  }
+  if (campaignName.includes('PMax（購物廣告）')) return '把你的商品照片自動推給對的買家——電商必備';
+  if (campaignName.includes('PMax（地區廣告）')) return '觸及店面周邊 5-10 公里還沒搜尋的人——拓展在地客群';
+  if (campaignName.includes('PMax')) return '讓 Google 自動找潛在買家——當作搜尋的拓量補充';
+  return '輔助拓量';
+};
+
 // ============ RENDER BEGINNER STRATEGY (新手版) ============
 const renderBeginnerStrategy = () => {
   const decision = decisionName[state.decision];
@@ -2158,7 +2177,7 @@ const renderBeginnerStrategy = () => {
   // 預算 label
   document.getElementById('b-budget-label').textContent = bud.label;
 
-  // 推薦組合（含人話翻譯）
+  // 推薦組合（含人話翻譯 + 為什麼這個 %）
   const translations = {
     'PMax': '全自動廣告（一個活動跑遍 Google 全平台）',
     'PMax（購物廣告）': '電商版 PMax（顯示商品圖片+價格）',
@@ -2172,13 +2191,15 @@ const renderBeginnerStrategy = () => {
     const monthly = Math.round(bud.amount * c[1] / 100);
     const daily = Math.round(monthly / 30);
     const trans = translations[c[0]];
-    const transHTML = trans ? `<div class="text-xs text-slate-500 mt-1 ml-7">人話：${trans}</div>` : '';
+    const transHTML = trans ? `<div class="text-xs text-slate-500 mt-1 ml-7">📖 ${trans}</div>` : '';
+    const reason = explainPercentReason(c[0], state.decision, state.goal);
     return `<li class="bg-slate-50 rounded-lg p-3">
       <div class="flex items-center justify-between">
         <span class="font-semibold text-slate-800">📌 ${c[0]}</span>
-        <span class="text-blue-600 font-bold">${c[1]}%</span>
+        <span class="text-blue-600 font-bold text-lg">${c[1]}%</span>
       </div>
       <div class="text-xs text-slate-600 mt-1 ml-7">每月約 ${monthly.toLocaleString()} 元（每天 ${daily.toLocaleString()} 元）</div>
+      <div class="text-xs text-blue-700 mt-1.5 ml-7 leading-relaxed">💡 ${reason}</div>
       ${transHTML}
     </li>`;
   }).join('');
