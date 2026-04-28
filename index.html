@@ -130,7 +130,7 @@
     <div class="mb-6">
       <div class="flex justify-between text-sm text-slate-600 mb-2">
         <span>填寫進度</span>
-        <span><span id="progress-text">0</span>/4</span>
+        <span><span id="progress-text">0</span>/5</span>
       </div>
       <div class="h-2 bg-slate-200 rounded-full overflow-hidden">
         <div id="progress-bar" class="h-full bg-blue-600 progress-bar" style="width: 0%"></div>
@@ -161,10 +161,36 @@
         <p class="text-sm text-slate-500 mt-2">💡 選擇最接近的類型即可，不用 100% 對應</p>
       </div>
 
-      <!-- Q2: Goal -->
+      <!-- Q2: Business Type (線上/線下/兩者) -->
       <div>
         <label class="flex items-center gap-2 font-bold text-lg mb-3">
           <span class="w-7 h-7 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center text-sm">2</span>
+          你的業務是線上還是線下？
+        </label>
+        <div class="grid grid-cols-3 gap-3">
+          <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4 text-center" data-q="business" data-value="online">
+            <div class="emoji text-3xl mb-1">💻</div>
+            <div class="font-bold">線上</div>
+            <div class="text-xs text-slate-500 mt-1">網站／電商／訂閱</div>
+          </div>
+          <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4 text-center" data-q="business" data-value="offline">
+            <div class="emoji text-3xl mb-1">🏪</div>
+            <div class="font-bold">線下</div>
+            <div class="text-xs text-slate-500 mt-1">實體店／診所</div>
+          </div>
+          <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4 text-center" data-q="business" data-value="both">
+            <div class="emoji text-3xl mb-1">🌐</div>
+            <div class="font-bold">兩者都有</div>
+            <div class="text-xs text-slate-500 mt-1">線上＋實體</div>
+          </div>
+        </div>
+        <p class="text-sm text-slate-500 mt-2">💡 影響我們推薦哪種 PMax（購物廣告／地區廣告／純自動）</p>
+      </div>
+
+      <!-- Q3: Goal -->
+      <div>
+        <label class="flex items-center gap-2 font-bold text-lg mb-3">
+          <span class="w-7 h-7 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center text-sm">3</span>
           你最想達成什麼？
         </label>
         <div class="grid grid-cols-3 gap-3">
@@ -187,10 +213,10 @@
         <p class="text-sm text-slate-500 mt-2">💡 選「現在最缺的那一個」</p>
       </div>
 
-      <!-- Q3: Budget -->
+      <!-- Q4: Budget -->
       <div>
         <label class="flex items-center gap-2 font-bold text-lg mb-3">
-          <span class="w-7 h-7 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center text-sm">3</span>
+          <span class="w-7 h-7 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center text-sm">4</span>
           每月預算大概多少？
         </label>
         <select id="q-budget" class="w-full px-4 py-3 border border-slate-300 rounded-lg bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100">
@@ -203,10 +229,10 @@
         <p class="text-sm text-slate-500 mt-2">💡 不用精準，抓大概即可。預算不同，策略會不一樣。</p>
       </div>
 
-      <!-- Q4: Assets -->
+      <!-- Q5: Assets -->
       <div>
         <label class="flex items-center gap-2 font-bold text-lg mb-3">
-          <span class="w-7 h-7 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center text-sm">4</span>
+          <span class="w-7 h-7 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center text-sm">5</span>
           你手上有素材嗎？
         </label>
         <div class="grid grid-cols-3 gap-3">
@@ -612,7 +638,7 @@
 
 <script>
 // ============ STATE ============
-const state = { industry: '', goal: '', budget: '', assets: '' };
+const state = { industry: '', business: '', goal: '', budget: '', assets: '' };
 let currentResult = null;
 let currentMode = 'beginner'; // 'beginner' or 'advanced'
 
@@ -660,10 +686,10 @@ const comboMatrixBeginner = {
 const updateProgress = () => {
   const filled = Object.values(state).filter(v => v !== '').length;
   document.getElementById('progress-text').textContent = filled;
-  document.getElementById('progress-bar').style.width = (filled / 4 * 100) + '%';
+  document.getElementById('progress-bar').style.width = (filled / 5 * 100) + '%';
 
   const btn = document.getElementById('btn-generate');
-  if (filled === 4) {
+  if (filled === 5) {
     btn.disabled = false;
     btn.classList.remove('bg-slate-300', 'cursor-not-allowed');
     btn.classList.add('bg-blue-600', 'hover:bg-blue-700', 'shadow-lg', 'shadow-blue-200', 'cursor-pointer');
@@ -700,15 +726,22 @@ const budgetMap = {
 // ============ 動態組合建構（取代靜態矩陣的 campaigns）============
 // 9 種廣告類型：搜尋廣告／搜尋廣告-品牌字／PMax／PMax（購物廣告）／PMax（地區廣告）／多媒體廣告／多媒體廣告（再行銷）／需求廣告／YouTube 影片廣告
 
-const getPMaxVariant = (industry, goal) => {
-  if (industry === 'ecommerce' || (industry === 'food' && goal === 'purchase')) return 'PMax（購物廣告）';
-  // 有實體店面的產業 → PMax（地區廣告）
-  const hasPhysicalLoc = ['local', 'beauty'].includes(industry)
-    || (industry === 'food' && goal !== 'purchase')
-    || (industry === 'travel' && goal === 'leads');
-  if (hasPhysicalLoc) return 'PMax（地區廣告）';
-  // 線上服務（課程、旅遊、出版媒體訂閱）→ PMax（純自動版）
-  if (['course', 'travel', 'media'].includes(industry)) return 'PMax';
+const getPMaxVariant = (industry, goal, business) => {
+  const hasOffline = business === 'offline' || business === 'both';
+  const hasOnline = business === 'online' || business === 'both';
+
+  // 1. 線上賣實體商品 → PMax（購物廣告）
+  const sellsOnlineProducts = (industry === 'ecommerce' && hasOnline)
+    || (industry === 'food' && goal === 'purchase' && hasOnline);
+  if (sellsOnlineProducts) return 'PMax（購物廣告）';
+
+  // 2. 有實體據點 → PMax（地區廣告）
+  if (hasOffline) return 'PMax（地區廣告）';
+
+  // 3. 純線上服務（課程、旅遊、出版媒體、醫美保健線上）→ PMax 純自動版
+  if (hasOnline && ['course', 'travel', 'media', 'beauty'].includes(industry)) return 'PMax';
+
+  // 4. B2B / 其他 → 沒 PMax（搜尋廣告更精準）
   return null;
 };
 
@@ -721,10 +754,10 @@ const isDemandGenApplicable = (industry, goal) => {
 
 const budgetTierIndex = (budget) => ['under1', '1to5', '5to10', 'over10'].indexOf(budget);
 
-// 進階版動態組合（看素材 + 預算）
-const buildAdvancedCampaigns = (industry, goal, assets, budget) => {
+// 進階版動態組合（看素材 + 預算 + 線上線下）
+const buildAdvancedCampaigns = (industry, goal, assets, budget, business) => {
   const tier = budgetTierIndex(budget);
-  const pmax = getPMaxVariant(industry, goal);
+  const pmax = getPMaxVariant(industry, goal, business);
   const hasImages = assets === 'images' || assets === 'full';
   const hasVideo = assets === 'full';
 
@@ -779,9 +812,9 @@ const buildAdvancedCampaigns = (industry, goal, assets, budget) => {
 };
 
 // 新手版動態組合（只給搜尋 + PMax）
-const buildBeginnerCampaigns = (industry, goal, assets, budget) => {
+const buildBeginnerCampaigns = (industry, goal, assets, budget, business) => {
   const tier = budgetTierIndex(budget);
-  const pmax = getPMaxVariant(industry, goal);
+  const pmax = getPMaxVariant(industry, goal, business);
 
   // 都沒有素材或預算 1 萬以下：只給搜尋（電商例外）
   if (assets === 'none' || tier === 0) {
@@ -894,13 +927,16 @@ const generateStrategy = () => {
   const ind = industryName[state.industry];
   const goal = goalName[state.goal];
   const bud = budgetMap[state.budget];
-  const hasAssets = state.assets === 'yes';
-  const isEcom = state.industry === 'ecommerce';
+  const hasAssets = state.assets !== 'none';
+  const hasOffline = state.business === 'offline' || state.business === 'both';
+  const hasOnline = state.business === 'online' || state.business === 'both';
+  const isEcom = (state.industry === 'ecommerce' && hasOnline)
+    || (state.industry === 'food' && state.goal === 'purchase' && hasOnline);
   const isLowBudget = state.budget === 'under1';
 
   // ===== 投放組合（用新的動態建構函式）=====
   const matrix = JSON.parse(JSON.stringify(comboMatrix[state.industry][state.goal]));
-  matrix.campaigns = buildAdvancedCampaigns(state.industry, state.goal, state.assets, state.budget);
+  matrix.campaigns = buildAdvancedCampaigns(state.industry, state.goal, state.assets, state.budget, state.business);
 
   // 素材／預算提示訊息
   let assetWarning = '';
@@ -932,13 +968,17 @@ const generateStrategy = () => {
   `;
 
   // ===== 投放時程 =====
-  // Week 0 因產業而異：電商→Merchant Center、實體店→Google 商家檔案、其他→到達網頁+表單
-  const isProductSeller = isEcom || (state.industry === 'food' && state.goal === 'purchase');
-  const isLocalBusiness = ['local'].includes(state.industry) || (state.industry === 'food' && state.goal !== 'purchase') || (state.industry === 'travel' && state.goal === 'leads');
+  // Week 0 看「業務型態」決定基礎設定
   let week0Setup;
-  if (isProductSeller) week0Setup = '設定 Google Merchant Center（商品資料庫）+ 商品動態饋給';
-  else if (isLocalBusiness) week0Setup = '設定 Google 商家檔案（免費）+ 收集顧客評論';
-  else week0Setup = '準備到達網頁（廣告連過去的頁面）+ 上面要有表單、案例、聯絡方式';
+  if (isEcom && hasOffline) {
+    week0Setup = '設定 Google Merchant Center（商品資料庫）+ 商家檔案（免費，實體店必設）';
+  } else if (isEcom) {
+    week0Setup = '設定 Google Merchant Center（商品資料庫）+ 商品動態饋給';
+  } else if (hasOffline) {
+    week0Setup = '設定 Google 商家檔案（免費）+ 收集顧客評論';
+  } else {
+    week0Setup = '準備到達網頁（廣告連過去的頁面）+ 上面要有表單、案例、聯絡方式';
+  }
 
   const week0Items = [
     '安裝 Google Tag、設定 GA4',
@@ -1901,7 +1941,7 @@ const renderBeginnerStrategy = () => {
   if (!original) return;
   const beg = JSON.parse(JSON.stringify(original));
   // 用新的動態建構函式覆蓋 campaigns
-  beg.campaigns = buildBeginnerCampaigns(state.industry, state.goal, state.assets, state.budget);
+  beg.campaigns = buildBeginnerCampaigns(state.industry, state.goal, state.assets, state.budget, state.business);
 
   // 一句話
   document.getElementById('b-oneliner').textContent = beg.oneLiner;
@@ -1942,7 +1982,9 @@ const renderBeginnerStrategy = () => {
   document.getElementById('b-daily-inline').textContent = dailyTotal.toLocaleString() + ' 元';
 
   // 轉換追蹤額外（電商加 Merchant Center）
-  const isEcom = state.industry === 'ecommerce' || (state.industry === 'food' && state.goal === 'purchase');
+  const hasOnline = state.business === 'online' || state.business === 'both';
+  const isEcom = (state.industry === 'ecommerce' && hasOnline)
+    || (state.industry === 'food' && state.goal === 'purchase' && hasOnline);
   document.getElementById('r-conv-extra').textContent = isEcom ? '、Merchant Center 商品饋給' : '';
 };
 
