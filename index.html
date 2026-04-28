@@ -77,18 +77,21 @@
       <div class="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm font-medium mb-6">
         🚀 專為 Google Ads 新手設計
       </div>
-      <h1 class="text-4xl md:text-5xl font-black leading-tight mb-6">
-        Google 廣告<br/>
-        <span class="text-blue-600">該怎麼投？</span>
+      <h1 class="text-4xl md:text-5xl font-black leading-tight mb-4">
+        Google 廣告<br/>不知道怎麼開始？
       </h1>
+      <p class="text-2xl md:text-3xl text-blue-600 font-bold mb-6 leading-snug">
+        30 秒幫你做出<br/>第一版投放策略
+      </p>
       <p class="text-lg text-slate-600 mb-8 leading-relaxed">
-        輸入 4 個資訊，30 秒產出「可以直接照做」的 Google Ads 投放規劃。<br/>
-        含廣告類型、預算分配、出價策略、關鍵字建議、新手地雷一次給你。
+        輸入 4 個基本資訊<br/>
+        直接產出「可以照做」的廣告策略<br/>
+        不用學很久，也能開始投廣告
       </p>
       <a href="#tool" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-bold text-lg shadow-lg shadow-blue-200 transition">
-        🚀 立即產生策略
+        🚀 30 秒產生我的策略
       </a>
-      <p class="text-sm text-slate-500 mt-4">完全免費 ・ 無須註冊 ・ 30 秒完成</p>
+      <p class="text-sm text-slate-500 mt-4">免費使用｜30 秒完成｜適合完全新手</p>
     </div>
     <div class="hidden md:block">
       <div class="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-8 shadow-xl">
@@ -376,48 +379,60 @@
       </div>
     </div>
 
-    <!-- ============ ADVANCED CARDS（預設隱藏）============ -->
-    <div id="advanced-cards" class="hidden">
-      <div class="grid md:grid-cols-3 gap-5 mb-5">
-        <!-- Card 1: 投放組合 -->
-        <div class="fade-in fade-in-1 bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
-          <div class="text-3xl mb-3">📊</div>
-          <h3 class="font-bold text-lg mb-2">建議廣告活動組合</h3>
-          <p id="r-combo" class="text-slate-700 text-sm leading-relaxed"></p>
+    <!-- ============ ADVANCED CARDS（預設隱藏，單欄垂直排列）============ -->
+    <div id="advanced-cards" class="hidden space-y-5 mb-8">
+      <!-- Card 1: 投放組合 -->
+      <div class="fade-in fade-in-1 bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+        <div class="flex items-center gap-3 mb-4 pb-3 border-b border-slate-100">
+          <div class="text-3xl">📊</div>
+          <h3 class="font-bold text-xl">1️⃣ 廣告活動組合</h3>
         </div>
-        <!-- Card 2: 預算分配 -->
-        <div class="fade-in fade-in-2 bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
-          <div class="text-3xl mb-3">💰</div>
-          <h3 class="font-bold text-lg mb-2">預算分配 & 出價</h3>
-          <div id="r-budget" class="text-slate-700 text-sm leading-relaxed"></div>
-        </div>
-        <!-- Card 3: 投放順序 -->
-        <div class="fade-in fade-in-3 bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
-          <div class="text-3xl mb-3">🚀</div>
-          <h3 class="font-bold text-lg mb-2">投放時程（4 週）</h3>
-          <div id="r-order" class="text-slate-700 text-sm leading-relaxed space-y-2"></div>
-        </div>
+        <div id="r-combo" class="text-slate-700 text-sm leading-relaxed"></div>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-5 mb-8">
-        <!-- Card 4: 關鍵字策略 -->
-        <div class="fade-in fade-in-4 bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
-          <div class="text-3xl mb-3">🔑</div>
-          <h3 class="font-bold text-lg mb-3">關鍵字策略</h3>
-          <div id="r-keywords" class="text-slate-700 text-sm leading-relaxed space-y-3"></div>
+      <!-- Card 2: 預算 & 出價 -->
+      <div class="fade-in fade-in-2 bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+        <div class="flex items-center gap-3 mb-4 pb-3 border-b border-slate-100">
+          <div class="text-3xl">💰</div>
+          <h3 class="font-bold text-xl">2️⃣ 預算分配 & 出價策略</h3>
         </div>
-        <!-- Card 5: 操作重點 -->
-        <div class="fade-in fade-in-5 bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
-          <div class="text-3xl mb-3">🧠</div>
-          <h3 class="font-bold text-lg mb-3">操作重點</h3>
-          <ul id="r-tips" class="text-slate-700 text-sm space-y-2"></ul>
+        <div id="r-budget" class="text-slate-700 text-sm leading-relaxed"></div>
+      </div>
+
+      <!-- Card 3: 4 週時程 -->
+      <div class="fade-in fade-in-3 bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+        <div class="flex items-center gap-3 mb-4 pb-3 border-b border-slate-100">
+          <div class="text-3xl">📅</div>
+          <h3 class="font-bold text-xl">3️⃣ 4 週投放時程</h3>
         </div>
-        <!-- Card 6: 新手地雷 -->
-        <div class="fade-in fade-in-5 bg-red-50 border border-red-200 rounded-xl p-6">
-          <div class="text-3xl mb-3">⚠️</div>
-          <h3 class="font-bold text-lg mb-3 text-red-900">Google Ads 新手地雷</h3>
-          <ul id="r-traps" class="text-red-900 text-sm space-y-2"></ul>
+        <div id="r-order" class="text-slate-700 text-sm leading-relaxed space-y-2"></div>
+      </div>
+
+      <!-- Card 4: 關鍵字策略 -->
+      <div class="fade-in fade-in-4 bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+        <div class="flex items-center gap-3 mb-4 pb-3 border-b border-slate-100">
+          <div class="text-3xl">🔑</div>
+          <h3 class="font-bold text-xl">4️⃣ 關鍵字策略</h3>
         </div>
+        <div id="r-keywords" class="text-slate-700 text-sm leading-relaxed space-y-3"></div>
+      </div>
+
+      <!-- Card 5: 操作重點 -->
+      <div class="fade-in fade-in-5 bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+        <div class="flex items-center gap-3 mb-4 pb-3 border-b border-slate-100">
+          <div class="text-3xl">🧠</div>
+          <h3 class="font-bold text-xl">5️⃣ 操作重點</h3>
+        </div>
+        <ul id="r-tips" class="text-slate-700 text-sm space-y-2"></ul>
+      </div>
+
+      <!-- Card 6: Google Ads 地雷 -->
+      <div class="fade-in fade-in-5 bg-red-50 border border-red-200 rounded-xl p-6">
+        <div class="flex items-center gap-3 mb-4 pb-3 border-b border-red-200">
+          <div class="text-3xl">⚠️</div>
+          <h3 class="font-bold text-xl text-red-900">6️⃣ Google Ads 新手地雷</h3>
+        </div>
+        <ul id="r-traps" class="text-red-900 text-sm space-y-2"></ul>
       </div>
     </div>
 
@@ -692,7 +707,8 @@ const getPMaxVariant = (industry, goal) => {
     || (industry === 'food' && goal !== 'purchase')
     || (industry === 'travel' && goal === 'leads');
   if (hasPhysicalLoc) return 'PMax（地區廣告）';
-  if (goal === 'purchase' && ['course', 'travel'].includes(industry)) return 'PMax';
+  // 線上服務（課程、旅遊、出版媒體訂閱）→ PMax（純自動版）
+  if (['course', 'travel', 'media'].includes(industry)) return 'PMax';
   return null;
 };
 
