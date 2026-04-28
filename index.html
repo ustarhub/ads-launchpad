@@ -140,43 +140,48 @@
     <!-- Form Card -->
     <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 space-y-8">
 
-      <!-- Q1: Industry -->
+      <!-- Q1: Decision Mode -->
       <div>
         <label class="flex items-center gap-2 font-bold text-lg mb-3">
           <span class="w-7 h-7 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center text-sm">1</span>
-          你的產業是？
+          你的客戶通常怎麼做決定？
         </label>
-        <select id="q-industry" class="w-full px-4 py-3 border border-slate-300 rounded-lg bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100">
-          <option value="">請選擇產業</option>
-          <option value="ecommerce">電商 / 網購（賣實體商品）</option>
-          <option value="beauty">醫美 / 保健 / 醫療</option>
-          <option value="course">課程 / 教育 / 培訓</option>
-          <option value="food">餐飲 / 食品</option>
-          <option value="b2b">B2B 服務 / 企業客戶</option>
-          <option value="local">實體店面服務（美業／健身／補教／維修）</option>
-          <option value="travel">旅遊 / 飯店 / 運輸</option>
-          <option value="media">出版／媒體／訂閱（書／電子書／Podcast）</option>
-          <option value="other">其他</option>
-        </select>
-        <p class="text-sm text-slate-500 mt-2">💡 選擇最接近的類型即可，不用 100% 對應</p>
+        <div class="grid sm:grid-cols-3 gap-3">
+          <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4" data-q="decision" data-value="impulse">
+            <div class="emoji text-3xl mb-2">💨</div>
+            <div class="font-bold mb-1">很快就會直接購買</div>
+            <div class="text-xs text-slate-500 leading-relaxed">低單價 / 衝動型商品</div>
+          </div>
+          <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4" data-q="decision" data-value="research">
+            <div class="emoji text-3xl mb-2">🔍</div>
+            <div class="font-bold mb-1">會先比較、看評價再決定</div>
+            <div class="text-xs text-slate-500 leading-relaxed">課程 / 保養 / 多數電商</div>
+          </div>
+          <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4" data-q="decision" data-value="consult">
+            <div class="emoji text-3xl mb-2">💬</div>
+            <div class="font-bold mb-1">需要先詢問 / 諮詢才會成交</div>
+            <div class="text-xs text-slate-500 leading-relaxed">診所 / 顧問 / 客製服務</div>
+          </div>
+        </div>
+        <p class="text-sm text-slate-500 mt-2">💡 選最接近的即可，會影響廣告策略</p>
       </div>
 
       <!-- Q2: Business Type (線上/線下/兩者) -->
       <div>
         <label class="flex items-center gap-2 font-bold text-lg mb-3">
           <span class="w-7 h-7 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center text-sm">2</span>
-          你的業務是線上還是線下？
+          你的業務主要在哪裡進行？
         </label>
         <div class="grid grid-cols-3 gap-3">
           <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4 text-center" data-q="business" data-value="online">
             <div class="emoji text-3xl mb-1">💻</div>
             <div class="font-bold">線上</div>
-            <div class="text-xs text-slate-500 mt-1">網站／電商／訂閱</div>
+            <div class="text-xs text-slate-500 mt-1">網站 / 電商 / 訂閱</div>
           </div>
           <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4 text-center" data-q="business" data-value="offline">
             <div class="emoji text-3xl mb-1">🏪</div>
             <div class="font-bold">線下</div>
-            <div class="text-xs text-slate-500 mt-1">實體店／診所</div>
+            <div class="text-xs text-slate-500 mt-1">門市 / 診所 / 現場</div>
           </div>
           <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4 text-center" data-q="business" data-value="both">
             <div class="emoji text-3xl mb-1">🌐</div>
@@ -184,33 +189,33 @@
             <div class="text-xs text-slate-500 mt-1">線上＋實體</div>
           </div>
         </div>
-        <p class="text-sm text-slate-500 mt-2">💡 影響我們推薦哪種 PMax（購物廣告／地區廣告／純自動）</p>
+        <p class="text-sm text-slate-500 mt-2">💡 會影響廣告投放方式（例如是否建議 PMax）</p>
       </div>
 
       <!-- Q3: Goal -->
       <div>
         <label class="flex items-center gap-2 font-bold text-lg mb-3">
           <span class="w-7 h-7 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center text-sm">3</span>
-          你最想達成什麼？
+          你「現在最想優先改善」的是？
         </label>
         <div class="grid grid-cols-3 gap-3">
           <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4 text-center" data-q="goal" data-value="awareness">
             <div class="emoji text-3xl mb-1">👀</div>
-            <div class="font-bold">曝光</div>
-            <div class="text-xs text-slate-500 mt-1">讓更多人看到</div>
+            <div class="font-bold">讓更多人看到</div>
+            <div class="text-xs text-slate-500 mt-1">曝光</div>
           </div>
           <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4 text-center" data-q="goal" data-value="leads">
             <div class="emoji text-3xl mb-1">📩</div>
-            <div class="font-bold">名單</div>
+            <div class="font-bold">增加詢問 / 名單</div>
             <div class="text-xs text-slate-500 mt-1">諮詢／預約／加 LINE</div>
           </div>
           <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4 text-center" data-q="goal" data-value="purchase">
             <div class="emoji text-3xl mb-1">💰</div>
-            <div class="font-bold">購買</div>
+            <div class="font-bold">提高成交 / 訂單</div>
             <div class="text-xs text-slate-500 mt-1">直接成交</div>
           </div>
         </div>
-        <p class="text-sm text-slate-500 mt-2">💡 選「現在最缺的那一個」</p>
+        <p class="text-sm text-slate-500 mt-2">💡 選目前最卡的那一個就好</p>
       </div>
 
       <!-- Q4: Budget -->
@@ -226,33 +231,33 @@
           <option value="5to10">5–10 萬</option>
           <option value="over10">10 萬以上</option>
         </select>
-        <p class="text-sm text-slate-500 mt-2">💡 不用精準，抓大概即可。預算不同，策略會不一樣。</p>
+        <p class="text-sm text-slate-500 mt-2">💡 不用精準，抓大概即可（會影響策略）</p>
       </div>
 
       <!-- Q5: Assets -->
       <div>
         <label class="flex items-center gap-2 font-bold text-lg mb-3">
           <span class="w-7 h-7 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center text-sm">5</span>
-          你手上有素材嗎？
+          你目前能用的素材是？
         </label>
         <div class="grid grid-cols-3 gap-3">
           <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4 text-center" data-q="assets" data-value="full">
             <div class="emoji text-3xl mb-1">🎬</div>
             <div class="font-bold">圖片＋影片</div>
-            <div class="text-xs text-slate-500 mt-1">兩種都有</div>
+            <div class="text-xs text-slate-500 mt-1">可以直接用</div>
           </div>
           <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4 text-center" data-q="assets" data-value="images">
             <div class="emoji text-3xl mb-1">🖼️</div>
             <div class="font-bold">只有圖片</div>
-            <div class="text-xs text-slate-500 mt-1">商品照、設計圖</div>
+            <div class="text-xs text-slate-500 mt-1">需要補影片</div>
           </div>
           <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4 text-center" data-q="assets" data-value="none">
             <div class="emoji text-3xl mb-1">📭</div>
-            <div class="font-bold">都沒有</div>
-            <div class="text-xs text-slate-500 mt-1">會給你補救方案</div>
+            <div class="font-bold">幾乎沒有</div>
+            <div class="text-xs text-slate-500 mt-1">需要從 0 開始</div>
           </div>
         </div>
-        <p class="text-sm text-slate-500 mt-2">💡 目前手上有什麼素材？</p>
+        <p class="text-sm text-slate-500 mt-2">💡 會影響素材策略與建議</p>
       </div>
 
       <!-- Submit -->
@@ -498,6 +503,60 @@
   </div>
 </section>
 
+<!-- ============ INDUSTRY PICKER（產文案前）============ -->
+<section id="industry-picker" class="hidden px-6 py-16">
+  <div class="max-w-2xl mx-auto">
+    <div class="text-center mb-8">
+      <div class="inline-flex items-center gap-2 bg-amber-50 text-amber-800 px-3 py-1 rounded-full text-sm font-medium mb-4">
+        ✍️ 寫文案前的最後一步
+      </div>
+      <h2 class="text-2xl md:text-3xl font-black mb-2">你的產業是？</h2>
+      <p class="text-slate-600 text-sm">廣告文案需要對應你的產業，幫你拿出最貼切的範本</p>
+    </div>
+
+    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+      <div class="grid sm:grid-cols-2 gap-2">
+        <button class="industry-pick-btn text-left px-4 py-3 border-2 border-slate-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition" data-industry="ecommerce">
+          <div class="font-bold">📦 電商 / 網購</div>
+          <div class="text-xs text-slate-500 mt-1">賣實體商品的線上店</div>
+        </button>
+        <button class="industry-pick-btn text-left px-4 py-3 border-2 border-slate-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition" data-industry="beauty">
+          <div class="font-bold">💉 醫美 / 保健 / 醫療</div>
+          <div class="text-xs text-slate-500 mt-1">診所、生技、保健食品</div>
+        </button>
+        <button class="industry-pick-btn text-left px-4 py-3 border-2 border-slate-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition" data-industry="course">
+          <div class="font-bold">📚 課程 / 教育 / 培訓</div>
+          <div class="text-xs text-slate-500 mt-1">線上課、補習、企業培訓</div>
+        </button>
+        <button class="industry-pick-btn text-left px-4 py-3 border-2 border-slate-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition" data-industry="food">
+          <div class="font-bold">🍱 餐飲 / 食品</div>
+          <div class="text-xs text-slate-500 mt-1">餐廳、咖啡廳、食品電商</div>
+        </button>
+        <button class="industry-pick-btn text-left px-4 py-3 border-2 border-slate-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition" data-industry="b2b">
+          <div class="font-bold">💼 B2B 服務 / 企業客戶</div>
+          <div class="text-xs text-slate-500 mt-1">SaaS、貿易、製造、諮詢</div>
+        </button>
+        <button class="industry-pick-btn text-left px-4 py-3 border-2 border-slate-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition" data-industry="local">
+          <div class="font-bold">🏪 實體店面服務</div>
+          <div class="text-xs text-slate-500 mt-1">美業、健身、補教、維修</div>
+        </button>
+        <button class="industry-pick-btn text-left px-4 py-3 border-2 border-slate-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition" data-industry="travel">
+          <div class="font-bold">✈️ 旅遊 / 飯店 / 運輸</div>
+          <div class="text-xs text-slate-500 mt-1">旅行社、飯店、運輸</div>
+        </button>
+        <button class="industry-pick-btn text-left px-4 py-3 border-2 border-slate-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition" data-industry="media">
+          <div class="font-bold">📖 出版 / 媒體 / 訂閱</div>
+          <div class="text-xs text-slate-500 mt-1">書籍、Podcast、電子報</div>
+        </button>
+        <button class="industry-pick-btn text-left px-4 py-3 border-2 border-slate-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition col-span-full" data-industry="other">
+          <div class="font-bold">🔘 其他</div>
+          <div class="text-xs text-slate-500 mt-1">不在以上分類的產業</div>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ COPY LOADING ============ -->
 <section id="copy-loading" class="hidden px-6 py-16">
   <div class="max-w-2xl mx-auto text-center">
@@ -638,7 +697,8 @@
 
 <script>
 // ============ STATE ============
-const state = { industry: '', business: '', goal: '', budget: '', assets: '' };
+const state = { decision: '', business: '', goal: '', budget: '', assets: '', industry: '' };
+// industry 在產生文案時才會被設定
 let currentResult = null;
 let currentMode = 'beginner'; // 'beginner' or 'advanced'
 
@@ -684,7 +744,9 @@ const comboMatrixBeginner = {
 
 // ============ FORM HANDLING ============
 const updateProgress = () => {
-  const filled = Object.values(state).filter(v => v !== '').length;
+  // 不算 industry（那個是產生文案時才填）
+  const requiredFields = ['decision', 'business', 'goal', 'budget', 'assets'];
+  const filled = requiredFields.filter(k => state[k] !== '').length;
   document.getElementById('progress-text').textContent = filled;
   document.getElementById('progress-bar').style.width = (filled / 5 * 100) + '%';
 
@@ -700,7 +762,7 @@ const updateProgress = () => {
   }
 };
 
-document.getElementById('q-industry').addEventListener('change', e => { state.industry = e.target.value; updateProgress(); });
+// q-industry 已移除（在產生文案時才問）
 document.getElementById('q-budget').addEventListener('change', e => { state.budget = e.target.value; updateProgress(); });
 
 document.querySelectorAll('.option-card').forEach(card => {
@@ -715,6 +777,50 @@ document.querySelectorAll('.option-card').forEach(card => {
 
 // ============ STRATEGY GENERATION (mock) ============
 const industryName = { ecommerce:'電商', beauty:'醫美 / 保健', course:'課程 / 教育', food:'餐飲 / 食品', b2b:'B2B 服務', local:'實體店面服務', travel:'旅遊 / 飯店', media:'出版 / 媒體 / 訂閱', other:'其他' };
+// 客戶決策模式
+const decisionName = { impulse:'衝動購買型', research:'比較型', consult:'諮詢型' };
+// 決策模式 × 目標 → 策略說明
+const decisionMatrix = {
+  impulse: {
+    awareness: { note:'衝動型客戶看到廣告就有反應，重點是「被看到」。建議用視覺型廣告＋PMax 拓量。' },
+    leads:    { note:'衝動型客戶不太收名單，但可以用「加 LINE 領優惠券」收集。建議搜尋廣告＋多媒體再行銷催促立即行動。' },
+    purchase: { note:'衝動型客戶看到就買，搜尋廣告（含優惠字、限時字）＋ PMax 購物廣告（如線上賣商品）＋多媒體再行銷三件套最有效。' },
+  },
+  research: {
+    awareness: { note:'比較型客戶會看評價、查資料，需要建立品牌知名度與信任感。建議用 YouTube＋多媒體＋需求廣告長期經營。' },
+    leads:    { note:'比較型客戶喜歡先試聽、看評價、留資料再決定。建議搜尋廣告（重評價字）＋多媒體再行銷反覆觸及＋需求廣告擴大觸及。' },
+    purchase: { note:'比較型客戶決策前會多次研究，搜尋廣告（重評價、規格字）＋ PMax 拓量＋多媒體再行銷催最後決策。' },
+  },
+  consult: {
+    awareness: { note:'諮詢型客戶決策慢，要先建立信任。建議用 YouTube（專業內容）＋多媒體＋需求廣告長期經營品牌。' },
+    leads:    { note:'諮詢型客戶最常見的轉換是「免費諮詢／預約」。建議搜尋廣告（諮詢字、地區字）＋ PMax 地區（如有實體店）＋多媒體再行銷＋需求廣告。' },
+    purchase: { note:'諮詢型客戶通常先諮詢才購買，搜尋廣告（重信任字）＋ PMax＋多媒體再行銷催最後決策。' },
+  },
+};
+// 決策模式 × 目標 → 新手版簡短解釋
+const decisionMatrixBeginner = {
+  impulse: {
+    awareness: { oneLiner:'衝動型客戶被看到就會有反應，先用搜尋廣告＋PMax 觸及最多人。', why:'你的客戶決策快，廣告越廣觸及越好。' },
+    leads:    { oneLiner:'衝動型客戶不太留資料，但可以用「加 LINE 領券」收集，搜尋廣告為主。', why:'你的客戶不喜歡填表，加 LINE 比留 Email 更直接。' },
+    purchase: { oneLiner:'衝動型客戶看到就買，搜尋廣告（優惠字）＋ PMax 購物廣告最有效。', why:'你的客戶決策快，廣告要強調「現在就買」「限時優惠」。' },
+  },
+  research: {
+    awareness: { oneLiner:'比較型客戶會研究、看評價，先用搜尋廣告＋PMax 累積品牌曝光。', why:'你的客戶會 Google，搜尋廣告抓他們的研究階段最有效。' },
+    leads:    { oneLiner:'比較型客戶喜歡先試聽試讀，搜尋廣告（重評價字）為主即可起手。', why:'你的客戶決策中等長，先收名單再轉單最自然。' },
+    purchase: { oneLiner:'比較型客戶決策前會多次比較，搜尋廣告（重評價字）＋ PMax 是黃金組合。', why:'你的客戶會做功課，廣告要強調評價、規格、保固。' },
+  },
+  consult: {
+    awareness: { oneLiner:'諮詢型客戶決策慢，先用搜尋廣告＋PMax 地區（如有實體店）建立信任。', why:'你的客戶要被反覆看到才會決定，先建立曝光。' },
+    leads:    { oneLiner:'諮詢型客戶就是要收名單，搜尋廣告（諮詢字）＋ PMax 地區（如有實體店）。', why:'你的客戶決策慢、客單高，靠免費諮詢轉單最有效。' },
+    purchase: { oneLiner:'諮詢型客戶通常諮詢後才買，搜尋廣告（重信任字）＋ PMax 為主。', why:'你的客戶高客單、決策慢，廣告要強調專業、案例、保證。' },
+  },
+};
+// 決策模式 → 關鍵字字根範例
+const decisionKeywords = {
+  impulse: ['商品 + 限時', '商品 + 優惠', '商品 + 推薦', '品牌 + 商品名'],
+  research: ['商品 + 評價', '商品 + 推薦', '品牌 + 比較', '商品 + ptt'],
+  consult: ['服務 + 諮詢', '服務 + 地區', '療程 + 推薦', '品牌 + 評價'],
+};
 const goalName = { awareness:'曝光', leads:'名單', purchase:'購買' };
 const budgetMap = {
   under1: { label:'1 萬以下', amount:8000 },
@@ -726,38 +832,40 @@ const budgetMap = {
 // ============ 動態組合建構（取代靜態矩陣的 campaigns）============
 // 9 種廣告類型：搜尋廣告／搜尋廣告-品牌字／PMax／PMax（購物廣告）／PMax（地區廣告）／多媒體廣告／多媒體廣告（再行銷）／需求廣告／YouTube 影片廣告
 
-const getPMaxVariant = (industry, goal, business) => {
+const getPMaxVariant = (decision, goal, business) => {
   const hasOffline = business === 'offline' || business === 'both';
   const hasOnline = business === 'online' || business === 'both';
 
-  // 1. 線上賣實體商品 → PMax（購物廣告）
-  const sellsOnlineProducts = (industry === 'ecommerce' && hasOnline)
-    || (industry === 'food' && goal === 'purchase' && hasOnline);
-  if (sellsOnlineProducts) return 'PMax（購物廣告）';
+  // 1. 衝動型 + 線上 + 購買 → 假設賣實體商品 → PMax（購物廣告）
+  if (decision === 'impulse' && hasOnline && goal === 'purchase') {
+    return 'PMax（購物廣告）';
+  }
 
   // 2. 有實體據點 → PMax（地區廣告）
   if (hasOffline) return 'PMax（地區廣告）';
 
-  // 3. 純線上服務（課程、旅遊、出版媒體、醫美保健線上）→ PMax 純自動版
-  if (hasOnline && ['course', 'travel', 'media', 'beauty'].includes(industry)) return 'PMax';
+  // 3. 比較型 / 諮詢型 + 線上 + 購買 → PMax 純自動版
+  if (hasOnline && goal === 'purchase') return 'PMax';
 
-  // 4. B2B / 其他 → 沒 PMax（搜尋廣告更精準）
+  // 4. 諮詢型 + 線上 + 名單 → B2B 軟體訂閱類也適合 PMax
+  if (decision === 'consult' && hasOnline && goal === 'leads') return 'PMax';
+
   return null;
 };
 
-// 需求廣告適用情境：B2B 任目標 + 醫美/課程/出版媒體 名單型
-const isDemandGenApplicable = (industry, goal) => {
-  if (industry === 'b2b') return true;
-  if (goal === 'leads' && ['beauty', 'course', 'media'].includes(industry)) return true;
+// 需求廣告適用情境：諮詢型（決策慢、需要建立信任）+ 比較型名單（內容驅動）
+const isDemandGenApplicable = (decision, goal) => {
+  if (decision === 'consult') return true; // 諮詢型任目標都適合
+  if (decision === 'research' && goal === 'leads') return true; // 比較型名單也適合
   return false;
 };
 
 const budgetTierIndex = (budget) => ['under1', '1to5', '5to10', 'over10'].indexOf(budget);
 
-// 進階版動態組合（看素材 + 預算 + 線上線下）
-const buildAdvancedCampaigns = (industry, goal, assets, budget, business) => {
+// 進階版動態組合（看素材 + 預算 + 線上線下 + 決策模式）
+const buildAdvancedCampaigns = (decision, goal, assets, budget, business) => {
   const tier = budgetTierIndex(budget);
-  const pmax = getPMaxVariant(industry, goal, business);
+  const pmax = getPMaxVariant(decision, goal, business);
   const hasImages = assets === 'images' || assets === 'full';
   const hasVideo = assets === 'full';
 
@@ -805,16 +913,16 @@ const buildAdvancedCampaigns = (industry, goal, assets, budget, business) => {
     c.push(['搜尋廣告', 45]);
   }
   if (hasImages) c.push(['多媒體廣告（再行銷）', 18]);
-  if (hasImages && isDemandGenApplicable(industry, goal)) c.push(['需求廣告', 15]);
+  if (hasImages && isDemandGenApplicable(decision, goal)) c.push(['需求廣告', 15]);
   if (hasVideo && tier >= 2) c.push(['YouTube 影片廣告', 15]);
 
   return normalizeWeights(c);
 };
 
 // 新手版動態組合（只給搜尋 + PMax）
-const buildBeginnerCampaigns = (industry, goal, assets, budget, business) => {
+const buildBeginnerCampaigns = (decision, goal, assets, budget, business) => {
   const tier = budgetTierIndex(budget);
-  const pmax = getPMaxVariant(industry, goal, business);
+  const pmax = getPMaxVariant(decision, goal, business);
 
   // 都沒有素材或預算 1 萬以下：只給搜尋（電商例外）
   if (assets === 'none' || tier === 0) {
@@ -924,19 +1032,19 @@ const keywordExamples = {
 };
 
 const generateStrategy = () => {
-  const ind = industryName[state.industry];
+  const decision = decisionName[state.decision];
   const goal = goalName[state.goal];
   const bud = budgetMap[state.budget];
   const hasAssets = state.assets !== 'none';
   const hasOffline = state.business === 'offline' || state.business === 'both';
   const hasOnline = state.business === 'online' || state.business === 'both';
-  const isEcom = (state.industry === 'ecommerce' && hasOnline)
-    || (state.industry === 'food' && state.goal === 'purchase' && hasOnline);
+  // 衝動型 + 線上 + 購買 → 假設賣商品（需要 Merchant Center）
+  const isEcom = state.decision === 'impulse' && hasOnline && state.goal === 'purchase';
   const isLowBudget = state.budget === 'under1';
 
   // ===== 投放組合（用新的動態建構函式）=====
-  const matrix = JSON.parse(JSON.stringify(comboMatrix[state.industry][state.goal]));
-  matrix.campaigns = buildAdvancedCampaigns(state.industry, state.goal, state.assets, state.budget, state.business);
+  const matrix = JSON.parse(JSON.stringify(decisionMatrix[state.decision][state.goal]));
+  matrix.campaigns = buildAdvancedCampaigns(state.decision, state.goal, state.assets, state.budget, state.business);
 
   // 素材／預算提示訊息
   let assetWarning = '';
@@ -994,7 +1102,7 @@ const generateStrategy = () => {
   `;
 
   // ===== 關鍵字策略 =====
-  const kwExamples = keywordExamples[state.industry];
+  const kwExamples = decisionKeywords[state.decision];
   const keywordsHTML = `
     <div>
       <strong class="block mb-1">建議比對類型</strong>
@@ -1005,7 +1113,7 @@ const generateStrategy = () => {
       <span class="text-xs text-slate-600">每個廣告群組 <strong>10–20 個</strong>同主題關鍵字，不要塞 50 個進一個群組。</span>
     </div>
     <div>
-      <strong class="block mb-1">${ind}範例字根</strong>
+      <strong class="block mb-1">${decision}客戶範例字根</strong>
       <div class="flex flex-wrap gap-1 mt-1">
         ${kwExamples.map(k=>`<span class="bg-blue-50 text-blue-700 text-xs px-2 py-0.5 rounded">${k}</span>`).join('')}
       </div>
@@ -1935,13 +2043,13 @@ const renderStrategy = (r) => {
 
 // ============ RENDER BEGINNER STRATEGY (新手版) ============
 const renderBeginnerStrategy = () => {
-  const ind = industryName[state.industry];
+  const decision = decisionName[state.decision];
   const bud = budgetMap[state.budget];
-  const original = comboMatrixBeginner[state.industry] && comboMatrixBeginner[state.industry][state.goal];
+  const original = decisionMatrixBeginner[state.decision] && decisionMatrixBeginner[state.decision][state.goal];
   if (!original) return;
   const beg = JSON.parse(JSON.stringify(original));
   // 用新的動態建構函式覆蓋 campaigns
-  beg.campaigns = buildBeginnerCampaigns(state.industry, state.goal, state.assets, state.budget, state.business);
+  beg.campaigns = buildBeginnerCampaigns(state.decision, state.goal, state.assets, state.budget, state.business);
 
   // 一句話
   document.getElementById('b-oneliner').textContent = beg.oneLiner;
@@ -1981,10 +2089,9 @@ const renderBeginnerStrategy = () => {
   document.getElementById('b-daily').textContent = dailyTotal.toLocaleString() + ' 元';
   document.getElementById('b-daily-inline').textContent = dailyTotal.toLocaleString() + ' 元';
 
-  // 轉換追蹤額外（電商加 Merchant Center）
+  // 轉換追蹤額外（衝動型線上+購買 = 電商邏輯，加 Merchant Center）
   const hasOnline = state.business === 'online' || state.business === 'both';
-  const isEcom = (state.industry === 'ecommerce' && hasOnline)
-    || (state.industry === 'food' && state.goal === 'purchase' && hasOnline);
+  const isEcom = state.decision === 'impulse' && hasOnline && state.goal === 'purchase';
   document.getElementById('r-conv-extra').textContent = isEcom ? '、Merchant Center 商品饋給' : '';
 };
 
@@ -2161,23 +2268,34 @@ document.querySelectorAll('.change-goal-btn').forEach(btn => {
 // 強制進階版（曝光導引內的選項）
 document.getElementById('awareness-force-advanced').addEventListener('click', () => setMode('advanced'));
 
-// ============ COPY GENERATION BUTTON ============
-document.getElementById('btn-copy-gen').addEventListener('click', async () => {
+// ============ COPY GENERATION FLOW ============
+// 點「產生文案」→ 先跳產業選擇 → 選完才開始生成
+document.getElementById('btn-copy-gen').addEventListener('click', () => {
   if (!currentResult) return;
-  document.getElementById('copy-loading').classList.remove('hidden');
+  document.getElementById('industry-picker').classList.remove('hidden');
   document.getElementById('copy-result').classList.add('hidden');
-  document.getElementById('copy-loading').scrollIntoView({ behavior:'smooth', block:'start' });
+  document.getElementById('industry-picker').scrollIntoView({ behavior:'smooth', block:'start' });
+});
 
-  await new Promise(r => setTimeout(r, 1500));
+// 產業選擇按鈕 → 觸發實際生成
+document.querySelectorAll('.industry-pick-btn').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    state.industry = btn.dataset.industry;
+    document.getElementById('industry-picker').classList.add('hidden');
+    document.getElementById('copy-loading').classList.remove('hidden');
+    document.getElementById('copy-loading').scrollIntoView({ behavior:'smooth', block:'start' });
 
-  const c = generateCopy(currentResult);
-  renderCopy(c);
-  window._copy = c;
+    await new Promise(r => setTimeout(r, 1500));
 
-  document.getElementById('copy-loading').classList.add('hidden');
-  const cr = document.getElementById('copy-result');
-  cr.classList.remove('hidden');
-  cr.scrollIntoView({ behavior:'smooth', block:'start' });
+    const c = generateCopy(currentResult);
+    renderCopy(c);
+    window._copy = c;
+
+    document.getElementById('copy-loading').classList.add('hidden');
+    const cr = document.getElementById('copy-result');
+    cr.classList.remove('hidden');
+    cr.scrollIntoView({ behavior:'smooth', block:'start' });
+  });
 });
 
 // ============ TABS ============
