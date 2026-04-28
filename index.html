@@ -626,9 +626,26 @@
       <p class="text-slate-600">直接複製、稍作調整就能上架使用</p>
     </div>
 
-    <!-- 策略對應提示 -->
-    <div id="copy-strategy-hint" class="bg-blue-50 border border-blue-200 rounded-lg px-4 py-3 mb-4 text-sm text-blue-900">
-      💡 <span id="copy-strategy-text">這份文案會依你的策略，自動產出對應的 Search／PMax 文案</span>
+    <!-- 系統分析結果（顧問判斷） -->
+    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 md:p-6 mb-6">
+      <div class="text-xs text-slate-500 font-medium mb-3 text-center">📋 顧問判斷與文案對應</div>
+      <div class="grid sm:grid-cols-3 gap-4">
+        <div class="bg-white rounded-lg p-3 border border-slate-200">
+          <div class="text-xs text-slate-500 mb-1">📦 產品類型</div>
+          <div class="font-bold text-slate-900 text-sm leading-snug" id="copy-product-type">—</div>
+          <div class="text-xs text-slate-500 mt-1" id="copy-product-confirm">與你選擇一致</div>
+        </div>
+        <div class="bg-white rounded-lg p-3 border border-slate-200">
+          <div class="text-xs text-slate-500 mb-1">🎯 投放策略</div>
+          <div class="font-bold text-blue-700 text-sm leading-snug" id="copy-strategy">—</div>
+          <div class="text-xs text-slate-500 mt-1" id="copy-strategy-reason">直接複製貼到 Google Ads 後台即可</div>
+        </div>
+        <div class="bg-white rounded-lg p-3 border border-slate-200">
+          <div class="text-xs text-slate-500 mb-1">✍️ 文案方向</div>
+          <div class="font-bold text-amber-700 text-sm leading-snug" id="copy-direction">—</div>
+          <div class="text-xs text-slate-500 mt-1" id="copy-direction-note">依你的產品類型調整切角</div>
+        </div>
+      </div>
     </div>
 
     <!-- Tabs -->
@@ -827,8 +844,8 @@
 
 <script>
 // ============ STATE ============
-const state = { decision: '', business: '', goal: '', budget: '', assets: '', industry: '' };
-// industry 在產生文案時才會被設定
+const state = { decision: '', business: '', goal: '', budget: '', assets: '', industry: '', productType: '' };
+// industry / productType 在產生文案時才會被設定
 let currentResult = null;
 let currentMode = 'beginner'; // 'beginner' or 'advanced'
 
@@ -2373,13 +2390,40 @@ const renderCopy = (c) => {
   const hasPMax = campaigns.some(x => x[0].includes('PMax') || x[0].includes('多媒體') || x[0].includes('需求'));
   const hasYouTube = campaigns.some(x => x[0].includes('YouTube'));
 
-  // 策略對應提示
+  // ===== 系統分析 3 欄 =====
+  // 1. 產品類型
+  document.getElementById('copy-product-type').textContent = state.productType || '通用';
+
+  // 2. 投放策略
   const adTypes = [];
   if (campaigns.some(x => x[0].includes('搜尋'))) adTypes.push('Search');
-  if (hasPMax) adTypes.push('PMax');
+  if (campaigns.some(x => x[0].includes('PMax'))) adTypes.push('PMax');
+  if (campaigns.some(x => x[0].includes('多媒體') || x[0].includes('需求'))) adTypes.push('多媒體');
   if (hasYouTube) adTypes.push('YouTube');
-  const hintEl = document.getElementById('copy-strategy-text');
-  if (hintEl) hintEl.textContent = `這份文案對應你的策略：${adTypes.join(' + ')}。直接複製貼上 Google Ads 後台即可使用。`;
+  document.getElementById('copy-strategy').textContent = adTypes.join(' + ') || 'Search';
+
+  // 投放策略原因（依目標）
+  const goalReason = {
+    leads: '名單導向：Search 收主動詢問者為主',
+    purchase: '購買導向：Search ＋ PMax 拓量轉換',
+    awareness: '曝光導向：建立品牌觸及',
+  };
+  const reasonEl = document.getElementById('copy-strategy-reason');
+  if (reasonEl) reasonEl.textContent = goalReason[state.goal] || '';
+
+  // 3. 文案方向（依產品類型）
+  const styleMap = {
+    ecommerce: '優惠 / 限時 / CP值 / 立即購買',
+    beauty: '問題→改善 / 使用感 / 安全',
+    course: '學會什麼 / 改變 / 成果',
+    local: '預約 / 地點 / 即時',
+    b2b: '效率 / 成本 / 解決方案',
+    other: '痛點→解法 / 案例 / 信任',
+    food: '即時優惠 / 在地感 / 口碑',
+    travel: '行程體驗 / 早鳥 / 限定',
+    media: '內容深度 / 試讀 / 訂閱',
+  };
+  document.getElementById('copy-direction').textContent = styleMap[state.industry] || '通用方向';
 
   // 切換 tab 顯示
   const pmaxBtn = document.querySelector('.tab-btn[data-tab="pmax"]');
@@ -2548,6 +2592,7 @@ document.getElementById('awareness-force-advanced').addEventListener('click', ()
 document.querySelectorAll('.industry-pick-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     state.industry = btn.dataset.industry;
+    state.productType = btn.dataset.ptype || '';
     // 視覺：所有按鈕清除選中、當前按鈕加選中
     document.querySelectorAll('.industry-pick-btn').forEach(b => {
       b.classList.remove('border-amber-500', 'bg-amber-100', 'shadow-sm');
