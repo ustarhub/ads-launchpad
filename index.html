@@ -143,9 +143,14 @@
         </label>
         <select id="q-industry" class="w-full px-4 py-3 border border-slate-300 rounded-lg bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100">
           <option value="">請選擇產業</option>
-          <option value="ecommerce">電商（賣實體商品）</option>
-          <option value="beauty">醫美 / 保養</option>
-          <option value="course">課程 / 服務</option>
+          <option value="ecommerce">電商 / 網購（賣實體商品）</option>
+          <option value="beauty">醫美 / 保健 / 醫療</option>
+          <option value="course">課程 / 教育 / 培訓</option>
+          <option value="food">餐飲 / 食品</option>
+          <option value="b2b">B2B 服務 / 企業客戶</option>
+          <option value="local">在地服務（美業／健身／補教等）</option>
+          <option value="travel">旅遊 / 飯店 / 運輸</option>
+          <option value="media">文創 / 媒體 / 出版</option>
           <option value="other">其他</option>
         </select>
         <p class="text-sm text-slate-500 mt-2">💡 選擇最接近的類型即可，不用 100% 對應</p>
@@ -166,7 +171,7 @@
           <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4 text-center" data-q="goal" data-value="leads">
             <div class="emoji text-3xl mb-1">📩</div>
             <div class="font-bold">名單</div>
-            <div class="text-xs text-slate-500 mt-1">主動來詢問</div>
+            <div class="text-xs text-slate-500 mt-1">諮詢／預約／加 LINE</div>
           </div>
           <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4 text-center" data-q="goal" data-value="purchase">
             <div class="emoji text-3xl mb-1">💰</div>
@@ -484,7 +489,7 @@ document.querySelectorAll('.option-card').forEach(card => {
 });
 
 // ============ STRATEGY GENERATION (mock) ============
-const industryName = { ecommerce:'電商', beauty:'醫美 / 保養', course:'課程 / 服務', other:'其他' };
+const industryName = { ecommerce:'電商', beauty:'醫美 / 保健', course:'課程 / 教育', food:'餐飲 / 食品', b2b:'B2B 服務', local:'在地服務', travel:'旅遊 / 飯店', media:'文創 / 媒體', other:'其他' };
 const goalName = { awareness:'曝光', leads:'名單', purchase:'購買' };
 const budgetMap = {
   under1: { label:'1 萬以下', amount:8000 },
@@ -510,6 +515,31 @@ const comboMatrix = {
     leads:    { campaigns:[['搜尋廣告 + 表單擴充',60],['Demand Gen',40]], note:'課程／服務最有效是「先收名單再轉單」，搜尋廣告開表單擴充直接帶 LP 留資。' },
     awareness:{ campaigns:[['YouTube 影片廣告',55],['Demand Gen',45]], note:'用知識型短影音建立信任，搭配 Demand Gen 在 YouTube 動態觸及學習族群。' },
   },
+  food: {
+    purchase: { campaigns:[['購物廣告（Shopping）',40],['Performance Max',30],['搜尋廣告',30]], note:'食品電商與一般電商邏輯類似，購物廣告抓比價買家、PMax 拓量、搜尋守品牌字。前提：Merchant Center + 食品類別認證。' },
+    leads:    { campaigns:[['搜尋廣告 + 表單擴充',45],['本地搜尋（Google 商家檔案）',35],['Demand Gen',20]], note:'餐廳／實體店重點是「在地搜尋」，務必先設定 Google 商家檔案（免費），再搭配「店名+地區」搜尋廣告。' },
+    awareness:{ campaigns:[['YouTube 影片廣告',45],['Demand Gen',35],['本地多媒體廣告',20]], note:'食品／餐飲品牌靠視覺與情緒，YouTube + Demand Gen 是核心，搭配本地多媒體觸及周邊客群。' },
+  },
+  b2b: {
+    purchase: { campaigns:[['搜尋廣告',70],['再行銷（Display）',30]], note:'B2B 沒有購物廣告，搜尋廣告主打高意圖企業客戶（含品牌字、產業字、需求字），再行銷追訪過官網的決策者。' },
+    leads:    { campaigns:[['搜尋廣告 + 表單擴充',60],['再行銷（Display）',25],['Demand Gen',15]], note:'B2B 收名單最有效是「搜尋＋表單擴充」直接收企業聯絡資訊，搭配再行銷反覆觸及拉長決策期。' },
+    awareness:{ campaigns:[['YouTube 影片廣告',55],['Demand Gen',45]], note:'B2B 品牌曝光走「客戶見證／案例分享」型內容，YouTube + Demand Gen 觸及產業相關受眾。' },
+  },
+  local: {
+    purchase: { campaigns:[['搜尋廣告（地區）',40],['本地搜尋（商家檔案）',40],['再行銷',20]], note:'在地服務最重要是「Google 商家檔案」（免費），搭配「服務名+地區」搜尋廣告抓 5-10 公里內客群。' },
+    leads:    { campaigns:[['搜尋廣告 + 表單擴充（地區）',50],['本地搜尋（商家檔案）',30],['Demand Gen',20]], note:'在地服務收名單重點：地區設定 5-10 公里內，先設定 Google 商家檔案再投廣告，雙管齊下。' },
+    awareness:{ campaigns:[['YouTube 影片廣告（在地）',50],['本地多媒體廣告',30],['Demand Gen',20]], note:'在地品牌曝光主打「我們在你附近」，YouTube 在地版位＋多媒體廣告最有效。' },
+  },
+  travel: {
+    purchase: { campaigns:[['搜尋廣告',45],['Performance Max',30],['Demand Gen',25]], note:'旅遊重點是「目的地+行程」高意圖搜尋字，PMax 與 Demand Gen 拓量。飯店業另可加 Hotel Ads。' },
+    leads:    { campaigns:[['搜尋廣告 + 表單擴充',45],['Demand Gen',35],['再行銷',20]], note:'旅遊／飯店收名單：搜尋抓「飯店／行程+地區」高意圖字，Demand Gen 觸及夢想旅人，再行銷催落單。' },
+    awareness:{ campaigns:[['YouTube 影片廣告',55],['Demand Gen',45]], note:'旅遊品牌靠「景點美照／影片」，YouTube + Demand Gen 是黃金組合。' },
+  },
+  media: {
+    purchase: { campaigns:[['搜尋廣告',45],['Demand Gen',35],['再行銷',20]], note:'出版／文創靠搜尋抓主動找書／作品的人，Demand Gen 在 Discover/YouTube 觸及內容愛好者，再行銷催購。' },
+    leads:    { campaigns:[['搜尋廣告 + 表單擴充',40],['Demand Gen',40],['再行銷',20]], note:'媒體／出版收訂閱重點：先用 Demand Gen 觸及內容愛好者，搭配搜尋廣告與再行銷催訂閱／加 LINE。' },
+    awareness:{ campaigns:[['YouTube 影片廣告',60],['Demand Gen',40]], note:'文創品牌靠「故事與美感」，YouTube + Demand Gen 必選組合，重點放在情感共鳴。' },
+  },
   other: {
     purchase: { campaigns:[['搜尋廣告',55],['Performance Max',45]], note:'通用組合：搜尋廣告抓高意圖、PMax 自動找新客。等資料夠再加碼。' },
     leads:    { campaigns:[['搜尋廣告 + 表單擴充',65],['Demand Gen',35]], note:'搜尋負責抓主動詢問的人，Demand Gen 拓展潛在客群。' },
@@ -529,6 +559,11 @@ const keywordExamples = {
   ecommerce: ['品牌名 + 商品', '商品 + 推薦', '商品 + 比較', '商品 + 優惠'],
   beauty:    ['療程名 + 地區', '療程 + 推薦', '療程 + 價格', '品牌 + 諮詢'],
   course:    ['課程主題 + 課程', '主題 + 推薦', '主題 + 學習', '老師／品牌名'],
+  food:      ['店名 + 地區', '美食 + 地區', '料理 + 推薦', '品牌 + 訂購'],
+  b2b:       ['服務 + 解決方案', '產業 + 軟體', '需求 + 廠商', '公司名 + 服務'],
+  local:     ['服務 + 地區', '店名 + 預約', '服務 + 推薦 + 地區', '品牌 + 諮詢'],
+  travel:    ['目的地 + 行程', '飯店 + 地區', '景點 + 推薦', '品牌 + 訂房'],
+  media:     ['作品名 + 評價', '主題 + 推薦', '作者 + 作品', '訂閱 + 品牌'],
   other:     ['品牌名', '服務名 + 推薦', '服務 + 價格', '產品 + 比較'],
 };
 
@@ -541,8 +576,35 @@ const generateStrategy = () => {
   const isLowBudget = state.budget === 'under1';
 
   // ===== 投放組合 =====
-  const matrix = comboMatrix[state.industry][state.goal];
-  const comboDetail = `<strong class="text-blue-600 block mb-2">推薦：${matrix.campaigns.map(c=>c[0]).join(' + ')}</strong>${matrix.note}`;
+  const matrix = JSON.parse(JSON.stringify(comboMatrix[state.industry][state.goal]));
+  let assetWarning = '';
+
+  // 沒素材 → 移除影片／視覺重的廣告類型，改用文字+商品饋給為主
+  if (!hasAssets) {
+    const VIDEO_KEYWORDS = ['YouTube', 'Demand Gen', '影片', 'Performance Max'];
+    const removed = [];
+    matrix.campaigns = matrix.campaigns.filter(c => {
+      const isVideoLike = VIDEO_KEYWORDS.some(k => c[0].includes(k));
+      if (isVideoLike) removed.push(c);
+      return !isVideoLike;
+    });
+
+    if (removed.length > 0) {
+      if (matrix.campaigns.length === 0) {
+        matrix.campaigns = [['搜尋廣告', 70], ['顯示廣告（再行銷）', 30]];
+      } else {
+        const hasRetargeting = matrix.campaigns.some(c => c[0].includes('再行銷'));
+        if (!hasRetargeting) {
+          matrix.campaigns.push(['顯示廣告（再行銷）', 20]);
+        }
+        const total = matrix.campaigns.reduce((a,b)=>a+b[1], 0);
+        matrix.campaigns = matrix.campaigns.map(c => [c[0], Math.round(c[1] * 100 / total)]);
+      }
+      assetWarning = `<div class="bg-orange-50 border border-orange-200 rounded-lg p-3 text-xs text-orange-900 mt-3 leading-relaxed">⚠️ <strong>素材不足調整：</strong>已移除 <strong>${removed.map(r=>r[0]).join('、')}</strong>（需要圖片／影片素材）。建議第 2 週開始用 Canva 補 <strong>5 張橫圖（1200×628）+ 5 張方圖（1200×1200）</strong>，每張 5 分鐘搞定，就能加碼這些廣告類型。</div>`;
+    }
+  }
+
+  const comboDetail = `<strong class="text-blue-600 block mb-2">推薦：${matrix.campaigns.map(c=>c[0]).join(' + ')}</strong>${matrix.note}${assetWarning}`;
 
   // ===== 預算分配 =====
   const dailyTotal = Math.round(bud.amount / 30);
@@ -563,15 +625,24 @@ const generateStrategy = () => {
   `;
 
   // ===== 投放時程 =====
+  // Week 0 因產業而異：電商→Merchant Center、實體店→Google 商家檔案、其他→LP+表單
+  const isProductSeller = isEcom || (state.industry === 'food' && state.goal === 'purchase');
+  const isLocalBusiness = ['local'].includes(state.industry) || (state.industry === 'food' && state.goal !== 'purchase') || (state.industry === 'travel' && state.goal === 'leads');
+  let week0Setup;
+  if (isProductSeller) week0Setup = '設定 Google Merchant Center + 商品動態饋給';
+  else if (isLocalBusiness) week0Setup = '設定 Google 商家檔案（免費）+ 收集顧客評論';
+  else week0Setup = '準備到達網頁（LP）+ 表單擴充功能';
+
   const week0Items = [
     '安裝 Google Tag、設定 GA4',
     '建立 Google Ads 轉換追蹤',
-    isEcom ? '設定 Google Merchant Center + 商品動態饋給' : '準備到達網頁（LP）+ 表單',
+    week0Setup,
   ];
+  const secondaryCampaigns = matrix.campaigns.slice(1).map(c=>c[0]).join('、') || '次要廣告類型';
   const orderHTML = `
     <div class="border-l-4 border-blue-500 pl-3"><strong>Week 0（準備）：</strong><br/>${week0Items.map(i=>`・ ${i}`).join('<br/>')}</div>
-    <div><strong>Week 1–2：</strong>先跑搜尋廣告，累積關鍵字數據與否定字</div>
-    <div><strong>Week 3：</strong>${isEcom?'開購物廣告 + PMax':'加入 Demand Gen 或 PMax'}，上傳全部素材</div>
+    <div><strong>Week 1–2：</strong>先跑${matrix.campaigns[0][0]}，累積關鍵字數據與否定字</div>
+    <div><strong>Week 3：</strong>加入${secondaryCampaigns}，準備好所需素材</div>
     <div><strong>Week 4：</strong>建立再行銷名單、檢視搜尋詞報告、優化出價</div>
   `;
 
@@ -631,60 +702,876 @@ const generateStrategy = () => {
   return { comboDetail, budgetHTML, orderHTML, keywordsHTML, tips, traps, ind, goal, bud, hasAssets, convExtra };
 };
 
-// ============ COPY GENERATION (mock) ============
-const generateCopy = (s) => {
-  const titles = [
-    `新手也能投的 Google 廣告`,
-    `30 秒產出投放策略`,
-    `免費試算你的廣告預算`,
-    `${s.ind}老闆必看廣告攻略`,
-    `不會投廣告？我們幫你想`,
-    `AI 幫你寫廣告策略`,
-    `第一次投 ${s.ind} 廣告必備`,
-    `月預算 ${s.bud.label} 也能投`,
-    `為什麼你的廣告沒成效？`,
-    `真實實戰廣告投放邏輯`,
-    `${s.ind}廣告新手避雷指南`,
-    `一鍵產出投放規劃`,
-    `不用懂行銷也能上手`,
-    `立刻取得免費策略`,
-    `投廣告前 30 秒先做這個`,
-  ];
-  const descs = [
-    { type:'痛點', text:`不知道該投搜尋還是 PMax？預算怎麼分？這個免費工具 30 秒幫你規劃好。` },
-    { type:'成果', text:`已幫助 10,000+ 新手老闆做出第一版投放策略，照著做就能開始跑。` },
-    { type:'信任', text:`由實際操盤千萬預算的廣告投手設計，避開新手最常見的 5 大地雷。` },
-    { type:'行動', text:`完全免費、無須註冊。輸入 4 個資訊，立刻取得你的專屬投放策略。` },
-  ];
-
-  // 額外資訊（Sitelink / Callout / Snippet）— Google Ads 特有資產
-  const extras = {
-    sitelinks: [
-      { title:'立即產生策略', desc1:'30 秒完成', desc2:'完全免費' },
-      { title:'廣告新手地雷', desc1:'5 大常見錯誤', desc2:'避開冤枉錢' },
-      { title:'預算試算', desc1:'1 萬也能投', desc2:'抓對分配比例' },
-      { title:'實戰課程', desc1:'從 0 到上線', desc2:'手把手帶做' },
+// ============ COPY TEMPLATES (industry × goal) ============
+// 重要：這裡產出的是「給使用者拿去投放的廣告文案」，目標客群是使用者的「終端客人」
+// 例如：醫美店家 + 名單目標 → 寫給「想做醫美的潛在顧客」看的文案
+const adContextData = {
+  // ============ 電商 ============
+  ecommerce_purchase: {
+    titles: ['限時優惠 全館 8 折','24 小時快速到貨','免運門檻最低','熱銷商品任你選','滿千折百 現折現省','新會員首單 9 折','官方授權 正品保證','7 天鑑賞期 不滿意退','滿額再送精選好禮','季末出清 最低 5 折','加 LINE 領 100 元','評論破萬 高人氣','立即購買 限時優惠','庫存有限 售完為止','官方旗艦店 安心購'],
+    descs: [
+      { type:'痛點', text:'還在比價找便宜？我們直接給你最低價＋免運，省下找價格的時間。' },
+      { type:'成果', text:'累積 50,000+ 滿意買家，超過 90% 給予 5 星好評，回購率 70%。' },
+      { type:'信任', text:'全館商品官方授權正品，假一賠十，7 天鑑賞期不滿意可退貨。' },
+      { type:'行動', text:'限時優惠倒數中，加入購物車立即享 8 折，數量有限售完不補。' },
     ],
-    callouts: ['完全免費', '無須註冊', '30 秒完成', '實戰邏輯', '新手友善', '中文介面', '即時產出', '可直接照做'],
-    snippets: {
-      type: '服務',
-      values: ['投放策略規劃', '廣告類型建議', '預算分配試算', '關鍵字方向', '新手地雷提醒', '文案產出'],
+    angles: [
+      { type:'🔥 痛點型', color:'red', text:'「找了 2 小時還是比不出哪家便宜？我們直接給你全網最低價＋免運，不用再比。」' },
+      { type:'🏆 成果型', color:'green', text:'「同樣的商品她在這買省了 320 元，還拿到試用包，下次自己也要買。」' },
+      { type:'🛡️ 信任型', color:'blue', text:'「全館官方授權正品，假一賠十，7 天無條件退換貨——買錯也不怕。」' },
+    ],
+    extras: {
+      sitelinks: [
+        { title:'熱銷排行', desc1:'本週最熱', desc2:'破萬好評' },
+        { title:'新品上架', desc1:'每週更新', desc2:'會員優先' },
+        { title:'限時特賣', desc1:'最低 5 折', desc2:'倒數中' },
+        { title:'會員專區', desc1:'生日禮金', desc2:'點數 5 倍' },
+      ],
+      callouts: ['免運門檻最低','24 小時快速出貨','7 天鑑賞期','官方授權正品','滿千折百','新客 9 折','破萬則 5 星評論','加 LINE 客服'],
+      snippets: { type:'商品分類', values:['美妝保養','3C 家電','服飾配件','生活用品','寵物用品','戶外運動'] },
     },
-  };
+    script: [
+      { time:'0–5s', visual:'顧客在電腦前比價皺眉、切換多個網站', voice:'「找了 2 小時，到底哪家便宜？」' },
+      { time:'5–12s', visual:'切到品牌官網首頁、商品列表流暢呈現', voice:'「打開我們的官網，所有熱銷商品 1 頁看完。」' },
+      { time:'12–20s', visual:'放大商品照、標出價格與評論星數', voice:'「全網比價最低 ＋ 免運費 ＋ 評論破萬則，不用再比了。」' },
+      { time:'20–26s', visual:'加入購物車、結帳流程示意', voice:'「30 秒下單，明天就到貨。」' },
+      { time:'26–30s', visual:'品牌 LOGO + CTA「立即購買」', voice:'「現在下單享 8 折優惠 → 」' },
+    ],
+  },
+  ecommerce_leads: {
+    titles: ['加 LINE 領 200 優惠券','訂閱電子報享首購禮','註冊會員免運券','領取免費試用品','限時 EDM 折扣碼','抽 iPhone 開獎中','留資料領 9 折券','商品上架優先通知','加入會員享生日禮','註冊送 100 元購物金','索取產品電子手冊','1 分鐘填表領好禮','限量試用名額','立即註冊享優惠','新客專屬 9 折券'],
+    descs: [
+      { type:'痛點', text:'每次想買都覺得貴？訂閱我們電子報，第一手收到 5 折特賣資訊。' },
+      { type:'成果', text:'已有 30,000+ 訂閱者，平均每月省下 1,200 元購物開支。' },
+      { type:'信任', text:'我們不發垃圾信，每週只寄 1 封精選優惠，可隨時退訂。' },
+      { type:'行動', text:'1 分鐘留下 Email，立即領 200 元優惠券＋免運券，下單就能用。' },
+    ],
+    angles: [
+      { type:'🔥 痛點型', color:'red', text:'「每次想買都覺得貴？其實 80% 商品都有特賣，只是你沒收到通知。」' },
+      { type:'🏆 成果型', color:'green', text:'「她訂閱後 3 個月省下 5,800 元，相當於多賺一個包包的錢。」' },
+      { type:'🛡️ 信任型', color:'blue', text:'「不發垃圾信、不騷擾客戶，每週 1 封精選優惠，看不到就退訂。」' },
+    ],
+    extras: {
+      sitelinks: [
+        { title:'立即訂閱', desc1:'1 分鐘完成', desc2:'領 200 元券' },
+        { title:'限時特賣', desc1:'會員獨享', desc2:'最低 5 折' },
+        { title:'新品搶先看', desc1:'會員優先購', desc2:'限量釋出' },
+        { title:'會員福利', desc1:'生日禮金', desc2:'點數加倍' },
+      ],
+      callouts: ['加 LINE 領 200 元','新客首購禮','免運會員券','可隨時退訂','1 分鐘完成','點數加倍送'],
+      snippets: { type:'會員權益', values:['首購折扣','免運券','生日禮金','點數回饋','新品優先','專屬客服'] },
+    },
+    script: [
+      { time:'0–5s', visual:'女生看到喜歡商品但卻步：價錢偏高', voice:'「想買但又覺得貴？」' },
+      { time:'5–12s', visual:'切到品牌 LINE 推播畫面：限時 5 折', voice:'「其實 80% 商品都有特賣，只是你沒收到通知。」' },
+      { time:'12–20s', visual:'加入會員流程畫面、優惠券彈出', voice:'「加入會員 1 分鐘，立即領 200 元優惠券。」' },
+      { time:'20–26s', visual:'女生開心收到包裹', voice:'「平均每位會員每月省下 1,200 元。」' },
+      { time:'26–30s', visual:'LOGO + LINE QR Code', voice:'「現在加入領券 → 」' },
+    ],
+  },
+  ecommerce_awareness: {
+    titles: ['認識我們的故事','品牌精選 全新登場','職人手作 限量供應','本土品牌 用心製造','獲獎品牌 安心選購','看見我們的堅持','新品系列 搶先看','品牌專訪 完整收看','創辦人的初心','匠心工藝 代代相傳','選購原則公開','品牌承諾 一次看懂','品質無妥協','立即了解品牌','官方認證 唯一通路'],
+    descs: [
+      { type:'痛點', text:'市面上同類商品太多，到底哪家值得信任？認識我們的品牌故事再決定。' },
+      { type:'成果', text:'創立 8 年、累積 100,000+ 客戶、獲得 3 項國際設計獎。' },
+      { type:'信任', text:'本土品牌、台灣製造、每件商品都經過嚴格品管，創辦人親自把關。' },
+      { type:'行動', text:'立即了解我們的品牌故事，看完你會知道為什麼值得選擇。' },
+    ],
+    angles: [
+      { type:'🔥 痛點型', color:'red', text:'「市面上太多選擇，你怎麼知道哪家不會踩雷？我們的客戶從第一次買就不再換。」' },
+      { type:'🏆 成果型', color:'green', text:'「8 年來累積 100,000+ 客戶、3 個國際設計獎，每一件都經得起檢驗。」' },
+      { type:'🛡️ 信任型', color:'blue', text:'「本土品牌、台灣製造、創辦人親自把關每一件商品——這是我們的承諾。」' },
+    ],
+    extras: {
+      sitelinks: [
+        { title:'品牌故事', desc1:'創立初心', desc2:'8 年歷程' },
+        { title:'精選新品', desc1:'本季主打', desc2:'限量供應' },
+        { title:'品質承諾', desc1:'嚴格品管', desc2:'安心選購' },
+        { title:'門市據點', desc1:'全台 30 家', desc2:'親身體驗' },
+      ],
+      callouts: ['本土品牌','台灣製造','獲獎肯定','創辦人把關','100,000+ 客戶','嚴格品管'],
+      snippets: { type:'品牌特色', values:['原料嚴選','職人手作','本土設計','永續包裝','售後保固','專屬客服'] },
+    },
+    script: [
+      { time:'0–5s', visual:'創辦人在工廠專注挑選原料的畫面', voice:'「為什麼我們堅持本土製造？」' },
+      { time:'5–12s', visual:'品牌生產過程、職人專注工作', voice:'「8 年來，每一件商品都經過 12 道品管。」' },
+      { time:'12–20s', visual:'客戶開箱、滿意笑容、家中使用情境', voice:'「100,000＋ 客戶從第一次買就不再換。」' },
+      { time:'20–26s', visual:'創辦人面對鏡頭真誠陳述', voice:'「這是我們對你的承諾——值得你信任。」' },
+      { time:'26–30s', visual:'品牌 LOGO + 「了解更多」CTA', voice:'「認識我們，從這裡開始 → 」' },
+    ],
+  },
 
-  const angles = [
-    { type:'🔥 痛點型', color:'red', text:`「投了三個月 Google Ads 還是沒單？問題不在預算，是在『你選錯廣告類型』。」` },
-    { type:'🏆 成果型', color:'green', text:`「同樣月預算 ${s.bud.label}，他用對廣告組合 ROAS 做到 5.8。差別就在帳戶結構。」` },
-    { type:'🛡️ 信任型', color:'blue', text:`「這套策略來自操盤過 3,000 萬 Google Ads 預算的實戰邏輯，不是教科書理論。」` },
-  ];
-  const script = [
-    { time:'0–5s', visual:'老闆盯著 Google Ads 後台皺眉，預算燒完但無轉換', voice:'「燒了 3 萬，怎麼一張單都沒有？」（Hook：5 秒前必說痛點）' },
-    { time:'5–10s', visual:'切換到 Ads Launchpad 介面', voice:'「不是你不會投，是沒人告訴你怎麼開始。」' },
-    { time:'10–18s', visual:'工具 4 題輸入畫面（產業、目標、預算、素材）', voice:'「輸入 4 個資訊，AI 幫你規劃廣告組合、預算、關鍵字。」' },
-    { time:'18–25s', visual:'結果頁 6 張策略卡片淡入', voice:'「搜尋怎麼設、PMax 開不開、出價策略怎麼選——一次給你。」' },
-    { time:'25–30s', visual:'LOGO + CTA「立即產生」', voice:'「免費試一次，30 秒就有你的第一版策略。」' },
-  ];
-  return { titles, descs, extras, angles, script };
+  // ============ 醫美 / 保養 ============
+  beauty_purchase: {
+    titles: ['雷射緊膚 限時 7 折','首次體驗只要 999','玻尿酸限時優惠','醫師親自評估','院長親自操刀','美麗計畫 一次完成','加入會員享 9 折','原廠認證儀器','真實案例分享','免費皮膚分析','預約即送保養品','諮詢免費 不勉強','限量名額 立即預約','安全認證 安心做','立即預約 享優惠'],
+    descs: [
+      { type:'痛點', text:'怕雷射效果不如預期？我們先做免費皮膚分析，確認後才開始療程。' },
+      { type:'成果', text:'5,000+ 真實案例分享，平均滿意度 95%、回客率 80%。' },
+      { type:'信任', text:'醫師團隊執業 10 年以上，採用原廠認證儀器，安全有保障。' },
+      { type:'行動', text:'限時首次體驗 999 元，預約即送療程後保養品 1 組，名額有限。' },
+    ],
+    angles: [
+      { type:'🔥 痛點型', color:'red', text:'「做完雷射如果效果不如預期，是不是白花錢？我們先免費評估，適合再做。」' },
+      { type:'🏆 成果型', color:'green', text:'「她從『不敢拍照』到『敢素顏出門』，療程後 3 個月的真實對比照在這。」' },
+      { type:'🛡️ 信任型', color:'blue', text:'「醫師執業 10 年、原廠認證儀器、術前免費評估——安全才是第一優先。」' },
+    ],
+    extras: {
+      sitelinks: [
+        { title:'療程介紹', desc1:'完整列表', desc2:'價格透明' },
+        { title:'真實案例', desc1:'術前術後', desc2:'5,000+ 案例' },
+        { title:'醫師團隊', desc1:'執業 10 年+', desc2:'原廠認證' },
+        { title:'立即預約', desc1:'首次 999', desc2:'送保養組' },
+      ],
+      callouts: ['醫師親自評估','原廠認證儀器','首次體驗 999','術前免費評估','5,000+ 案例','回客率 80%'],
+      snippets: { type:'療程項目', values:['雷射緊膚','玻尿酸注射','肉毒桿菌','保養療程','術後修復','美白導入'] },
+    },
+    script: [
+      { time:'0–5s', visual:'女性照鏡子，手指撫過細紋，露出煩惱表情', voice:'「鏡子裡的細紋，越看越多？」' },
+      { time:'5–12s', visual:'切到醫美院所環境、醫師親切介紹', voice:'「我們先做免費皮膚分析，適合再做療程。」' },
+      { time:'12–20s', visual:'療程進行中、儀器特寫、醫師專業操作', voice:'「原廠認證儀器、醫師親自操刀，安全有保障。」' },
+      { time:'20–26s', visual:'術後 3 個月對比照、女性自信微笑', voice:'「5,000+ 真實案例，滿意度 95%。」' },
+      { time:'26–30s', visual:'LOGO + 「首次 999」CTA', voice:'「限時首次體驗 999 元 → 」' },
+    ],
+  },
+  beauty_leads: {
+    titles: ['醫美諮詢免費預約','肌膚問題專業評估','1 對 1 醫師諮詢','30 秒線上預約','加 LINE 領體驗價','免費皮膚分析報告','療程客製化推薦','雷射 / 微整 諮詢中','醫師親自評估','院所通過 GDP 認證','真人顧問 24h 回覆','限定首次諮詢免費','不滿意不收費','預約免排隊','立即填表領體驗價'],
+    descs: [
+      { type:'痛點', text:'不知道哪種療程適合你的肌膚？專業顧問先幫你評估，0 元起、不勉強消費。' },
+      { type:'成果', text:'已協助 5,000+ 顧客找到最適合的療程，平均滿意度 95%。' },
+      { type:'信任', text:'醫師執業 10 年以上、原廠認證儀器，諮詢過程不推銷、不勉強。' },
+      { type:'行動', text:'線上填表 30 秒完成預約，加 LINE 享首次體驗 9 折優惠，名額有限。' },
+    ],
+    angles: [
+      { type:'🔥 痛點型', color:'red', text:'「跑了 5 家診所還是不知道該做什麼療程？讓專業醫師先幫你評估。」' },
+      { type:'🏆 成果型', color:'green', text:'「她從『不敢拍照』到『敢素顏出門』，只用了一次免費諮詢就找到答案。」' },
+      { type:'🛡️ 信任型', color:'blue', text:'「執業 10 年的醫師團隊，諮詢免費、不推銷——適合你才做。」' },
+    ],
+    extras: {
+      sitelinks: [
+        { title:'線上預約', desc1:'30 秒完成', desc2:'24h 回覆' },
+        { title:'療程介紹', desc1:'完整列表', desc2:'價格透明' },
+        { title:'院所環境', desc1:'安心舒適', desc2:'隱私保障' },
+        { title:'真實案例', desc1:'術前術後', desc2:'5,000+ 案例' },
+      ],
+      callouts: ['醫師親自評估','原廠認證儀器','諮詢免費','首次體驗價','24h 專人回覆','不勉強消費'],
+      snippets: { type:'服務項目', values:['雷射緊膚','玻尿酸注射','保養療程','術後修復','皮膚分析','客製諮詢'] },
+    },
+    script: [
+      { time:'0–5s', visual:'女生對著鏡子看肌膚、皺眉煩惱', voice:'「你的肌膚問題，是不是找不到答案？」' },
+      { time:'5–12s', visual:'醫師面對鏡頭真誠陳述、院所環境', voice:'「每個人的膚質不同，療程不能套公式。」' },
+      { time:'12–20s', visual:'1 對 1 諮詢過程、醫師詳細解說', voice:'「我們提供 1 對 1 諮詢——先評估、再推薦、不勉強。」' },
+      { time:'20–26s', visual:'顧客滿意微笑、自信走出院所', voice:'「線上填表 30 秒，專人 24 小時內聯繫。」' },
+      { time:'26–30s', visual:'LOGO + LINE QR Code', voice:'「立即預約免費諮詢 → 」' },
+    ],
+  },
+  beauty_awareness: {
+    titles: ['認識我們的醫師團隊','院所環境完整介紹','獲獎醫美機構','醫師執業 10 年+','院所通過 GDP 認證','看見我們的堅持','醫師親自把關','原廠認證儀器','真實案例公開','院長媒體採訪','服務理念公開','安全是第一優先','在地 10 年信譽','立即了解我們','官方授權院所'],
+    descs: [
+      { type:'痛點', text:'醫美診所那麼多家，怎麼知道哪家安全可靠？認識我們再決定。' },
+      { type:'成果', text:'執業 10 年、累積 5,000+ 客戶、獲得 3 項業界肯定。' },
+      { type:'信任', text:'院所通過 GDP 認證、原廠認證儀器、醫師親自把關每個療程。' },
+      { type:'行動', text:'立即了解我們的醫師團隊與院所環境，看完再決定要不要諮詢。' },
+    ],
+    angles: [
+      { type:'🔥 痛點型', color:'red', text:'「醫美診所百百家，挑錯一次毀容好幾年——你需要先看『誰在做』。」' },
+      { type:'🏆 成果型', color:'green', text:'「執業 10 年、5,000＋ 客戶、3 項業界肯定，這就是我們的答卷。」' },
+      { type:'🛡️ 信任型', color:'blue', text:'「GDP 認證、原廠儀器、醫師親自把關——安全永遠是第一優先。」' },
+    ],
+    extras: {
+      sitelinks: [
+        { title:'醫師團隊', desc1:'執業 10 年+', desc2:'原廠認證' },
+        { title:'院所環境', desc1:'隱私舒適', desc2:'GDP 認證' },
+        { title:'真實案例', desc1:'5,000+ 案例', desc2:'術前術後' },
+        { title:'媒體報導', desc1:'業界肯定', desc2:'專業推薦' },
+      ],
+      callouts: ['GDP 認證院所','原廠認證儀器','醫師執業 10 年+','5,000+ 案例','業界肯定','安全第一'],
+      snippets: { type:'院所特色', values:['醫師親評','原廠儀器','隱私空間','術前評估','術後追蹤','客製方案'] },
+    },
+    script: [
+      { time:'0–5s', visual:'院長走進院所、與團隊打招呼', voice:'「為什麼我們堅持只用原廠認證儀器？」' },
+      { time:'5–12s', visual:'診所環境、儀器設備、醫師團隊', voice:'「執業 10 年、5,000＋ 客戶——每一個都是我們的責任。」' },
+      { time:'12–20s', visual:'真實顧客分享、術前術後對比', voice:'「她們的笑容，是我們最好的口碑。」' },
+      { time:'20–26s', visual:'院長真誠面對鏡頭', voice:'「安全永遠是第一優先——這是我們的承諾。」' },
+      { time:'26–30s', visual:'LOGO + 「了解更多」CTA', voice:'「認識我們的醫師團隊 → 」' },
+    ],
+  },
+
+  // ============ 課程 / 服務 ============
+  course_purchase: {
+    titles: ['限時報名 7 折優惠','名師親授 免費試聽','30 天無條件退費','從 0 到上線完整課綱','已超 5,000 人學習','加 LINE 領課程大綱','學員真實學習成果','業界實戰 不教理論','一次購買 終身觀看','助教 24h 回覆','學完換工作 薪資漲','0 基礎也能跟上','課程 + 社群完整資源','立即報名享早鳥價','結業頒發證書'],
+    descs: [
+      { type:'痛點', text:'怕買了課程沒時間看、學了用不到？我們提供 30 天無條件退費，學不會全額退。' },
+      { type:'成果', text:'已超過 5,000 人完成課程，70% 學員學完後找到新工作或加薪。' },
+      { type:'信任', text:'業界實戰講師、終身觀看、助教 24h 回覆——學習路上不孤單。' },
+      { type:'行動', text:'限時 7 折早鳥價倒數中，立即報名再送專屬學員社群。' },
+    ],
+    angles: [
+      { type:'🔥 痛點型', color:'red', text:'「買了一堆線上課程都沒看完？我們會主動推進度、幫你學完用得到。」' },
+      { type:'🏆 成果型', color:'green', text:'「他從零基礎到接案月入 6 萬，只花了 12 週——學員真實見證。」' },
+      { type:'🛡️ 信任型', color:'blue', text:'「業界實戰講師、30 天退費保證、5,000＋ 學員見證——學不會就退費。」' },
+    ],
+    extras: {
+      sitelinks: [
+        { title:'免費試聽', desc1:'30 分鐘精華', desc2:'立即看' },
+        { title:'課程大綱', desc1:'12 週完整', desc2:'PDF 下載' },
+        { title:'學員見證', desc1:'真實成果', desc2:'30+ 案例' },
+        { title:'立即報名', desc1:'7 折早鳥', desc2:'限量名額' },
+      ],
+      callouts: ['名師親授','終身觀看','30 天退費','24h 助教','學員社群','結業證書'],
+      snippets: { type:'課程內容', values:['基礎入門','實戰演練','業界案例','作品輔導','證照衝刺','就業媒合'] },
+    },
+    script: [
+      { time:'0–5s', visual:'年輕人面對筆電愁眉苦臉、看著薪資條', voice:'「為什麼學了那麼多，薪水還是漲不動？」' },
+      { time:'5–12s', visual:'切到課程介面、講師專業講解', voice:'「業界實戰講師、12 週把你從 0 帶到上線。」' },
+      { time:'12–20s', visual:'學員作品展示、實戰練習過程', voice:'「不只看影片——還有實戰作業＋助教回覆。」' },
+      { time:'20–26s', visual:'學員真實見證、轉職成功喜悅', voice:'「5,000+ 學員，70% 學完後加薪或轉職。」' },
+      { time:'26–30s', visual:'LOGO + 「7 折早鳥」CTA', voice:'「限時報名 7 折 → 」' },
+    ],
+  },
+  course_leads: {
+    titles: ['免費試聽課程精華','領取課程大綱 PDF','加 LINE 領免費教材','訂閱電子報享優惠','1 分鐘填表領課程','預約 1 對 1 諮詢','索取完整課程目錄','領取學習成果報告','加入學習社群','領 7 天試學','留資料領折扣碼','立即填表免費領取','限量試聽名額','早鳥優先報名權','加 LINE 學長姐分享'],
+    descs: [
+      { type:'痛點', text:'怕花錢買到不適合的課程？我們先讓你免費試聽 30 分鐘，看完再決定。' },
+      { type:'成果', text:'已有 8,000+ 人領取試聽，60% 看完後選擇正式報名。' },
+      { type:'信任', text:'試聽完全免費、不收費、可隨時退訂，留下 Email 立即看到內容。' },
+      { type:'行動', text:'1 分鐘填表，立即領取 30 分鐘課程精華＋12 週完整大綱 PDF。' },
+    ],
+    angles: [
+      { type:'🔥 痛點型', color:'red', text:'「線上課程那麼多家，看完介紹頁還是不確定適不適合？先試聽再說。」' },
+      { type:'🏆 成果型', color:'green', text:'「她試聽完當天就決定報名，3 個月後薪資多了 1.2 萬——關鍵在試對課。」' },
+      { type:'🛡️ 信任型', color:'blue', text:'「試聽完全免費、不收費、不騷擾，看完不適合也不勉強。」' },
+    ],
+    extras: {
+      sitelinks: [
+        { title:'免費試聽', desc1:'30 分鐘精華', desc2:'立即看' },
+        { title:'課程大綱', desc1:'12 週完整', desc2:'PDF 下載' },
+        { title:'1 對 1 諮詢', desc1:'學顧問問', desc2:'30 分鐘' },
+        { title:'學員社群', desc1:'5,000+ 人', desc2:'學長姐分享' },
+      ],
+      callouts: ['試聽完全免費','30 分鐘精華','12 週課程大綱','1 對 1 諮詢','可隨時退訂','學員真實案例'],
+      snippets: { type:'學習資源', values:['免費試聽','課程大綱','學員社群','1 對 1 諮詢','學習路徑','轉職輔導'] },
+    },
+    script: [
+      { time:'0–5s', visual:'年輕人滑著手機看各種課程廣告，迷茫', voice:'「課程那麼多家，到底哪個適合我？」' },
+      { time:'5–12s', visual:'切到試聽課程畫面、講師生動講解', voice:'「先別急著付錢——我們讓你免費試聽 30 分鐘。」' },
+      { time:'12–20s', visual:'試聽過程、做筆記、頻頻點頭', voice:'「試聽完，你會知道這套課程是不是真的適合你。」' },
+      { time:'20–26s', visual:'試聽後決定報名、學習中', voice:'「8,000+ 人領取試聽，60% 看完選擇報名。」' },
+      { time:'26–30s', visual:'LOGO + LINE QR Code', voice:'「現在加 LINE 免費領 → 」' },
+    ],
+  },
+  course_awareness: {
+    titles: ['認識我們的講師','看見學員真實成果','課程理念公開','講師業界 10 年+','5,000+ 學員見證','獲獎教學品牌','課程設計 4 步驟','為什麼選擇我們','學員轉職案例','講師媒體採訪','教學品質公開','在地教育品牌','立即了解課程','官方授權教學中心','看見我們的堅持'],
+    descs: [
+      { type:'痛點', text:'線上課程品牌那麼多，到底誰真的能教會學生？認識我們再決定。' },
+      { type:'成果', text:'創立 5 年、累積 5,000+ 學員、學員轉職率達 70%。' },
+      { type:'信任', text:'業界實戰講師、教學品質公開、學員真實見證——值得你信任。' },
+      { type:'行動', text:'立即了解我們的講師與課程理念，看完你會知道為什麼值得選。' },
+    ],
+    angles: [
+      { type:'🔥 痛點型', color:'red', text:'「教學品牌百百家，學費花下去能不能學會、轉職？看『誰在教』很重要。」' },
+      { type:'🏆 成果型', color:'green', text:'「5 年、5,000＋ 學員、70% 轉職率——學員的成果就是我們的答卷。」' },
+      { type:'🛡️ 信任型', color:'blue', text:'「業界實戰講師、不教理論、教完能做——這是我們對學員的承諾。」' },
+    ],
+    extras: {
+      sitelinks: [
+        { title:'講師介紹', desc1:'業界 10 年+', desc2:'實戰經驗' },
+        { title:'學員見證', desc1:'真實成果', desc2:'轉職案例' },
+        { title:'課程理念', desc1:'4 步驟設計', desc2:'務實導向' },
+        { title:'品牌故事', desc1:'5 年歷程', desc2:'初心不變' },
+      ],
+      callouts: ['業界 10 年+ 講師','學員轉職率 70%','實戰課程','5,000+ 學員','獲獎教學','終身學習社群'],
+      snippets: { type:'品牌特色', values:['業界實戰','務實教學','學員社群','轉職輔導','作品輔導','終身觀看'] },
+    },
+    script: [
+      { time:'0–5s', visual:'講師走進攝影棚、戴上麥克風準備上課', voice:'「為什麼我們堅持業界實戰講師？」' },
+      { time:'5–12s', visual:'講師授課畫面、學員專注聽課', voice:'「不教理論、不背公式——只教你做得到的東西。」' },
+      { time:'12–20s', visual:'學員轉職成功的喜悅、薪資對比', voice:'「5,000+ 學員，70% 學完後找到新工作或加薪。」' },
+      { time:'20–26s', visual:'講師面對鏡頭、誠懇陳述', voice:'「我們的承諾——學完，你能直接接案、能轉職。」' },
+      { time:'26–30s', visual:'LOGO + 「認識我們」CTA', voice:'「了解更多 → 」' },
+    ],
+  },
+
+  // ============ 餐飲 / 食品 ============
+  food_purchase: {
+    titles: ['限時 8 折 全館優惠','新品上市 嚐鮮價','滿千免運 24h 送','產地直送 新鮮看得見','加 LINE 領 100 元','SGS 認證 安心吃','評論破萬 高人氣','會員 9 折 即時用','季節限定 售完不補','買一送一 限時搶','滿額送禮盒','過敏原標示清楚','立即下單 限時優惠','原料嚴選把關','官方授權 唯一通路'],
+    descs: [
+      { type:'痛點', text:'怕買到不新鮮的食品？我們產地直送 24h 到貨，不新鮮原封退換貨。' },
+      { type:'成果', text:'累積 30,000+ 滿意買家，回購率 75%，破萬則 5 星好評。' },
+      { type:'信任', text:'全品 SGS 檢驗合格、過敏原標示清楚、原料來源公開透明。' },
+      { type:'行動', text:'限時優惠倒數中，加入購物車立即享 8 折＋滿千免運。' },
+    ],
+    angles: [
+      { type:'🔥 痛點型', color:'red', text:'「怕買到不新鮮？我們從產地直送，48h 內到家，不新鮮原封退。」' },
+      { type:'🏆 成果型', color:'green', text:'「她從『買菜麻煩』到『一週收 3 次新鮮包』，省下 5 小時還更省錢。」' },
+      { type:'🛡️ 信任型', color:'blue', text:'「SGS 檢驗合格、原料來源公開、過敏原清楚標示——吃得安心。」' },
+    ],
+    extras: {
+      sitelinks: [
+        { title:'熱銷排行', desc1:'本週最熱', desc2:'破萬好評' },
+        { title:'新品上架', desc1:'限量供應', desc2:'季節限定' },
+        { title:'SGS 檢驗', desc1:'安全認證', desc2:'安心選購' },
+        { title:'會員專區', desc1:'點數加倍', desc2:'生日禮金' },
+      ],
+      callouts: ['產地直送','SGS 認證','24h 出貨','滿千免運','過敏原標示','新客 9 折','原料嚴選','加 LINE 領券'],
+      snippets: { type:'商品分類', values:['生鮮蔬果','海鮮肉品','烘焙食材','健康保健','零嘴小食','飲品茶酒'] },
+    },
+    script: [
+      { time:'0–5s', visual:'打開冰箱看不新鮮食材皺眉', voice:'「明明剛買的，怎麼這麼快就不新鮮？」' },
+      { time:'5–12s', visual:'產地直送畫面、新鮮蔬果包裝特寫', voice:'「我們從產地直送，48h 內到你家。」' },
+      { time:'12–20s', visual:'開箱、SGS 標示、原料公開', voice:'「SGS 檢驗合格、過敏原清楚標示——吃得安心。」' },
+      { time:'20–26s', visual:'全家開心吃飯、滿足笑容', voice:'「30,000+ 家庭的選擇，回購率 75%。」' },
+      { time:'26–30s', visual:'LOGO + 「立即購買」CTA', voice:'「現在 8 折＋滿千免運 → 」' },
+    ],
+  },
+  food_leads: {
+    titles: ['線上訂位 30 秒','加 LINE 領 9 折券','訂閱菜單看新菜','新店開幕送好禮','一鍵預約包廂','加會員享生日免費','限時試吃名額','留資料領餐券','預約即送開胃菜','領取菜單 PDF','訂位送指定飲品','立即預約 享優惠','限定試營運名額','加 LINE 看每日特餐','會員專屬優惠'],
+    descs: [
+      { type:'痛點', text:'想去用餐結果客滿撲空？線上訂位 30 秒搞定，預約位置不撲空。' },
+      { type:'成果', text:'已有 3,000+ 顧客加入會員，每月平均省下 800 元餐費。' },
+      { type:'信任', text:'加 LINE 不發騷擾訊息，每週 1 封精選優惠＋季節新菜推薦。' },
+      { type:'行動', text:'1 分鐘加 LINE，立即領 9 折券＋下次來店送開胃菜。' },
+    ],
+    angles: [
+      { type:'🔥 痛點型', color:'red', text:'「想去用餐結果客滿撲空？花了 30 分鐘車程白跑——線上預約一次解決。」' },
+      { type:'🏆 成果型', color:'green', text:'「她加 LINE 後 1 個月用了 5 次優惠，省下 1,800 元——等於多吃 5 餐。」' },
+      { type:'🛡️ 信任型', color:'blue', text:'「我們不發垃圾訊息，每週 1 封精選優惠，可隨時退訂——零騷擾。」' },
+    ],
+    extras: {
+      sitelinks: [
+        { title:'線上訂位', desc1:'30 秒完成', desc2:'即時確認' },
+        { title:'本週菜單', desc1:'季節新菜', desc2:'主廚推薦' },
+        { title:'活動優惠', desc1:'加 LINE 享', desc2:'不定期更新' },
+        { title:'店家資訊', desc1:'地址電話', desc2:'營業時間' },
+      ],
+      callouts: ['30 秒線上訂位','加 LINE 領 9 折','不發垃圾訊息','可隨時退訂','新菜搶先試','生日免費'],
+      snippets: { type:'會員權益', values:['首次 9 折','生日免費','季節新菜','點數回饋','優先訂位','活動通知'] },
+    },
+    script: [
+      { time:'0–5s', visual:'朋友相約用餐到店發現客滿', voice:'「想去吃結果客滿撲空？」' },
+      { time:'5–12s', visual:'切到 LINE 訂位介面、流暢操作', voice:'「加 LINE 30 秒，預約位置不撲空。」' },
+      { time:'12–20s', visual:'加會員領券動畫', voice:'「現在加會員，立即領 9 折券。」' },
+      { time:'20–26s', visual:'家庭大餐、開心用餐畫面', voice:'「3,000+ 家庭信賴的選擇。」' },
+      { time:'26–30s', visual:'LOGO + LINE QR Code', voice:'「現在加 LINE → 」' },
+    ],
+  },
+  food_awareness: {
+    titles: ['認識我們的故事','本土食品 自然栽種','職人 30 年傳承','有機認證 安心選擇','創辦人的初心','產地直送 看得見','堅持手工 不添加','媒體採訪報導','獲獎品牌 安心吃','看見我們的堅持','品牌使命公開','產地參訪 開放預約','立即了解品牌','原料來源透明','好食材的承諾'],
+    descs: [
+      { type:'痛點', text:'市面上食品品牌那麼多，到底哪家真的安全？認識我們的故事再決定。' },
+      { type:'成果', text:'創立 15 年、SGS 通過率 100%、累積 50,000+ 家庭選擇。' },
+      { type:'信任', text:'本土食材、有機認證、創辦人親自把關產地——食得安心。' },
+      { type:'行動', text:'立即了解我們的品牌故事，看完你會知道為什麼值得選。' },
+    ],
+    angles: [
+      { type:'🔥 痛點型', color:'red', text:'「食安事件層出不窮，怎麼知道誰可信？我們的客戶 80% 回購。」' },
+      { type:'🏆 成果型', color:'green', text:'「15 年、50,000＋ 家庭、SGS 100% 通過——這就是我們的答卷。」' },
+      { type:'🛡️ 信任型', color:'blue', text:'「本土食材、有機認證、創辦人親自把關產地——這是承諾。」' },
+    ],
+    extras: {
+      sitelinks: [
+        { title:'品牌故事', desc1:'15 年初心', desc2:'本土堅持' },
+        { title:'產地參訪', desc1:'開放預約', desc2:'親眼看見' },
+        { title:'品質認證', desc1:'SGS 100%', desc2:'有機認證' },
+        { title:'媒體報導', desc1:'業界肯定', desc2:'值得信賴' },
+      ],
+      callouts: ['本土食材','有機認證','SGS 通過 100%','創辦人把關','15 年品牌','50,000+ 家庭'],
+      snippets: { type:'品牌特色', values:['本土食材','有機栽種','職人手作','永續包裝','產地直送','透明溯源'] },
+    },
+    script: [
+      { time:'0–5s', visual:'創辦人在農場彎腰挑選食材', voice:'「為什麼我們堅持本土自然栽種？」' },
+      { time:'5–12s', visual:'生產過程、職人專注工作', voice:'「15 年來，每一份食材都經過 12 道把關。」' },
+      { time:'12–20s', visual:'家庭開箱、孩子開心吃', voice:'「50,000+ 家庭的選擇，從第一次買就不再換。」' },
+      { time:'20–26s', visual:'創辦人面對鏡頭真誠', voice:'「食得安心——這是我們的承諾。」' },
+      { time:'26–30s', visual:'LOGO + 「了解更多」CTA', voice:'「認識我們的故事 → 」' },
+    ],
+  },
+
+  // ============ B2B 服務 ============
+  b2b_purchase: {
+    titles: ['30 天免費試用','企業方案 直接購買','立即訂閱享 9 折','年費省 30%','SaaS 軟體 1 年方案','團隊版 50% 折扣','立即升級進階版','現在訂閱送 3 個月','企業客製方案','加 LINE 索取報價','技術支援 24h','立即下單享優惠','免綁約 隨時取消','ISO 27001 認證','企業客戶限定'],
+    descs: [
+      { type:'痛點', text:'用免費版功能不夠，但又怕買貴？我們提供 30 天免費試用，試完滿意再付費。' },
+      { type:'成果', text:'全球 5,000+ 企業客戶選擇我們，平均提升工作效率 40%。' },
+      { type:'信任', text:'30 天無條件退費、24h 技術支援、ISO 27001 資安認證——企業安心用。' },
+      { type:'行動', text:'立即訂閱享首年 9 折，企業方案再送團隊培訓 1 場。' },
+    ],
+    angles: [
+      { type:'🔥 痛點型', color:'red', text:'「買軟體最怕用不上、想退又麻煩——我們 30 天無條件退，零風險試用。」' },
+      { type:'🏆 成果型', color:'green', text:'「他們導入後第 1 年省下 32% 成本，3 個月回本——這是真實案例。」' },
+      { type:'🛡️ 信任型', color:'blue', text:'「ISO 27001、30 天退費、24h 技術支援——企業級安全與服務。」' },
+    ],
+    extras: {
+      sitelinks: [
+        { title:'30 天試用', desc1:'功能完整', desc2:'試完再付' },
+        { title:'方案比較', desc1:'4 種版本', desc2:'透明定價' },
+        { title:'企業案例', desc1:'5,000+ 企業', desc2:'真實 ROI' },
+        { title:'技術文件', desc1:'API 完整', desc2:'整合指南' },
+      ],
+      callouts: ['30 天免費試用','ISO 27001 認證','24h 技術支援','免綁約','5,000+ 企業','省 30% 成本'],
+      snippets: { type:'解決方案', values:['流程自動化','數據分析','客戶管理','成本優化','技術整合','業務拓展'] },
+    },
+    script: [
+      { time:'0–5s', visual:'經理盯著 Excel 表單滿頭大汗', voice:'「明明買了系統，為什麼還在用 Excel？」' },
+      { time:'5–12s', visual:'切到我們解決方案介面', voice:'「不用一次掏錢——先 30 天免費試用。」' },
+      { time:'12–20s', visual:'軟體操作畫面、團隊使用', voice:'「ISO 27001 認證、24h 技術支援。」' },
+      { time:'20–26s', visual:'數據儀表板、團隊滿意笑容', voice:'「5,000+ 企業，平均省下 30% 成本。」' },
+      { time:'26–30s', visual:'LOGO + 「免費試用」CTA', voice:'「30 天試用立即啟動 → 」' },
+    ],
+  },
+  b2b_leads: {
+    titles: ['免費企業諮詢','領取產業白皮書','預約 1 對 1 顧問','加 LINE 索取報價','訂閱專業電子報','領取 ROI 試算表','免費試用 30 天','產品 demo 預約','白皮書 PDF 下載','加入企業社群','案例研究下載','領取競品分析','立即填表領資料','預約專業 demo','限定免費諮詢'],
+    descs: [
+      { type:'痛點', text:'不確定服務適不適合企業？專業顧問先 1 對 1 了解需求，免費評估 ROI。' },
+      { type:'成果', text:'已協助 800+ 企業客戶，平均第 1 年省下 30% 成本、ROI 達 250%。' },
+      { type:'信任', text:'諮詢完全免費、不簽約、不騷擾，專業顧問執業 10 年以上。' },
+      { type:'行動', text:'留下公司資訊，48h 內專業顧問聯繫＋免費 ROI 試算報告。' },
+    ],
+    angles: [
+      { type:'🔥 痛點型', color:'red', text:'「採購了一堆軟體都用不上？我們先了解你的需求再推薦——適合才合作。」' },
+      { type:'🏆 成果型', color:'green', text:'「他們導入後第 1 年省下 32% 成本、3 個月回本——案例研究公開可看。」' },
+      { type:'🛡️ 信任型', color:'blue', text:'「諮詢免費、不簽約、不騷擾——只在你確認需要時才推進。」' },
+    ],
+    extras: {
+      sitelinks: [
+        { title:'免費諮詢', desc1:'30 分鐘', desc2:'專業顧問' },
+        { title:'案例分享', desc1:'800+ 企業', desc2:'真實成果' },
+        { title:'ROI 試算', desc1:'投資回報', desc2:'免費下載' },
+        { title:'白皮書', desc1:'PDF 下載', desc2:'產業洞察' },
+      ],
+      callouts: ['諮詢免費','48h 內回覆','免費 ROI 試算','企業案例','不簽約','顧問 10 年+'],
+      snippets: { type:'服務內容', values:['流程診斷','ROI 試算','客製方案','導入規劃','教育訓練','後續維運'] },
+    },
+    script: [
+      { time:'0–5s', visual:'經理對著一堆軟體訂閱明細皺眉', voice:'「買了 5 套軟體，員工只用 1 套？」' },
+      { time:'5–12s', visual:'切到顧問與客戶面對面諮詢', voice:'「先別急著買——我們先了解你的需求。」' },
+      { time:'12–20s', visual:'白板畫流程、ROI 試算表', voice:'「我們提供免費 ROI 試算，看清楚再決定。」' },
+      { time:'20–26s', visual:'客戶滿意笑容、握手成交', voice:'「800+ 企業客戶，平均省下 30% 成本。」' },
+      { time:'26–30s', visual:'LOGO + 「預約諮詢」CTA', voice:'「48h 內專業顧問聯繫 → 」' },
+    ],
+  },
+  b2b_awareness: {
+    titles: ['認識我們的團隊','創立 X 年企業夥伴','看見我們的堅持','獲獎企業 安心選','專業團隊介紹','服務理念公開','客戶案例分享','創辦人的初心','業界 10 年+ 經驗','在地 B2B 領導品牌','立即了解服務','官方認證夥伴','客戶滿意度 95%','看見我們的不同','業界口碑見證'],
+    descs: [
+      { type:'痛點', text:'企業合作對象選錯，後續成本是 10 倍——認識我們的團隊與口碑再決定。' },
+      { type:'成果', text:'10 年、800+ 企業客戶、平均合約續約率 90%——數字會說話。' },
+      { type:'信任', text:'業界 10 年經驗、原廠認證夥伴、創辦人親自把關每個專案。' },
+      { type:'行動', text:'立即了解我們的服務理念與案例，看完再決定要不要諮詢。' },
+    ],
+    angles: [
+      { type:'🔥 痛點型', color:'red', text:'「找錯供應商，後續成本是 10 倍——你需要先看『誰在做』。」' },
+      { type:'🏆 成果型', color:'green', text:'「10 年、800＋ 企業、續約率 90%——這就是我們的答卷。」' },
+      { type:'🛡️ 信任型', color:'blue', text:'「原廠認證夥伴、創辦人把關、案例公開——值得你信任。」' },
+    ],
+    extras: {
+      sitelinks: [
+        { title:'公司介紹', desc1:'10 年歷程', desc2:'創辦理念' },
+        { title:'客戶案例', desc1:'800+ 企業', desc2:'真實成果' },
+        { title:'專業團隊', desc1:'業界資深', desc2:'原廠認證' },
+        { title:'媒體報導', desc1:'業界肯定', desc2:'口碑見證' },
+      ],
+      callouts: ['業界 10 年+','800+ 企業','續約率 90%','原廠認證','獲獎企業','創辦人把關'],
+      snippets: { type:'核心優勢', values:['業界經驗','原廠認證','客製方案','專案管理','技術整合','長期維運'] },
+    },
+    script: [
+      { time:'0–5s', visual:'創辦人走進公司、團隊問候', voice:'「為什麼 800+ 企業選擇我們？」' },
+      { time:'5–12s', visual:'團隊工作畫面、會議室討論', voice:'「業界 10 年經驗、原廠認證夥伴。」' },
+      { time:'12–20s', visual:'客戶見證、合作場景', voice:'「續約率 90%——客戶用行動投票。」' },
+      { time:'20–26s', visual:'創辦人真誠面對鏡頭', voice:'「企業合作要看『誰在做』——這是我們的承諾。」' },
+      { time:'26–30s', visual:'LOGO + 「了解更多」CTA', voice:'「認識我們的團隊 → 」' },
+    ],
+  },
+
+  // ============ 在地服務 ============
+  local_purchase: {
+    titles: ['在地 X 區 立即預約','首次體驗 7 折','加 LINE 領體驗券','離你最近 5 公里','專業師傅 經驗 10 年','現場確認再付費','評論破千 5 星好評','加會員享 9 折','技術保固 1 年','在地老店 安心選','立即下單預約','30 分鐘到府','原廠保固 售後安心','加 LINE 享優惠','官方認證店家'],
+    descs: [
+      { type:'痛點', text:'找了好多家不知道哪間靠譜？在地 10 年老店、5 公里內到府服務。' },
+      { type:'成果', text:'累積 5,000+ 在地客戶，4.9 顆星評價、回購率 80%。' },
+      { type:'信任', text:'技術保固 1 年、原廠認證、現場確認再付費——買得安心。' },
+      { type:'行動', text:'限時首次體驗 7 折，加 LINE 立即預約＋送專屬好禮。' },
+    ],
+    angles: [
+      { type:'🔥 痛點型', color:'red', text:'「找服務最怕踩雷——在地 10 年老店、5 公里內就到，看了再付費。」' },
+      { type:'🏆 成果型', color:'green', text:'「她從『跑遍 5 家不滿意』到『一次解決』——只用了 1 次預約。」' },
+      { type:'🛡️ 信任型', color:'blue', text:'「在地老店 10 年、技術保固 1 年、現場確認再付——安心是基本。」' },
+    ],
+    extras: {
+      sitelinks: [
+        { title:'立即預約', desc1:'30 秒完成', desc2:'即時確認' },
+        { title:'服務介紹', desc1:'完整列表', desc2:'價格透明' },
+        { title:'真實案例', desc1:'5,000+ 案例', desc2:'4.9 星' },
+        { title:'店家位置', desc1:'地址導航', desc2:'營業時間' },
+      ],
+      callouts: ['在地 10 年','5 公里內','技術保固 1 年','原廠認證','現場確認','加 LINE 享優惠'],
+      snippets: { type:'服務項目', values:['到府服務','現場諮詢','技術保固','原廠零件','售後追蹤','客製方案'] },
+    },
+    script: [
+      { time:'0–5s', visual:'客戶四處比較找服務商皺眉', voice:'「找了 5 家不知道選哪家？」' },
+      { time:'5–12s', visual:'切到我們店面、師傅迎接客戶', voice:'「在地 10 年老店、5 公里內就到。」' },
+      { time:'12–20s', visual:'師傅專業服務、現場操作', voice:'「現場確認沒問題再付費——技術保固 1 年。」' },
+      { time:'20–26s', visual:'客戶滿意笑容、5 星評論', voice:'「5,000+ 在地客戶，4.9 顆星評價。」' },
+      { time:'26–30s', visual:'LOGO + LINE QR', voice:'「現在加 LINE 享 7 折 → 」' },
+    ],
+  },
+  local_leads: {
+    titles: ['免費諮詢預約','加 LINE 領體驗價','離你最近 5 公里','30 秒線上預約','專業師傅評估','加會員享生日禮','留資料領體驗券','預約即送好禮','到府免費評估','技術諮詢免費','在地 10 年老店','立即填表預約','專人 24h 內回覆','加 LINE 學長姐分享','限定首次免費'],
+    descs: [
+      { type:'痛點', text:'不知道服務適不適合？專人先 1 對 1 評估，免費、不勉強。' },
+      { type:'成果', text:'已協助 5,000+ 在地客戶找到適合方案，平均滿意度 95%。' },
+      { type:'信任', text:'在地 10 年老店、諮詢免費、不簽約——適合再合作。' },
+      { type:'行動', text:'30 秒線上填表，加 LINE 享首次體驗 9 折＋送專屬好禮。' },
+    ],
+    angles: [
+      { type:'🔥 痛點型', color:'red', text:'「跑了 5 家還是不確定哪家適合？讓專業師傅先免費評估。」' },
+      { type:'🏆 成果型', color:'green', text:'「她從『不知道找誰』到『一次解決』——只用了 1 次免費諮詢。」' },
+      { type:'🛡️ 信任型', color:'blue', text:'「在地 10 年、5,000＋ 客戶、4.9 顆星——口碑就是答案。」' },
+    ],
+    extras: {
+      sitelinks: [
+        { title:'線上預約', desc1:'30 秒完成', desc2:'24h 回覆' },
+        { title:'服務介紹', desc1:'完整列表', desc2:'價格透明' },
+        { title:'店家環境', desc1:'5 公里內', desc2:'交通便利' },
+        { title:'真實案例', desc1:'5,000+ 案例', desc2:'4.9 星評價' },
+      ],
+      callouts: ['免費諮詢','在地 10 年','5 公里內','24h 回覆','不勉強消費','加 LINE 享優惠'],
+      snippets: { type:'服務內容', values:['免費評估','到府服務','客製方案','技術保固','即時諮詢','售後追蹤'] },
+    },
+    script: [
+      { time:'0–5s', visual:'客戶滑手機看附近店家、迷茫', voice:'「附近 10 家店，到底哪家好？」' },
+      { time:'5–12s', visual:'切到我們店面、師傅迎接', voice:'「先免費評估——適合再合作。」' },
+      { time:'12–20s', visual:'1 對 1 諮詢、師傅詳細解說', voice:'「在地 10 年老店，5,000+ 客戶口碑見證。」' },
+      { time:'20–26s', visual:'客戶滿意走出店面', voice:'「30 秒線上預約，專人 24h 內聯繫。」' },
+      { time:'26–30s', visual:'LOGO + LINE QR Code', voice:'「現在加 LINE → 」' },
+    ],
+  },
+  local_awareness: {
+    titles: ['認識我們的師傅','在地 10 年老店','看見我們的堅持','獲獎店家 安心選','師傅 30 年經驗','服務理念公開','客戶見證影片','創辦人的初心','在地深耕的承諾','技術師傅介紹','立即了解店家','官方認證店家','服務流程公開','客戶滿意度 95%','看見我們的不同'],
+    descs: [
+      { type:'痛點', text:'附近店家百百家，到底哪家專業？認識我們的師傅與堅持再決定。' },
+      { type:'成果', text:'在地 10 年、5,000+ 客戶、4.9 顆星評價、回購率 80%。' },
+      { type:'信任', text:'師傅 30 年經驗、原廠認證、店家獲獎多次——值得信賴。' },
+      { type:'行動', text:'立即了解我們的故事與服務，看完再決定要不要預約。' },
+    ],
+    angles: [
+      { type:'🔥 痛點型', color:'red', text:'「附近店家那麼多，找錯一次毀整個假期——你需要先看『誰在做』。」' },
+      { type:'🏆 成果型', color:'green', text:'「10 年、5,000＋ 客戶、4.9 顆星——這就是在地老店的答卷。」' },
+      { type:'🛡️ 信任型', color:'blue', text:'「師傅 30 年經驗、原廠認證、店家獲獎多次——值得信賴。」' },
+    ],
+    extras: {
+      sitelinks: [
+        { title:'店家故事', desc1:'10 年歷程', desc2:'在地深耕' },
+        { title:'師傅介紹', desc1:'30 年經驗', desc2:'原廠認證' },
+        { title:'客戶見證', desc1:'5,000+ 案例', desc2:'真實分享' },
+        { title:'服務內容', desc1:'完整列表', desc2:'價格透明' },
+      ],
+      callouts: ['在地 10 年','師傅 30 年','原廠認證','獲獎店家','5,000+ 客戶','4.9 顆星'],
+      snippets: { type:'店家特色', values:['在地深耕','技術保固','原廠零件','客製服務','即時回覆','終身維護'] },
+    },
+    script: [
+      { time:'0–5s', visual:'師傅打開店門開始一天工作', voice:'「為什麼我們在這條街做了 10 年？」' },
+      { time:'5–12s', visual:'店面環境、師傅專注工作', voice:'「30 年經驗師傅、原廠認證——技術是底氣。」' },
+      { time:'12–20s', visual:'真實客戶分享、滿意笑容', voice:'「5,000+ 客戶，4.9 顆星——口碑就是答案。」' },
+      { time:'20–26s', visual:'師傅面對鏡頭真誠陳述', voice:'「在地深耕——這是我們的承諾。」' },
+      { time:'26–30s', visual:'LOGO + 「了解更多」CTA', voice:'「認識我們的故事 → 」' },
+    ],
+  },
+
+  // ============ 旅遊 / 飯店 ============
+  travel_purchase: {
+    titles: ['限時下殺 7 折','早鳥優惠 倒數中','加 LINE 領 1,000 元券','住宿券 立即預訂','行程客製化規劃','24h 入住確認','官方授權 最低價','送機接駁服務','破萬則 5 星評論','滿額再送 SPA','立即訂房 享優惠','取消政策彈性','官方旗艦 唯一通路','加會員享 9 折','限量房型 售完不補'],
+    descs: [
+      { type:'痛點', text:'比價平台找半天還是怕踩雷？官方授權最低價＋彈性取消政策，安心訂房。' },
+      { type:'成果', text:'累積 50,000+ 旅人選擇我們，破萬則 5 星評論、回客率 70%。' },
+      { type:'信任', text:'官方授權通路、24h 入住確認、彈性取消政策——買錯不怕。' },
+      { type:'行動', text:'限時 7 折早鳥倒數，加入購物車立即享優惠＋送機接駁。' },
+    ],
+    angles: [
+      { type:'🔥 痛點型', color:'red', text:'「比價平台找半天還比官方貴？我們官方授權，現省 30% 起。」' },
+      { type:'🏆 成果型', color:'green', text:'「她訂的同房型，比 OTA 平台便宜 1,800 元——這就是直接訂的優勢。」' },
+      { type:'🛡️ 信任型', color:'blue', text:'「官方授權、彈性取消、24h 確認——訂錯不怕，換得了。」' },
+    ],
+    extras: {
+      sitelinks: [
+        { title:'熱銷行程', desc1:'本季最熱', desc2:'破萬好評' },
+        { title:'限時優惠', desc1:'會員獨享', desc2:'最低 7 折' },
+        { title:'飯店介紹', desc1:'環境設施', desc2:'真實照片' },
+        { title:'會員專區', desc1:'點數加倍', desc2:'生日免費' },
+      ],
+      callouts: ['官方授權最低價','24h 入住確認','彈性取消','送機接駁','加 LINE 享 9 折','破萬好評'],
+      snippets: { type:'熱門目的地', values:['沖繩','北海道','京都','韓國','泰國','歐洲'] },
+    },
+    script: [
+      { time:'0–5s', visual:'旅人在比價平台不斷切換、皺眉', voice:'「比了 5 個平台，到底哪個便宜？」' },
+      { time:'5–12s', visual:'切到飯店官網、價格直降特寫', voice:'「打開官網——比 OTA 便宜 30%。」' },
+      { time:'12–20s', visual:'飯店設施美照、客房環境', voice:'「官方授權最低價、24h 入住確認。」' },
+      { time:'20–26s', visual:'家庭旅遊開心畫面、滿意笑容', voice:'「50,000+ 旅人選擇我們，回客率 70%。」' },
+      { time:'26–30s', visual:'LOGO + 「立即訂房」CTA', voice:'「現在 7 折早鳥 → 」' },
+    ],
+  },
+  travel_leads: {
+    titles: ['免費行程規劃','加 LINE 領住宿券','訂閱優惠通知','專屬顧問 1 對 1','索取電子目錄','留資料領 1,000 元券','預約客製行程','加 LINE 看密境','官網訂閱享優惠','限時試住名額','留 Email 領折扣碼','立即填表領好禮','加會員優先預約','專人 24h 回覆','限定免費諮詢'],
+    descs: [
+      { type:'痛點', text:'不知道去哪玩、怎麼規劃？專屬顧問 1 對 1 客製行程，免費、不勉強。' },
+      { type:'成果', text:'已協助 8,000+ 旅人規劃行程，平均滿意度 95%、回客率 70%。' },
+      { type:'信任', text:'諮詢完全免費、不簽約、不騷擾——只在你想要時才推進。' },
+      { type:'行動', text:'30 秒填表預約，加 LINE 立即領 1,000 元住宿券＋送機接駁。' },
+    ],
+    angles: [
+      { type:'🔥 痛點型', color:'red', text:'「想去玩但又怕麻煩？讓專屬顧問幫你規劃——你只要決定出發日。」' },
+      { type:'🏆 成果型', color:'green', text:'「她從『規劃 3 週還沒搞定』到『1 通電話搞定』——專人安排比你想的好。」' },
+      { type:'🛡️ 信任型', color:'blue', text:'「諮詢免費、不簽約、不騷擾——只幫你規劃，要不要訂你決定。」' },
+    ],
+    extras: {
+      sitelinks: [
+        { title:'免費諮詢', desc1:'30 秒預約', desc2:'24h 回覆' },
+        { title:'熱銷行程', desc1:'本季最熱', desc2:'真實案例' },
+        { title:'客製規劃', desc1:'1 對 1 服務', desc2:'專屬行程' },
+        { title:'會員專區', desc1:'優先預約', desc2:'點數加倍' },
+      ],
+      callouts: ['免費諮詢','專屬顧問','24h 回覆','不勉強消費','加 LINE 領券','客製化行程'],
+      snippets: { type:'服務內容', values:['客製規劃','飯店預訂','機票協助','送機接駁','當地導覽','緊急協助'] },
+    },
+    script: [
+      { time:'0–5s', visual:'旅人面對手機 5 個分頁規劃迷茫', voice:'「想去玩，但規劃就 3 週？」' },
+      { time:'5–12s', visual:'切到顧問與客戶 1 對 1 諮詢', voice:'「免費讓專屬顧問幫你規劃。」' },
+      { time:'12–20s', visual:'客製行程表、目的地美照', voice:'「客製專屬行程、不勉強訂——適合再決定。」' },
+      { time:'20–26s', visual:'旅人開心抵達目的地、滿意笑容', voice:'「8,000+ 旅人選擇我們，回客率 70%。」' },
+      { time:'26–30s', visual:'LOGO + LINE QR Code', voice:'「現在加 LINE → 」' },
+    ],
+  },
+  travel_awareness: {
+    titles: ['認識我們的旅遊團隊','深耕在地 20 年','看見我們的堅持','獲獎旅遊品牌','專屬顧問介紹','服務理念公開','旅人真實分享','創辦人的初心','深度旅遊承諾','看見不一樣的旅程','在地導遊團隊','立即了解品牌','官方授權通路','旅人滿意度 95%','旅遊新體驗'],
+    descs: [
+      { type:'痛點', text:'旅遊品牌那麼多，怎麼挑到對的？認識我們的團隊與堅持再決定。' },
+      { type:'成果', text:'深耕 20 年、累積 50,000+ 旅人、滿意度 95%、回客率 70%。' },
+      { type:'信任', text:'官方授權、在地導遊團隊、創辦人親自把關每個行程——值得信賴。' },
+      { type:'行動', text:'立即了解我們的品牌故事與服務，看完再決定要不要諮詢。' },
+    ],
+    angles: [
+      { type:'🔥 痛點型', color:'red', text:'「旅遊踩雷一次毀整個假期——選對品牌，整趟旅程才安心。」' },
+      { type:'🏆 成果型', color:'green', text:'「20 年、50,000＋ 旅人、回客率 70%——這就是我們的答卷。」' },
+      { type:'🛡️ 信任型', color:'blue', text:'「官方授權、在地導遊、創辦人把關——這是我們對你的承諾。」' },
+    ],
+    extras: {
+      sitelinks: [
+        { title:'品牌故事', desc1:'20 年歷程', desc2:'初心不變' },
+        { title:'導遊團隊', desc1:'在地專家', desc2:'多語服務' },
+        { title:'旅人見證', desc1:'50,000+ 案例', desc2:'真實分享' },
+        { title:'服務承諾', desc1:'品質保證', desc2:'24h 緊急協助' },
+      ],
+      callouts: ['深耕 20 年','官方授權','在地導遊','50,000+ 旅人','回客率 70%','24h 緊急協助'],
+      snippets: { type:'品牌特色', values:['在地深度','專屬顧問','客製規劃','24h 協助','安全保障','回憶承諾'] },
+    },
+    script: [
+      { time:'0–5s', visual:'創辦人翻看 20 年前的旅遊老照片', voice:'「為什麼我們做旅遊做了 20 年？」' },
+      { time:'5–12s', visual:'各國目的地美景、團隊在地導覽', voice:'「20 年、50,000＋ 旅人——每一段都是我們的故事。」' },
+      { time:'12–20s', visual:'旅人快樂回憶、團體合照', voice:'「回客率 70%——客人用行動投票。」' },
+      { time:'20–26s', visual:'創辦人面對鏡頭真誠陳述', voice:'「我們不只賣行程——我們做回憶。」' },
+      { time:'26–30s', visual:'LOGO + 「了解更多」CTA', voice:'「認識我們的故事 → 」' },
+    ],
+  },
+
+  // ============ 文創 / 媒體 / 出版 ============
+  media_purchase: {
+    titles: ['新書上市 限時 79 折','作者簽名版限量','加會員享 9 折','訂閱年方案 7 折','電子書 限時下殺','實體＋電子 套組','加 LINE 領閱讀券','破千則 5 星評論','立即購買 享優惠','名家推薦選書','滿額再送購書券','官方授權通路','獲獎作品 必收藏','立即訂閱享好禮','限量精裝版'],
+    descs: [
+      { type:'痛點', text:'看書都看不完，買來積灰塵？我們提供 7 天試讀，看完滿意再付費。' },
+      { type:'成果', text:'累積 30,000+ 讀者選擇我們，破千則 5 星好評、回購率 65%。' },
+      { type:'信任', text:'官方授權通路、作者簽名版限量、滿意保證——買對書才值得。' },
+      { type:'行動', text:'限時新書 79 折＋送精選作者簽名書籤，數量有限售完不補。' },
+    ],
+    angles: [
+      { type:'🔥 痛點型', color:'red', text:'「買書回家都沒看？我們提供 7 天試讀，看完滿意再付費。」' },
+      { type:'🏆 成果型', color:'green', text:'「她訂閱後 1 年讀完 24 本書，比過去 3 年加起來還多。」' },
+      { type:'🛡️ 信任型', color:'blue', text:'「官方授權、作者簽名版、滿意保證——選書品質我們負責。」' },
+    ],
+    extras: {
+      sitelinks: [
+        { title:'新書上市', desc1:'本月主打', desc2:'破千好評' },
+        { title:'作者專欄', desc1:'名家推薦', desc2:'獨家內容' },
+        { title:'會員專區', desc1:'年方案 7 折', desc2:'點數加倍' },
+        { title:'限量精裝', desc1:'簽名版', desc2:'限量供應' },
+      ],
+      callouts: ['官方授權','作者簽名版','7 天試讀','滿意保證','加會員 9 折','破千好評'],
+      snippets: { type:'書籍分類', values:['文學小說','人文社科','商業理財','心理勵志','藝術設計','生活風格'] },
+    },
+    script: [
+      { time:'0–5s', visual:'讀者面對書架猶豫不決', voice:'「買了書都沒看？怕浪費錢？」' },
+      { time:'5–12s', visual:'切到品牌書店或閱讀畫面', voice:'「我們提供 7 天試讀——看完滿意再付費。」' },
+      { time:'12–20s', visual:'精選書籍展示、作者推薦', voice:'「官方授權、作者簽名、滿意保證。」' },
+      { time:'20–26s', visual:'讀者沉浸閱讀、滿足表情', voice:'「30,000+ 讀者，回購率 65%。」' },
+      { time:'26–30s', visual:'LOGO + 「立即購買」CTA', voice:'「新書 79 折倒數中 → 」' },
+    ],
+  },
+  media_leads: {
+    titles: ['免費試讀 7 天','訂閱電子報享首購禮','加 LINE 領閱讀券','領取書摘 PDF','作者見面會報名','索取書籍目錄','留 Email 領 9 折碼','加入讀書社群','預約 1 對 1 選書','免費聽書 30 分鐘','加會員優先購','立即訂閱享好禮','留資料領精選書摘','限定試閱章節','加 LINE 看每週推薦'],
+    descs: [
+      { type:'痛點', text:'買了書怕看不完？先免費試讀 7 天，看完滿意再決定要不要買。' },
+      { type:'成果', text:'已有 12,000+ 訂閱者，平均每人每年讀完 18 本書。' },
+      { type:'信任', text:'我們不發垃圾信，每週 1 封精選書單＋作者深度訪談，可隨時退訂。' },
+      { type:'行動', text:'1 分鐘留 Email，立即領 7 天試讀＋精選書摘 PDF。' },
+    ],
+    angles: [
+      { type:'🔥 痛點型', color:'red', text:'「買了書回家都沒看？先免費試讀 7 天，確定喜歡再付費。」' },
+      { type:'🏆 成果型', color:'green', text:'「她訂閱後重拾閱讀習慣，1 年讀完 18 本——閱讀也能上癮。」' },
+      { type:'🛡️ 信任型', color:'blue', text:'「不發垃圾信、每週 1 封精選——你會期待收到的內容。」' },
+    ],
+    extras: {
+      sitelinks: [
+        { title:'7 天試讀', desc1:'完整章節', desc2:'立即看' },
+        { title:'精選書單', desc1:'每週更新', desc2:'名家推薦' },
+        { title:'讀書社群', desc1:'12,000+ 人', desc2:'共讀分享' },
+        { title:'會員福利', desc1:'點數加倍', desc2:'生日禮' },
+      ],
+      callouts: ['7 天免費試讀','每週精選書單','作者深度訪談','可隨時退訂','加 LINE 領券','12,000+ 訂閱者'],
+      snippets: { type:'內容類型', values:['新書介紹','作者訪談','書摘精選','閱讀心得','活動通知','專屬折扣'] },
+    },
+    script: [
+      { time:'0–5s', visual:'讀者看著書架上沒讀完的書嘆氣', voice:'「買了書都沒看？怕花錢沒收穫？」' },
+      { time:'5–12s', visual:'切到電子書 / 試讀介面', voice:'「先免費試讀 7 天——看完滿意再決定。」' },
+      { time:'12–20s', visual:'每週精選書單、作者推薦影片', voice:'「每週 1 封精選書單，不發垃圾信。」' },
+      { time:'20–26s', visual:'讀者沉浸閱讀、滿足笑容', voice:'「12,000+ 訂閱者，重拾閱讀習慣。」' },
+      { time:'26–30s', visual:'LOGO + LINE QR Code', voice:'「現在加 LINE 領 → 」' },
+    ],
+  },
+  media_awareness: {
+    titles: ['認識我們的故事','深耕出版 20 年','看見我們的堅持','獲獎出版品牌','編輯團隊介紹','編輯理念公開','作者真實分享','創辦人的初心','選書品味的承諾','看見閱讀的不同','立即了解品牌','官方授權通路','獨立出版精神','讀者滿意度 95%','閱讀新體驗'],
+    descs: [
+      { type:'痛點', text:'出版品牌那麼多，到底誰選書品味值得信任？認識我們的編輯理念再決定。' },
+      { type:'成果', text:'深耕 20 年、累積 30,000+ 讀者、出版 500+ 本獲獎作品。' },
+      { type:'信任', text:'獨立編輯團隊、堅持選書品味、創辦人親自把關每本書——閱讀的承諾。' },
+      { type:'行動', text:'立即了解我們的編輯理念，看完你會知道為什麼值得訂閱。' },
+    ],
+    angles: [
+      { type:'🔥 痛點型', color:'red', text:'「市面上書那麼多，怎麼挑到值得讀的？我們的選書品味讓 30,000＋ 讀者買單。」' },
+      { type:'🏆 成果型', color:'green', text:'「20 年、500＋ 獲獎作品、30,000＋ 讀者——這是我們的答卷。」' },
+      { type:'🛡️ 信任型', color:'blue', text:'「獨立編輯、堅持品味、創辦人把關——這是對讀者的承諾。」' },
+    ],
+    extras: {
+      sitelinks: [
+        { title:'品牌故事', desc1:'20 年歷程', desc2:'獨立精神' },
+        { title:'編輯團隊', desc1:'資深編輯', desc2:'選書專家' },
+        { title:'獲獎作品', desc1:'500+ 本', desc2:'肯定見證' },
+        { title:'讀者見證', desc1:'30,000+ 讀者', desc2:'真實分享' },
+      ],
+      callouts: ['深耕 20 年','500+ 獲獎作品','獨立編輯','創辦人把關','30,000+ 讀者','讀者滿意 95%'],
+      snippets: { type:'品牌特色', values:['獨立精神','選書品味','深度內容','作者深耕','讀者社群','閱讀體驗'] },
+    },
+    script: [
+      { time:'0–5s', visual:'創辦人在書房翻閱經典作品', voice:'「為什麼我們做出版做了 20 年？」' },
+      { time:'5–12s', visual:'編輯部討論書稿、印刷廠運作', voice:'「20 年、500＋ 獲獎作品——堅持選書品味。」' },
+      { time:'12–20s', visual:'讀者沉浸閱讀、書本特寫', voice:'「30,000+ 讀者陪我們走過——這是承諾。」' },
+      { time:'20–26s', visual:'創辦人面對鏡頭真誠陳述', voice:'「我們不只是出版書——我們守護閱讀。」' },
+      { time:'26–30s', visual:'LOGO + 「了解更多」CTA', voice:'「認識我們的故事 → 」' },
+    ],
+  },
+
+  // ============ 其他 ============
+  other_purchase: {
+    titles: ['限時優惠 立即下單','新客首購 9 折','30 天滿意保證','官方授權 安心購','加 LINE 領優惠券','破萬則 5 星評論','專人客服 24h 回覆','送貨到府 安心購','立即購買享優惠','滿額免運門檻最低','會員專屬折扣','正品保證 假一賠十','評價最高 推薦選擇','立即下單 限時優惠','官方旗艦 唯一通路'],
+    descs: [
+      { type:'痛點', text:'怕買到不適合的？我們提供 30 天滿意保證，不滿意全額退費。' },
+      { type:'成果', text:'累積 10,000+ 客戶、4.9 顆星評價、回購率 70%。' },
+      { type:'信任', text:'官方授權正品、30 天滿意保證、24h 專人客服——買得安心。' },
+      { type:'行動', text:'限時優惠倒數中，立即下單享 9 折＋免運費，名額有限售完不補。' },
+    ],
+    angles: [
+      { type:'🔥 痛點型', color:'red', text:'「買錯了能退嗎？我們提供 30 天滿意保證，不滿意原封退就好。」' },
+      { type:'🏆 成果型', color:'green', text:'「10,000＋ 客戶選擇我們、4.9 顆星評價、70% 回購——這就是答卷。」' },
+      { type:'🛡️ 信任型', color:'blue', text:'「官方授權、24h 客服、滿意保證——買錯不怕，安心試試看。」' },
+    ],
+    extras: {
+      sitelinks: [
+        { title:'熱銷推薦', desc1:'最受歡迎', desc2:'破萬好評' },
+        { title:'限時優惠', desc1:'會員獨享', desc2:'最低 9 折' },
+        { title:'30 天保證', desc1:'不滿意退', desc2:'安心試' },
+        { title:'會員專區', desc1:'生日禮金', desc2:'獨享優惠' },
+      ],
+      callouts: ['30 天滿意保證','官方授權','24h 客服','正品保證','加 LINE 享優惠','破萬好評'],
+      snippets: { type:'服務承諾', values:['正品保證','滿意退費','專人客服','快速到貨','貼心包裝','終身保固'] },
+    },
+    script: [
+      { time:'0–5s', visual:'客戶在挑選商品、猶豫不決', voice:'「猶豫了好幾天還是不敢下手？」' },
+      { time:'5–12s', visual:'切到品牌服務介紹、明確承諾', voice:'「30 天不滿意全額退費——下手後悔我們負責。」' },
+      { time:'12–20s', visual:'客戶開心收到商品、5 星評論畫面', voice:'「10,000+ 客戶、4.9 顆星、70% 回購率。」' },
+      { time:'20–26s', visual:'客戶開心使用、滿意笑容', voice:'「現在限時 9 折＋免運費。」' },
+      { time:'26–30s', visual:'LOGO + 「立即購買」CTA', voice:'「限時優惠倒數中 → 」' },
+    ],
+  },
+  other_leads: {
+    titles: ['免費諮詢 1 對 1','加 LINE 領優惠券','留資料領免費試用','30 秒線上預約','專人 24h 內回覆','免費評估 不勉強','客製化方案推薦','加入會員享好禮','索取產品手冊','留 Email 領折扣碼','1 分鐘預約諮詢','立即填表領好禮','專人客服 真人回覆','可隨時取消','免費索取資料'],
+    descs: [
+      { type:'痛點', text:'不確定服務適不適合你？專人先免費諮詢，不勉強消費、不推銷。' },
+      { type:'成果', text:'已協助 8,000+ 客戶找到最適合的方案，平均滿意度 95%。' },
+      { type:'信任', text:'諮詢完全免費、24h 內專人回覆、不滿意可隨時取消——零風險體驗。' },
+      { type:'行動', text:'1 分鐘填表完成預約，加 LINE 立即領免費試用＋專屬優惠券。' },
+    ],
+    angles: [
+      { type:'🔥 痛點型', color:'red', text:'「不確定適不適合你？先免費諮詢看看，不適合就拉倒，沒損失。」' },
+      { type:'🏆 成果型', color:'green', text:'「8,000＋ 客戶從諮詢到滿意成交——你的下一步可能就在這。」' },
+      { type:'🛡️ 信任型', color:'blue', text:'「諮詢免費、不推銷、隨時取消——只在你想要時才繼續。」' },
+    ],
+    extras: {
+      sitelinks: [
+        { title:'免費諮詢', desc1:'30 秒預約', desc2:'24h 回覆' },
+        { title:'服務介紹', desc1:'完整方案', desc2:'價格透明' },
+        { title:'真實案例', desc1:'8,000+ 案例', desc2:'滿意度 95%' },
+        { title:'加入 LINE', desc1:'即時諮詢', desc2:'領優惠券' },
+      ],
+      callouts: ['免費諮詢','24h 內回覆','不勉強消費','專人服務','可隨時取消','滿意度 95%'],
+      snippets: { type:'服務內容', values:['免費評估','客製方案','專人諮詢','即時回覆','後續追蹤','滿意保證'] },
+    },
+    script: [
+      { time:'0–5s', visual:'客戶滑手機看各家服務、不知如何選', voice:'「不確定哪一家適合你？」' },
+      { time:'5–12s', visual:'切到品牌諮詢介面、專人服務畫面', voice:'「先免費諮詢——適合再合作，不勉強。」' },
+      { time:'12–20s', visual:'1 對 1 諮詢過程、專人耐心解答', voice:'「我們會先了解你的需求，再客製方案。」' },
+      { time:'20–26s', visual:'客戶滿意笑容、握手成交場景', voice:'「8,000+ 客戶見證，滿意度 95%。」' },
+      { time:'26–30s', visual:'LOGO + LINE QR Code', voice:'「現在預約 → 」' },
+    ],
+  },
+  other_awareness: {
+    titles: ['認識我們的服務','創立 X 年 在地品牌','看見我們的堅持','獲獎品牌 安心選','專業團隊介紹','服務理念公開','真實客戶見證','創辦人的初心','品牌承諾 一次看懂','在地服務 10 年+','立即了解品牌','官方認證單位','服務流程公開','客戶滿意度 95%','看見我們的不同'],
+    descs: [
+      { type:'痛點', text:'市面上同類服務太多，到底哪家值得信任？認識我們的品牌故事再決定。' },
+      { type:'成果', text:'創立 X 年、累積 10,000+ 客戶、滿意度 95%、回購率 70%。' },
+      { type:'信任', text:'在地經營 10 年、創辦人親自把關、客戶真實見證——值得你信任。' },
+      { type:'行動', text:'立即了解我們的服務理念，看完你會知道為什麼值得選擇。' },
+    ],
+    angles: [
+      { type:'🔥 痛點型', color:'red', text:'「服務品牌那麼多，怎麼知道哪家不會踩雷？我們的客戶 70% 回購。」' },
+      { type:'🏆 成果型', color:'green', text:'「10 年、10,000＋ 客戶、滿意度 95%——這是我們的成績單。」' },
+      { type:'🛡️ 信任型', color:'blue', text:'「在地經營、創辦人把關、真實客戶見證——這就是我們的承諾。」' },
+    ],
+    extras: {
+      sitelinks: [
+        { title:'品牌故事', desc1:'創立初心', desc2:'10 年歷程' },
+        { title:'服務內容', desc1:'完整列表', desc2:'價格透明' },
+        { title:'客戶見證', desc1:'10,000+ 案例', desc2:'真實分享' },
+        { title:'立即諮詢', desc1:'30 秒預約', desc2:'24h 回覆' },
+      ],
+      callouts: ['在地 10 年+','獲獎品牌','創辦人把關','滿意度 95%','回購率 70%','專業團隊'],
+      snippets: { type:'品牌特色', values:['在地服務','專業團隊','客製方案','即時回覆','售後追蹤','滿意保證'] },
+    },
+    script: [
+      { time:'0–5s', visual:'創辦人走進公司、與團隊打招呼', voice:'「為什麼我們堅持在地服務 10 年？」' },
+      { time:'5–12s', visual:'公司內部、團隊工作畫面', voice:'「10 年、10,000＋ 客戶——每一位都是我們的責任。」' },
+      { time:'12–20s', visual:'真實客戶分享、滿意笑容', voice:'「客戶滿意度 95%、回購率 70%——是最好的口碑。」' },
+      { time:'20–26s', visual:'創辦人面對鏡頭、誠懇陳述', voice:'「我們對你的承諾——值得你信任。」' },
+      { time:'26–30s', visual:'LOGO + 「了解更多」CTA', voice:'「認識我們的故事 → 」' },
+    ],
+  },
+};
+
+const generateCopy = (s) => {
+  const key = `${state.industry}_${state.goal}`;
+  const ctx = adContextData[key] || adContextData.other_purchase;
+  return {
+    titles: ctx.titles,
+    descs: ctx.descs,
+    extras: ctx.extras,
+    angles: ctx.angles,
+    script: ctx.script,
+  };
 };
 
 // ============ RENDER STRATEGY ============
