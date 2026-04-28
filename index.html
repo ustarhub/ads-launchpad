@@ -305,8 +305,8 @@
       <div class="inline-flex items-center gap-2 bg-green-50 text-green-700 px-3 py-1 rounded-full text-sm font-medium mb-4">
         ✅ 策略已生成
       </div>
-      <h2 class="text-3xl md:text-4xl font-black mb-3">📋 你的專屬投放策略</h2>
-      <p class="text-slate-600">根據你的條件，依實戰經驗為你客製的第一版投放規劃</p>
+      <h2 class="text-3xl md:text-4xl font-black mb-3">📋 這是幫你客製的投放策略</h2>
+      <p class="text-slate-600">這是你的第一版策略，後續會依數據持續優化</p>
     </div>
 
     <!-- Mode Toggle -->
@@ -321,12 +321,23 @@
       </div>
     </div>
 
+    <!-- 你屬於 X 型 ─ 顧問口吻分類 -->
+    <div id="biz-type-banner" class="fade-in fade-in-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl p-5 mb-4">
+      <div class="text-xs font-medium opacity-80 mb-1">📊 顧問建議</div>
+      <p id="biz-type-text" class="text-base md:text-lg font-bold leading-relaxed"></p>
+    </div>
+
+    <!-- 進階版專屬提示 -->
+    <div id="advanced-mode-hint" class="hidden bg-slate-100 border border-slate-200 rounded-lg px-4 py-3 mb-4 text-sm text-slate-700">
+      🔧 <strong>進階版</strong>：這版會提供策略邏輯與優化方式，適合已開始投廣告的人
+    </div>
+
     <!-- 轉換追蹤前置提醒（雙模式都顯示） -->
     <div class="fade-in fade-in-1 bg-blue-50 border border-blue-200 rounded-xl p-5 mb-6 flex items-start gap-3">
       <div class="text-2xl">🎯</div>
       <div class="text-sm text-blue-900 leading-relaxed">
         <strong>投廣告前必做（Week 0）：</strong>安裝 Google Tag、設定 GA4 + Google Ads 轉換追蹤<span id="r-conv-extra"></span>。
-        <span class="block mt-1 text-blue-700"><strong>人話：</strong>沒設轉換追蹤，等於蒙著眼睛開廣告，永遠不知道哪個有效。</span>
+        <span class="block mt-1 text-blue-700"><strong>人話：</strong>如果沒做這件事，你會不知道哪個廣告有效。</span>
       </div>
     </div>
 
@@ -385,7 +396,7 @@
         </div>
         <div class="bg-blue-50 border-l-4 border-blue-500 px-4 py-3 mb-5 rounded">
           <div class="text-xs text-blue-700 font-bold mb-1">📢 一句話聽懂</div>
-          <div class="text-slate-800 leading-relaxed">每天大概投 <strong id="b-daily-inline" class="text-blue-700"></strong>，跑滿 14 天再看數據——別每天動。</div>
+          <div class="text-slate-800 leading-relaxed">每天 <strong id="b-daily-inline" class="text-blue-700"></strong>，先用穩定預算跑 14 天，讓系統找到有效客群</div>
         </div>
         <div class="grid grid-cols-2 gap-3 mb-4">
           <div class="bg-slate-50 rounded-lg p-3 text-center">
@@ -398,9 +409,9 @@
           </div>
         </div>
         <div class="text-sm">
-          <strong>🎯 出價策略：</strong>新帳戶起手選「<strong class="text-blue-600">盡量爭取點擊</strong>」
+          <strong>🎯 出價策略：</strong>新帳戶先用「<strong class="text-blue-600">盡量爭取點擊</strong>」，累積數據後再交給系統優化轉換
           <div class="mt-2 bg-amber-50 border-l-2 border-amber-400 rounded px-3 py-2 text-xs text-amber-900">
-            <strong>人話翻譯：</strong>新帳戶沒轉換資料，先衝流量＋累積關鍵字。等到第 3 週累積 10+ 轉換後，再切「<strong>盡量爭取轉換</strong>」交給 Google 自動優化。
+            <strong>人話翻譯：</strong>先衝流量 → 有數據 → 再優化轉換
           </div>
         </div>
       </div>
@@ -413,16 +424,16 @@
         </div>
         <div class="space-y-4">
           <div>
-            <div class="font-bold text-red-900 mb-1">❌ 沒設轉換追蹤就開廣告</div>
-            <p class="text-sm text-red-800 leading-relaxed pl-5">等於蒙著眼睛開車——投了沒辦法知道哪個關鍵字有效，永遠優化不了。</p>
+            <div class="font-bold text-red-900 mb-1">❌ 沒設轉換就開廣告 ＝ 你根本不知道錢花在哪</div>
+            <p class="text-sm text-red-800 leading-relaxed pl-5">這就像蒙著眼睛開車，永遠不知道哪條路通——務必先設好 GA4 + 轉換追蹤。</p>
           </div>
           <div>
-            <div class="font-bold text-red-900 mb-1">❌ 用「廣泛比對」+「手動單次點擊出價」</div>
-            <p class="text-sm text-red-800 leading-relaxed pl-5">預算 24 小時內燒光（最常見錯誤）。<strong>人話：</strong>新手關鍵字務必用「詞組比對」（包含配對），別用模糊的廣泛比對。</p>
+            <div class="font-bold text-red-900 mb-1">❌ 用「廣泛比對」+「手動 CPC」 ＝ 預算 24 小時內燒光</div>
+            <p class="text-sm text-red-800 leading-relaxed pl-5">新手關鍵字務必用「詞組比對」（包含配對），別用模糊的廣泛比對。</p>
           </div>
           <div>
-            <div class="font-bold text-red-900 mb-1">❌ 每天看數據改設定</div>
-            <p class="text-sm text-red-800 leading-relaxed pl-5">機器學習被打亂，永遠跑不穩。<strong>至少跑滿 14 天 + 30 筆轉換</strong>再優化。</p>
+            <div class="font-bold text-red-900 mb-1">❌ 每天亂改 ＝ 系統學習被打斷，成效會越跑越差</div>
+            <p class="text-sm text-red-800 leading-relaxed pl-5">給機器至少 14 天 + 30 筆轉換再優化——別每天看數據動手。</p>
           </div>
         </div>
       </div>
@@ -487,14 +498,52 @@
 
     <!-- Warning Banner -->
     <div id="result-warning" class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center text-yellow-900 text-sm mb-8">
-      ⚠️ 這是第一版策略，實際成效需透過數據持續優化。建議跑滿 14 天再做大幅調整。
+      💬 這是第一版策略，先跑 14 天再調整，效果會更準
+    </div>
+
+    <!-- Inline Industry Picker（產文案前選產業） -->
+    <div id="result-industry-picker" class="bg-amber-50 border border-amber-200 rounded-2xl p-6 mb-6">
+      <div class="text-center mb-4">
+        <h3 class="font-bold text-lg mb-1">✍️ 想要對應你產業的廣告文案？</h3>
+        <p class="text-sm text-slate-600">先選你的產業，文案會更貼切</p>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-2">
+        <button class="industry-pick-btn text-left px-3 py-2.5 border-2 border-slate-200 bg-white rounded-lg hover:border-amber-500 transition" data-industry="ecommerce">
+          <div class="font-bold text-sm">📦 電商 / 網購</div>
+        </button>
+        <button class="industry-pick-btn text-left px-3 py-2.5 border-2 border-slate-200 bg-white rounded-lg hover:border-amber-500 transition" data-industry="beauty">
+          <div class="font-bold text-sm">💉 醫美 / 保健 / 醫療</div>
+        </button>
+        <button class="industry-pick-btn text-left px-3 py-2.5 border-2 border-slate-200 bg-white rounded-lg hover:border-amber-500 transition" data-industry="course">
+          <div class="font-bold text-sm">📚 課程 / 教育 / 培訓</div>
+        </button>
+        <button class="industry-pick-btn text-left px-3 py-2.5 border-2 border-slate-200 bg-white rounded-lg hover:border-amber-500 transition" data-industry="food">
+          <div class="font-bold text-sm">🍱 餐飲 / 食品</div>
+        </button>
+        <button class="industry-pick-btn text-left px-3 py-2.5 border-2 border-slate-200 bg-white rounded-lg hover:border-amber-500 transition" data-industry="b2b">
+          <div class="font-bold text-sm">💼 B2B 服務</div>
+        </button>
+        <button class="industry-pick-btn text-left px-3 py-2.5 border-2 border-slate-200 bg-white rounded-lg hover:border-amber-500 transition" data-industry="local">
+          <div class="font-bold text-sm">🏪 實體店面服務</div>
+        </button>
+        <button class="industry-pick-btn text-left px-3 py-2.5 border-2 border-slate-200 bg-white rounded-lg hover:border-amber-500 transition" data-industry="travel">
+          <div class="font-bold text-sm">✈️ 旅遊 / 飯店</div>
+        </button>
+        <button class="industry-pick-btn text-left px-3 py-2.5 border-2 border-slate-200 bg-white rounded-lg hover:border-amber-500 transition" data-industry="media">
+          <div class="font-bold text-sm">📖 出版 / 媒體 / 訂閱</div>
+        </button>
+        <button class="industry-pick-btn text-left px-3 py-2.5 border-2 border-slate-200 bg-white rounded-lg hover:border-amber-500 transition" data-industry="other">
+          <div class="font-bold text-sm">🔘 其他</div>
+        </button>
+      </div>
     </div>
 
     <!-- Next CTA -->
     <div id="result-next-cta" class="text-center mb-12">
-      <button id="btn-copy-gen" class="inline-flex items-center gap-2 border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-8 py-4 rounded-lg font-bold text-lg transition">
-        📝 產生我的廣告文案 →
+      <button id="btn-copy-gen" disabled class="inline-flex items-center gap-2 border-2 border-slate-300 text-slate-400 cursor-not-allowed px-8 py-4 rounded-lg font-bold text-lg transition">
+        ✍️ 幫我寫一組可以直接用的廣告文案 →
       </button>
+      <p id="cta-hint" class="text-xs text-slate-500 mt-2">⬆️ 先選你的產業才能產生</p>
     </div>
 
     <!-- ============ COURSE BRIDGE CTA ============ -->
@@ -521,8 +570,8 @@
   </div>
 </section>
 
-<!-- ============ INDUSTRY PICKER（產文案前）============ -->
-<section id="industry-picker" class="hidden px-6 py-16">
+<!-- ============ INDUSTRY PICKER（已棄用，改成 inline 在 result 區）============ -->
+<section id="industry-picker" class="hidden px-6 py-16" style="display: none !important;">
   <div class="max-w-2xl mx-auto">
     <div class="text-center mb-8">
       <div class="inline-flex items-center gap-2 bg-amber-50 text-amber-800 px-3 py-1 rounded-full text-sm font-medium mb-4">
@@ -815,22 +864,22 @@ const decisionMatrix = {
     purchase: { note:'諮詢型客戶通常先諮詢才購買，搜尋廣告（重信任字）＋ PMax＋多媒體再行銷催最後決策。' },
   },
 };
-// 決策模式 × 目標 → 新手版簡短解釋
+// 決策模式 × 目標 → 新手版簡短解釋（口語化、像顧問在跟你說話）
 const decisionMatrixBeginner = {
   impulse: {
-    awareness: { oneLiner:'衝動型客戶被看到就會有反應，先用搜尋廣告＋PMax 觸及最多人。', why:'你的客戶決策快，廣告越廣觸及越好。' },
-    leads:    { oneLiner:'衝動型客戶不太留資料，但可以用「加 LINE 領券」收集，搜尋廣告為主。', why:'你的客戶不喜歡填表，加 LINE 比留 Email 更直接。' },
-    purchase: { oneLiner:'衝動型客戶看到就買，搜尋廣告（優惠字）＋ PMax 購物廣告最有效。', why:'你的客戶決策快，廣告要強調「現在就買」「限時優惠」。' },
+    awareness: { oneLiner:'你的客戶看到就有反應，先把廣告打廣，讓最多人看到你', why:'衝動型客戶決策快，廣告越廣越有效——他們可能滑到一次就買了' },
+    leads:    { oneLiner:'你的客戶不太留資料，試著用「加 LINE 領券」讓他們先連上你', why:'衝動型客戶不愛填表，加 LINE 比留 Email 直接多了' },
+    purchase: { oneLiner:'你的客戶看到就買，廣告強調「限時、優惠、現在下單」就對了', why:'決策快的客戶不需要說服，要的是「現在就買」的理由' },
   },
   research: {
-    awareness: { oneLiner:'比較型客戶會研究、看評價，先用搜尋廣告＋PMax 累積品牌曝光。', why:'你的客戶會 Google，搜尋廣告抓他們的研究階段最有效。' },
-    leads:    { oneLiner:'比較型客戶喜歡先試聽試讀，搜尋廣告（重評價字）為主即可起手。', why:'你的客戶決策中等長，先收名單再轉單最自然。' },
-    purchase: { oneLiner:'比較型客戶決策前會多次比較，搜尋廣告（重評價字）＋ PMax 是黃金組合。', why:'你的客戶會做功課，廣告要強調評價、規格、保固。' },
+    awareness: { oneLiner:'你的客戶會 Google、看評價，先在他研究時讓他看到你', why:'比較型客戶會做功課，你要在他查資料的當下出現' },
+    leads:    { oneLiner:'你的客戶愛先試聽試讀再決定，先讓他留下資料是最自然的下一步', why:'他們已經在研究了，給「先試試看」的選項，自然會留下聯絡' },
+    purchase: { oneLiner:'你的客戶買之前會看評價，廣告要強調「口碑、規格、保固」', why:'比較型客戶買的是「值得」，廣告打「可信賴」比「便宜」有效' },
   },
   consult: {
-    awareness: { oneLiner:'諮詢型客戶決策慢，先用搜尋廣告＋PMax 地區（如有實體店）建立信任。', why:'你的客戶要被反覆看到才會決定，先建立曝光。' },
-    leads:    { oneLiner:'諮詢型客戶就是要收名單，搜尋廣告（諮詢字）＋ PMax 地區（如有實體店）。', why:'你的客戶決策慢、客單高，靠免費諮詢轉單最有效。' },
-    purchase: { oneLiner:'諮詢型客戶通常諮詢後才買，搜尋廣告（重信任字）＋ PMax 為主。', why:'你的客戶高客單、決策慢，廣告要強調專業、案例、保證。' },
+    awareness: { oneLiner:'你的客戶決策慢，先讓他「反覆看到你」累積熟悉感', why:'諮詢型客戶要慢慢被打動，重複曝光比一次大投放更有效' },
+    leads:    { oneLiner:'你這種情況，先專心把「詢問名單」做出來最重要', why:'你的客戶不會馬上買，先讓他留下資料，比直接賣更有效' },
+    purchase: { oneLiner:'你的客戶要先信任才會掏錢，廣告強調「專業、案例、保證」', why:'諮詢型客戶買的是「信任」，光打優惠沒用，要看到專業' },
   },
 };
 // 決策模式 → 關鍵字字根範例
@@ -2048,8 +2097,42 @@ const generateCopy = (s) => {
   };
 };
 
+// ============ 顧問分類：判斷使用者屬於哪一型 ============
+const getBizType = () => {
+  const goal = state.goal;
+  const decision = state.decision;
+  const business = state.business;
+  const hasOnline = business === 'online' || business === 'both';
+  const hasOffline = business === 'offline' || business === 'both';
+
+  // 名單型：goal 是收名單，或 諮詢型決策（高接觸度服務）
+  if (goal === 'leads') return { type: '名單型', priority: '先把「詢問名單」做出來，比直接賣更重要' };
+
+  // 電商型：衝動型 + 線上 + 購買 → 直接導購
+  if (goal === 'purchase' && decision === 'impulse' && hasOnline) {
+    return { type: '電商型', priority: '直接導購＋提高轉換，廣告打折扣／限時最有效' };
+  }
+
+  // 混合型：兩者都有 + 諮詢型購買（高客單通常有諮詢）
+  if (business === 'both' || (decision === 'consult' && goal === 'purchase')) {
+    return { type: '混合型', priority: '分兩條線：曝光累積信任、搜尋抓主動詢問的人' };
+  }
+
+  // 比較型購買 → 電商型
+  if (goal === 'purchase') {
+    return { type: '電商型', priority: '搜尋抓「主動找的人」＋ PMax 拓量' };
+  }
+
+  // 曝光型（已有 redirect 處理）
+  return { type: '曝光型', priority: '先讓更多人看到你，累積品牌印象' };
+};
+
 // ============ RENDER STRATEGY (進階版) ============
 const renderStrategy = (r) => {
+  // 先渲染顧問分類橫條
+  const biz = getBizType();
+  document.getElementById('biz-type-text').innerHTML = `根據你的情況，你屬於「${biz.type}」<br/>建議優先：${biz.priority}`;
+
   document.getElementById('r-combo').innerHTML = r.comboDetail;
   document.getElementById('r-budget').innerHTML = r.budgetHTML;
   document.getElementById('r-order').innerHTML = r.orderHTML;
@@ -2119,6 +2202,13 @@ const setMode = (newMode) => {
   // 按鈕 active 狀態
   document.getElementById('mode-beginner').classList.toggle('active', newMode === 'beginner');
   document.getElementById('mode-advanced').classList.toggle('active', newMode === 'advanced');
+
+  // 進階版專屬提示顯示／隱藏
+  const advHint = document.getElementById('advanced-mode-hint');
+  if (advHint) {
+    if (newMode === 'advanced') advHint.classList.remove('hidden');
+    else advHint.classList.add('hidden');
+  }
 
   // 卡片顯示切換
   const beginnerCards = document.getElementById('beginner-cards');
@@ -2335,33 +2425,43 @@ document.querySelectorAll('.change-goal-btn').forEach(btn => {
 document.getElementById('awareness-force-advanced').addEventListener('click', () => setMode('advanced'));
 
 // ============ COPY GENERATION FLOW ============
-// 點「產生文案」→ 先跳產業選擇 → 選完才開始生成
-document.getElementById('btn-copy-gen').addEventListener('click', () => {
-  if (!currentResult) return;
-  document.getElementById('industry-picker').classList.remove('hidden');
-  document.getElementById('copy-result').classList.add('hidden');
-  document.getElementById('industry-picker').scrollIntoView({ behavior:'smooth', block:'start' });
+// 產業按鈕：標記選擇 + 啟用 CTA
+document.querySelectorAll('.industry-pick-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    state.industry = btn.dataset.industry;
+    // 視覺：所有按鈕清除選中、當前按鈕加選中
+    document.querySelectorAll('.industry-pick-btn').forEach(b => {
+      b.classList.remove('border-amber-500', 'bg-amber-100', 'shadow-sm');
+      b.classList.add('border-slate-200', 'bg-white');
+    });
+    btn.classList.remove('border-slate-200', 'bg-white');
+    btn.classList.add('border-amber-500', 'bg-amber-100', 'shadow-sm');
+    // 啟用 CTA
+    const cta = document.getElementById('btn-copy-gen');
+    cta.disabled = false;
+    cta.classList.remove('border-slate-300', 'text-slate-400', 'cursor-not-allowed');
+    cta.classList.add('border-blue-600', 'text-blue-600', 'hover:bg-blue-600', 'hover:text-white');
+    document.getElementById('cta-hint').textContent = '已選好產業，按鈕可以點囉！';
+  });
 });
 
-// 產業選擇按鈕 → 觸發實際生成
-document.querySelectorAll('.industry-pick-btn').forEach(btn => {
-  btn.addEventListener('click', async () => {
-    state.industry = btn.dataset.industry;
-    document.getElementById('industry-picker').classList.add('hidden');
-    document.getElementById('copy-loading').classList.remove('hidden');
-    document.getElementById('copy-loading').scrollIntoView({ behavior:'smooth', block:'start' });
+// CTA：產生文案
+document.getElementById('btn-copy-gen').addEventListener('click', async () => {
+  if (!currentResult || !state.industry) return;
+  document.getElementById('copy-result').classList.add('hidden');
+  document.getElementById('copy-loading').classList.remove('hidden');
+  document.getElementById('copy-loading').scrollIntoView({ behavior:'smooth', block:'start' });
 
-    await new Promise(r => setTimeout(r, 1500));
+  await new Promise(r => setTimeout(r, 1500));
 
-    const c = generateCopy(currentResult);
-    renderCopy(c);
-    window._copy = c;
+  const c = generateCopy(currentResult);
+  renderCopy(c);
+  window._copy = c;
 
-    document.getElementById('copy-loading').classList.add('hidden');
-    const cr = document.getElementById('copy-result');
-    cr.classList.remove('hidden');
-    cr.scrollIntoView({ behavior:'smooth', block:'start' });
-  });
+  document.getElementById('copy-loading').classList.add('hidden');
+  const cr = document.getElementById('copy-result');
+  cr.classList.remove('hidden');
+  cr.scrollIntoView({ behavior:'smooth', block:'start' });
 });
 
 // ============ TABS ============
