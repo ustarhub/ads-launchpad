@@ -507,39 +507,40 @@
       💬 這是第一版策略，先跑 14 天再調整，效果會更準
     </div>
 
-    <!-- Inline Industry Picker（產文案前選產業） -->
+    <!-- Inline Product Type Picker（產文案前選產品類型）-->
     <div id="result-industry-picker" class="bg-amber-50 border border-amber-200 rounded-2xl p-6 mb-6">
       <div class="text-center mb-4">
-        <h3 class="font-bold text-lg mb-1">✍️ 想要對應你產業的廣告文案？</h3>
-        <p class="text-sm text-slate-600">先選你的產業，文案會更貼切</p>
+        <h3 class="font-bold text-lg mb-1">✍️ 你的產品 / 服務屬於哪種？</h3>
+        <p class="text-sm text-slate-600">這會決定文案的<strong>寫法、語氣與切角</strong>，不是傳統產業分類</p>
       </div>
-      <div class="grid sm:grid-cols-3 gap-2">
-        <button class="industry-pick-btn text-left px-3 py-2.5 border-2 border-slate-200 bg-white rounded-lg hover:border-amber-500 transition" data-industry="ecommerce">
-          <div class="font-bold text-sm">📦 電商 / 網購</div>
+      <div class="grid sm:grid-cols-2 gap-2">
+        <button class="industry-pick-btn text-left px-4 py-3 border-2 border-slate-200 bg-white rounded-lg hover:border-amber-500 transition" data-industry="ecommerce" data-ptype="🟡 電商商品">
+          <div class="font-bold text-sm">🟡 電商商品（可直接購買）</div>
+          <div class="text-xs text-slate-500 mt-1">低單價 / 衝動型 / 線上下單</div>
         </button>
-        <button class="industry-pick-btn text-left px-3 py-2.5 border-2 border-slate-200 bg-white rounded-lg hover:border-amber-500 transition" data-industry="beauty">
-          <div class="font-bold text-sm">💉 醫美 / 保健 / 醫療</div>
+        <button class="industry-pick-btn text-left px-4 py-3 border-2 border-slate-200 bg-white rounded-lg hover:border-amber-500 transition" data-industry="beauty" data-ptype="🟣 美妝 / 保養 / 健康">
+          <div class="font-bold text-sm">🟣 美妝 / 保養 / 健康</div>
+          <div class="text-xs text-slate-500 mt-1">有改善效果 / 需要信任體驗</div>
         </button>
-        <button class="industry-pick-btn text-left px-3 py-2.5 border-2 border-slate-200 bg-white rounded-lg hover:border-amber-500 transition" data-industry="course">
-          <div class="font-bold text-sm">📚 課程 / 教育 / 培訓</div>
+        <button class="industry-pick-btn text-left px-4 py-3 border-2 border-slate-200 bg-white rounded-lg hover:border-amber-500 transition" data-industry="course" data-ptype="🔵 課程 / 知識產品">
+          <div class="font-bold text-sm">🔵 課程 / 知識產品</div>
+          <div class="text-xs text-slate-500 mt-1">賣技能 / 成果 / 改變</div>
         </button>
-        <button class="industry-pick-btn text-left px-3 py-2.5 border-2 border-slate-200 bg-white rounded-lg hover:border-amber-500 transition" data-industry="food">
-          <div class="font-bold text-sm">🍱 餐飲 / 食品</div>
+        <button class="industry-pick-btn text-left px-4 py-3 border-2 border-slate-200 bg-white rounded-lg hover:border-amber-500 transition" data-industry="local" data-ptype="🟢 在地服務">
+          <div class="font-bold text-sm">🟢 在地服務（需預約 / 到店）</div>
+          <div class="text-xs text-slate-500 mt-1">需到店預約 / 有地區性</div>
         </button>
-        <button class="industry-pick-btn text-left px-3 py-2.5 border-2 border-slate-200 bg-white rounded-lg hover:border-amber-500 transition" data-industry="b2b">
-          <div class="font-bold text-sm">💼 B2B 服務</div>
+        <button class="industry-pick-btn text-left px-4 py-3 border-2 border-slate-200 bg-white rounded-lg hover:border-amber-500 transition" data-industry="other" data-ptype="🟠 專業服務 / 顧問">
+          <div class="font-bold text-sm">🟠 專業服務 / 顧問</div>
+          <div class="text-xs text-slate-500 mt-1">高客單 / 需要信任溝通</div>
         </button>
-        <button class="industry-pick-btn text-left px-3 py-2.5 border-2 border-slate-200 bg-white rounded-lg hover:border-amber-500 transition" data-industry="local">
-          <div class="font-bold text-sm">🏪 實體店面服務</div>
+        <button class="industry-pick-btn text-left px-4 py-3 border-2 border-slate-200 bg-white rounded-lg hover:border-amber-500 transition" data-industry="b2b" data-ptype="🔴 B2B / 企業服務">
+          <div class="font-bold text-sm">🔴 B2B / 企業服務</div>
+          <div class="text-xs text-slate-500 mt-1">企業客戶 / 決策週期長</div>
         </button>
-        <button class="industry-pick-btn text-left px-3 py-2.5 border-2 border-slate-200 bg-white rounded-lg hover:border-amber-500 transition" data-industry="travel">
-          <div class="font-bold text-sm">✈️ 旅遊 / 飯店</div>
-        </button>
-        <button class="industry-pick-btn text-left px-3 py-2.5 border-2 border-slate-200 bg-white rounded-lg hover:border-amber-500 transition" data-industry="media">
-          <div class="font-bold text-sm">📖 出版 / 媒體 / 訂閱</div>
-        </button>
-        <button class="industry-pick-btn text-left px-3 py-2.5 border-2 border-slate-200 bg-white rounded-lg hover:border-amber-500 transition" data-industry="other">
-          <div class="font-bold text-sm">🔘 其他</div>
+        <button class="industry-pick-btn text-left px-4 py-3 border-2 border-slate-200 bg-white rounded-lg hover:border-amber-500 transition col-span-full" data-industry="other" data-ptype="⚪ 其他">
+          <div class="font-bold text-sm">⚪ 其他</div>
+          <div class="text-xs text-slate-500 mt-1">無法明確歸類，會用通用方向產出</div>
         </button>
       </div>
     </div>
@@ -735,29 +736,57 @@
 <section id="trust" class="px-6 py-20">
   <div class="max-w-4xl mx-auto text-center">
     <h2 class="text-3xl md:text-4xl font-black mb-4">這不是亂算的，是 Google Ads 實戰邏輯</h2>
-    <p class="text-slate-600 text-lg leading-relaxed mb-12">
-      這套策略來自實際 Google Ads 操盤經驗，<br/>
-      累積超過 3,000 萬廣告預算、橫跨電商／醫美／課程三大產業。<br/>
-      我們把「老手才知道的判斷」（廣告組合、出價時機、關鍵字結構）做成工具，<br/>
+    <p class="text-slate-600 text-lg leading-relaxed mb-10">
+      這套策略來自 <strong class="text-slate-900">Alice</strong> 的實戰經驗，<br/>
+      <strong class="text-blue-600">6+ 年廣告投放經驗、累積操盤破億 💰 廣告預算</strong>，<br/>
+      把「老手才知道的判斷」（廣告組合、出價時機、關鍵字結構）做成工具，<br/>
       幫助新手少走冤枉路、少燒一筆學費。
     </p>
 
+    <!-- 3 個關鍵數字 -->
     <div class="grid md:grid-cols-3 gap-6 mb-12">
       <div class="bg-slate-50 rounded-xl p-6">
-        <div class="text-4xl mb-3">🎯</div>
-        <h4 class="font-bold mb-1">3,000 萬+</h4>
+        <div class="text-4xl mb-3">💰</div>
+        <h4 class="font-bold mb-1 text-blue-600 text-2xl">破億+</h4>
         <p class="text-sm text-slate-600">Google Ads 實戰預算</p>
       </div>
       <div class="bg-slate-50 rounded-xl p-6">
-        <div class="text-4xl mb-3">📚</div>
-        <h4 class="font-bold mb-1">200+ 品牌</h4>
-        <p class="text-sm text-slate-600">電商／醫美／課程實際案例</p>
+        <div class="text-4xl mb-3">📊</div>
+        <h4 class="font-bold mb-1 text-blue-600 text-2xl">6+ 年</h4>
+        <p class="text-sm text-slate-600">廣告投放經驗</p>
       </div>
       <div class="bg-slate-50 rounded-xl p-6">
-        <div class="text-4xl mb-3">🚀</div>
-        <h4 class="font-bold mb-1">6 大廣告類型</h4>
-        <p class="text-sm text-slate-600">搜尋／購物／PMax／YouTube／Demand Gen／多媒體再行銷</p>
+        <div class="text-4xl mb-3">🏆</div>
+        <h4 class="font-bold mb-1 text-blue-600 text-2xl">4 大領域</h4>
+        <p class="text-sm text-slate-600">橫跨產業實戰經驗</p>
       </div>
+    </div>
+
+    <!-- 橫跨產業領域 -->
+    <div class="bg-slate-50 rounded-2xl p-6 md:p-8 mb-12">
+      <h3 class="text-lg font-bold mb-5 text-slate-900">橫跨多產業成效成長實戰經驗</h3>
+      <div class="grid sm:grid-cols-2 gap-3 max-w-2xl mx-auto text-left">
+        <div class="bg-white rounded-lg p-3 border border-slate-200">
+          <div class="font-bold text-blue-700 text-sm mb-0.5">🛒 電商消費</div>
+          <div class="text-xs text-slate-600">寵物・嬰幼兒・食品</div>
+        </div>
+        <div class="bg-white rounded-lg p-3 border border-slate-200">
+          <div class="font-bold text-blue-700 text-sm mb-0.5">💄 美妝保健</div>
+          <div class="text-xs text-slate-600">保養・醫美・保健食品</div>
+        </div>
+        <div class="bg-white rounded-lg p-3 border border-slate-200">
+          <div class="font-bold text-blue-700 text-sm mb-0.5">💻 科技家電</div>
+          <div class="text-xs text-slate-600">3C・科技・家電</div>
+        </div>
+        <div class="bg-white rounded-lg p-3 border border-slate-200">
+          <div class="font-bold text-blue-700 text-sm mb-0.5">🏥 醫療服務</div>
+          <div class="text-xs text-slate-600">牙醫・醫療產業</div>
+        </div>
+      </div>
+      <p class="text-sm text-slate-700 mt-6 leading-relaxed">
+        擅長從<strong>數據洞察到策略落地</strong>，<br/>
+        <strong class="text-blue-600">讓廣告不只是曝光，而是穩定帶來營收</strong>
+      </p>
     </div>
 
     <!-- 想學完整 Google Ads 還要學什麼 -->
