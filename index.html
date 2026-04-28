@@ -2209,7 +2209,9 @@ const renderCopy = (c) => {
 
 // ============ GENERATE BUTTON ============
 document.getElementById('btn-generate').addEventListener('click', async () => {
-  if (Object.values(state).some(v => !v)) return;
+  // 檢查 5 個必填欄位（industry 在產文案時才填，不在這裡檢查）
+  const required = ['decision', 'business', 'goal', 'budget', 'assets'];
+  if (required.some(k => !state[k])) return;
 
   document.getElementById('result').classList.add('hidden');
   document.getElementById('copy-result').classList.add('hidden');
