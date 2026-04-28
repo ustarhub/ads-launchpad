@@ -150,9 +150,9 @@
           <option value="course">課程 / 教育 / 培訓</option>
           <option value="food">餐飲 / 食品</option>
           <option value="b2b">B2B 服務 / 企業客戶</option>
-          <option value="local">在地服務（美業／健身／補教等）</option>
+          <option value="local">實體店面服務（美業／健身／補教／維修）</option>
           <option value="travel">旅遊 / 飯店 / 運輸</option>
-          <option value="media">文創 / 媒體 / 出版</option>
+          <option value="media">出版／媒體／訂閱（書／電子書／Podcast）</option>
           <option value="other">其他</option>
         </select>
         <p class="text-sm text-slate-500 mt-2">💡 選擇最接近的類型即可，不用 100% 對應</p>
@@ -206,15 +206,20 @@
           <span class="w-7 h-7 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center text-sm">4</span>
           你手上有素材嗎？
         </label>
-        <div class="grid grid-cols-2 gap-3">
-          <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4 text-center" data-q="assets" data-value="yes">
+        <div class="grid grid-cols-3 gap-3">
+          <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4 text-center" data-q="assets" data-value="full">
             <div class="emoji text-3xl mb-1">🎬</div>
-            <div class="font-bold">已有圖片 / 影片</div>
-            <div class="text-xs text-slate-500 mt-1">商品照、Logo、短影音都算</div>
+            <div class="font-bold">圖片＋影片</div>
+            <div class="text-xs text-slate-500 mt-1">兩種都有</div>
           </div>
-          <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4 text-center" data-q="assets" data-value="no">
+          <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4 text-center" data-q="assets" data-value="images">
+            <div class="emoji text-3xl mb-1">🖼️</div>
+            <div class="font-bold">只有圖片</div>
+            <div class="text-xs text-slate-500 mt-1">商品照、設計圖</div>
+          </div>
+          <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4 text-center" data-q="assets" data-value="none">
             <div class="emoji text-3xl mb-1">📭</div>
-            <div class="font-bold">幾乎沒有素材</div>
+            <div class="font-bold">都沒有</div>
             <div class="text-xs text-slate-500 mt-1">會給你補救方案</div>
           </div>
         </div>
@@ -341,9 +346,9 @@
           </div>
         </div>
         <div class="text-sm">
-          <strong>🎯 出價策略：</strong>選「最大化轉換」
+          <strong>🎯 出價策略：</strong>新帳戶起手選「<strong class="text-blue-600">盡量爭取點擊</strong>」
           <div class="mt-2 bg-amber-50 border-l-2 border-amber-400 rounded px-3 py-2 text-xs text-amber-900">
-            <strong>人話翻譯：</strong>讓 Google 自己決定每次點擊出多少錢。新手別手動，會被中老手吃豆腐。
+            <strong>人話翻譯：</strong>新帳戶沒轉換資料，先衝流量＋累積關鍵字。等到第 3 週累積 10+ 轉換後，再切「<strong>盡量爭取轉換</strong>」交給 Google 自動優化。
           </div>
         </div>
       </div>
@@ -360,7 +365,7 @@
             <p class="text-sm text-red-800 leading-relaxed pl-5">等於蒙著眼睛開車——投了沒辦法知道哪個關鍵字有效，永遠優化不了。</p>
           </div>
           <div>
-            <div class="font-bold text-red-900 mb-1">❌ 用「廣泛比對」+ 手動 CPC</div>
+            <div class="font-bold text-red-900 mb-1">❌ 用「廣泛比對」+「手動單次點擊出價」</div>
             <p class="text-sm text-red-800 leading-relaxed pl-5">預算 24 小時內燒光（最常見錯誤）。<strong>人話：</strong>新手關鍵字務必用「詞組比對」（包含配對），別用模糊的廣泛比對。</p>
           </div>
           <div>
@@ -668,13 +673,121 @@ document.querySelectorAll('.option-card').forEach(card => {
 });
 
 // ============ STRATEGY GENERATION (mock) ============
-const industryName = { ecommerce:'電商', beauty:'醫美 / 保健', course:'課程 / 教育', food:'餐飲 / 食品', b2b:'B2B 服務', local:'在地服務', travel:'旅遊 / 飯店', media:'文創 / 媒體', other:'其他' };
+const industryName = { ecommerce:'電商', beauty:'醫美 / 保健', course:'課程 / 教育', food:'餐飲 / 食品', b2b:'B2B 服務', local:'實體店面服務', travel:'旅遊 / 飯店', media:'出版 / 媒體 / 訂閱', other:'其他' };
 const goalName = { awareness:'曝光', leads:'名單', purchase:'購買' };
 const budgetMap = {
   under1: { label:'1 萬以下', amount:8000 },
   '1to5': { label:'1–5 萬', amount:30000 },
   '5to10': { label:'5–10 萬', amount:75000 },
   over10: { label:'10 萬以上', amount:150000 },
+};
+
+// ============ 動態組合建構（取代靜態矩陣的 campaigns）============
+// 9 種廣告類型：搜尋廣告／搜尋廣告-品牌字／PMax／PMax（購物廣告）／PMax（地區廣告）／多媒體廣告／多媒體廣告（再行銷）／需求廣告／YouTube 影片廣告
+
+const getPMaxVariant = (industry, goal) => {
+  if (industry === 'ecommerce' || (industry === 'food' && goal === 'purchase')) return 'PMax（購物廣告）';
+  // 有實體店面的產業 → PMax（地區廣告）
+  const hasPhysicalLoc = ['local', 'beauty'].includes(industry)
+    || (industry === 'food' && goal !== 'purchase')
+    || (industry === 'travel' && goal === 'leads');
+  if (hasPhysicalLoc) return 'PMax（地區廣告）';
+  if (goal === 'purchase' && ['course', 'travel'].includes(industry)) return 'PMax';
+  return null;
+};
+
+// 需求廣告適用情境：B2B 任目標 + 醫美/課程/出版媒體 名單型
+const isDemandGenApplicable = (industry, goal) => {
+  if (industry === 'b2b') return true;
+  if (goal === 'leads' && ['beauty', 'course', 'media'].includes(industry)) return true;
+  return false;
+};
+
+const budgetTierIndex = (budget) => ['under1', '1to5', '5to10', 'over10'].indexOf(budget);
+
+// 進階版動態組合（看素材 + 預算）
+const buildAdvancedCampaigns = (industry, goal, assets, budget) => {
+  const tier = budgetTierIndex(budget);
+  const pmax = getPMaxVariant(industry, goal);
+  const hasImages = assets === 'images' || assets === 'full';
+  const hasVideo = assets === 'full';
+
+  // Tier 0 (1萬以下)：只給搜尋（電商例外可保 PMax 購物，因有商品圖庫）
+  if (tier === 0) {
+    if (pmax === 'PMax（購物廣告）' && assets !== 'none') {
+      return [['搜尋廣告', 60], [pmax, 40]];
+    }
+    return [['搜尋廣告', 100]];
+  }
+
+  // 都沒有素材：只給文字型
+  if (assets === 'none') {
+    if (pmax === 'PMax（購物廣告）') {
+      return [['搜尋廣告', 60], [pmax, 40]];
+    }
+    return [['搜尋廣告', 100]];
+  }
+
+  // Tier 1 (1-5萬)：搜尋 + PMax + 至多 1 種輔助（多媒體再行銷）
+  if (tier === 1) {
+    const c = [];
+    if (pmax === 'PMax（地區廣告）') {
+      c.push([pmax, 45]);
+      c.push(['搜尋廣告', 35]);
+    } else if (pmax) {
+      c.push(['搜尋廣告', 50]);
+      c.push([pmax, 30]);
+    } else {
+      c.push(['搜尋廣告', 70]);
+    }
+    if (hasImages) c.push(['多媒體廣告（再行銷）', 20]);
+    return normalizeWeights(c);
+  }
+
+  // Tier 2+ (5-10萬以上)：完整組合
+  const c = [];
+  if (pmax === 'PMax（地區廣告）') {
+    c.push([pmax, 35]);
+    c.push(['搜尋廣告', 25]);
+  } else if (pmax) {
+    c.push(['搜尋廣告', 35]);
+    c.push([pmax, 25]);
+  } else {
+    c.push(['搜尋廣告', 45]);
+  }
+  if (hasImages) c.push(['多媒體廣告（再行銷）', 18]);
+  if (hasImages && isDemandGenApplicable(industry, goal)) c.push(['需求廣告', 15]);
+  if (hasVideo && tier >= 2) c.push(['YouTube 影片廣告', 15]);
+
+  return normalizeWeights(c);
+};
+
+// 新手版動態組合（只給搜尋 + PMax）
+const buildBeginnerCampaigns = (industry, goal, assets, budget) => {
+  const tier = budgetTierIndex(budget);
+  const pmax = getPMaxVariant(industry, goal);
+
+  // 都沒有素材或預算 1 萬以下：只給搜尋（電商例外）
+  if (assets === 'none' || tier === 0) {
+    if (pmax === 'PMax（購物廣告）' && assets !== 'none') {
+      return [['搜尋廣告', 60], [pmax, 40]];
+    }
+    return [['搜尋廣告', 100]];
+  }
+
+  // 有素材 + 預算 1 萬以上：搜尋 + PMax
+  if (pmax === 'PMax（地區廣告）') {
+    return [[pmax, 50], ['搜尋廣告', 50]];
+  }
+  if (pmax) {
+    return [['搜尋廣告', 60], [pmax, 40]];
+  }
+  return [['搜尋廣告', 100]];
+};
+
+const normalizeWeights = (campaigns) => {
+  const total = campaigns.reduce((s, c) => s + c[1], 0);
+  return campaigns.map(c => [c[0], Math.round(c[1] * 100 / total)]);
 };
 
 // 產業 × 目標 → Google Ads 廣告類型組合矩陣
@@ -726,11 +839,26 @@ const comboMatrix = {
   },
 };
 
-// 出價策略對應
+// 出價策略對應（用 Google Ads 後台官方名稱，3 階段進化）
 const bidStrategy = {
-  purchase: { primary:'目標 ROAS（轉換量 50+ 後切換）', start:'最大化轉換（0–50 筆轉換期）', why:'新帳戶轉換不足時用最大化轉換衝量，累積 50 筆以上再切目標 ROAS 控成本。' },
-  leads:    { primary:'目標單次客戶開發出價（目標 CPA）', start:'最大化轉換', why:'名單目標重視「每筆名單成本」，先用最大化轉換累積資料，30 筆名單後切目標 CPA。' },
-  awareness:{ primary:'目標千次曝光出價（tCPM）', start:'最大化曝光次數', why:'品牌曝光看的是觸及，用 CPM 邏輯出價最划算。' },
+  purchase: {
+    phase1: '盡量爭取點擊',
+    phase2: '盡量爭取轉換',
+    phase3: '盡量提高轉換價值（可加目標 ROAS）',
+    why: '新帳戶 0 轉換資料時用「盡量爭取點擊」衝流量＋累積關鍵字數據；累積 10+ 轉換後切「盡量爭取轉換」；30+ 轉換後再切「盡量提高轉換價值」控 ROAS。'
+  },
+  leads: {
+    phase1: '盡量爭取點擊',
+    phase2: '盡量爭取轉換',
+    phase3: '盡量爭取轉換（可加目標 CPA）',
+    why: '名單目標看「每筆名單成本」，先用「盡量爭取點擊」累積流量、再切「盡量爭取轉換」、30 筆名單後加「目標 CPA」控成本。'
+  },
+  awareness: {
+    phase1: '目標曝光比重',
+    phase2: '目標曝光比重',
+    phase3: '目標曝光比重',
+    why: '品牌曝光直接用「目標曝光比重」設定希望多少比例的搜尋場景出現你的廣告。'
+  },
 };
 
 // 產業關鍵字範例
@@ -754,29 +882,16 @@ const generateStrategy = () => {
   const isEcom = state.industry === 'ecommerce';
   const isLowBudget = state.budget === 'under1';
 
-  // ===== 投放組合 =====
+  // ===== 投放組合（用新的動態建構函式）=====
   const matrix = JSON.parse(JSON.stringify(comboMatrix[state.industry][state.goal]));
+  matrix.campaigns = buildAdvancedCampaigns(state.industry, state.goal, state.assets, state.budget);
+
+  // 素材／預算提示訊息
   let assetWarning = '';
-
-  // 沒素材 → 移除所有需要圖片／影片的廣告，第一個月先用純文字（搜尋／購物／商家檔案）
-  if (!hasAssets) {
-    const VISUAL_KEYWORDS = ['YouTube', 'Demand Gen', '影片', 'Performance Max', '多媒體廣告', '顯示廣告'];
-    const removed = [];
-    matrix.campaigns = matrix.campaigns.filter(c => {
-      const isVisual = VISUAL_KEYWORDS.some(k => c[0].includes(k));
-      if (isVisual) removed.push(c);
-      return !isVisual;
-    });
-
-    if (removed.length > 0) {
-      if (matrix.campaigns.length === 0) {
-        matrix.campaigns = [['搜尋廣告', 100]];
-      } else {
-        const total = matrix.campaigns.reduce((a,b)=>a+b[1], 0);
-        matrix.campaigns = matrix.campaigns.map(c => [c[0], Math.round(c[1] * 100 / total)]);
-      }
-      assetWarning = `<div class="bg-orange-50 border border-orange-200 rounded-lg p-3 text-xs text-orange-900 mt-3 leading-relaxed">⚠️ <strong>素材不足調整：</strong>第一個月先用純文字型廣告（${matrix.campaigns.map(c=>c[0]).join('、')}），暫時跑不了 <strong>${removed.map(r=>r[0]).join('、')}</strong>（需要圖片／影片素材）。<br/><br/>📅 <strong>Week 3 加碼建議：</strong>用 Canva 做 <strong>5 張橫圖（1200×628）+ 5 張方圖（1200×1200）</strong>（每張 5 分鐘搞定），就能加碼<strong>多媒體廣告（再行銷）</strong>把看過你網站的人拉回來，或加 Demand Gen 拓量。</div>`;
-    }
+  if (state.assets === 'none') {
+    assetWarning = `<div class="bg-orange-50 border border-orange-200 rounded-lg p-3 text-xs text-orange-900 mt-3 leading-relaxed">⚠️ <strong>無素材策略：</strong>第一個月只跑文字型廣告，暫時跑不了視覺型廣告。<br/><br/>📅 <strong>Week 3 加碼建議：</strong>用 Canva 做 <strong>5 張橫圖（1200×628）+ 5 張方圖（1200×1200）</strong>（每張 5 分鐘），就能加碼<strong>多媒體廣告（再行銷）</strong>把看過你網站的人拉回來。</div>`;
+  } else if (isLowBudget) {
+    assetWarning = `<div class="bg-orange-50 border border-orange-200 rounded-lg p-3 text-xs text-orange-900 mt-3 leading-relaxed">⚠️ <strong>低預算策略：</strong>1 萬以下集中跑搜尋廣告效果最好，學習數據夠了再加碼其他類型。</div>`;
   }
 
   const comboDetail = `<strong class="text-blue-600 block mb-2">推薦：${matrix.campaigns.map(c=>c[0]).join(' + ')}</strong>${matrix.note}${assetWarning}`;
@@ -792,8 +907,9 @@ const generateStrategy = () => {
     <p class="font-medium mb-2">總預算 ${bud.label}（每日約 ${dailyTotal.toLocaleString()} 元）</p>
     <ul class="space-y-1 mb-3">${allocList}</ul>
     <div class="bg-slate-50 rounded-lg p-3 text-xs space-y-1">
-      <div><strong>起手出價策略：</strong>${bid.start}</div>
-      <div><strong>進階切換：</strong>${bid.primary}</div>
+      <div><strong>Phase 1 起手（0 轉換）：</strong>${bid.phase1}</div>
+      <div><strong>Phase 2（10+ 轉換）：</strong>${bid.phase2}</div>
+      <div><strong>Phase 3（30+ 轉換）：</strong>${bid.phase3}</div>
       <div class="text-slate-500 mt-1">📌 ${bid.why}</div>
     </div>
     ${isLowBudget ? '<p class="text-xs text-orange-600 mt-2">⚠️ 預算 1 萬以下不建議跑 PMax，集中搜尋廣告效果最好</p>' : ''}
@@ -826,7 +942,7 @@ const generateStrategy = () => {
   const keywordsHTML = `
     <div>
       <strong class="block mb-1">建議比對類型</strong>
-      <span class="text-xs text-slate-600">先用「<strong>詞組比對</strong>」為主（70%）+「<strong>完全比對</strong>」高意圖字（30%），<strong>避開廣泛比對</strong>除非搭配智慧出價。</span>
+      <span class="text-xs text-slate-600">先用「<strong>詞組比對</strong>」為主（70%）+「<strong>完全比對</strong>」高意圖字（30%），<strong>避開廣泛比對</strong>除非搭配「盡量爭取轉換」自動出價。</span>
     </div>
     <div>
       <strong class="block mb-1">關鍵字結構</strong>
@@ -855,12 +971,13 @@ const generateStrategy = () => {
       ? '✅ 上傳<strong>多尺寸圖片（1200x628 / 1200x1200 / 960x1200）</strong>給 PMax 自動配版位'
       : '✅ 沒素材先用 Canva 做 <strong>3 張橫圖 + 3 張方圖</strong>，搜尋廣告 + 動態素材就能跑',
     '✅ 第 4 週開始建立<strong>「網站訪客」與「加入購物車」再行銷名單</strong>',
+    '✅ <strong>已有品牌知名度</strong>的話，可另開「<strong>搜尋廣告-品牌字</strong>」活動專跑品牌字（CPC 便宜＋防競品搶字）',
   ];
 
   // ===== Google Ads 新手地雷 =====
   const traps = [
-    '❌ <strong>用「廣泛比對」+ 手動 CPC</strong> → 預算 24 小時內燒光（最常見）',
-    '❌ <strong>沒設轉換追蹤就開智慧出價</strong> → 機器沒目標亂出價',
+    '❌ <strong>用「廣泛比對」+「手動單次點擊出價」</strong> → 預算 24 小時內燒光（最常見）',
+    '❌ <strong>沒設轉換追蹤就開「盡量爭取轉換」</strong> → 機器沒目標亂出價',
     isLowBudget
       ? '❌ <strong>預算 1 萬以下卻押 PMax</strong> → 機器學習資料不夠，跑不出效果'
       : '❌ <strong>把全部預算丟 PMax</strong> → 黑盒子難優化、搜尋詞報告看不到',
@@ -1767,18 +1884,8 @@ const renderBeginnerStrategy = () => {
   const original = comboMatrixBeginner[state.industry] && comboMatrixBeginner[state.industry][state.goal];
   if (!original) return;
   const beg = JSON.parse(JSON.stringify(original));
-  const hasAssets = state.assets === 'yes';
-
-  // 沒素材 → 移除 PMax（需要圖片）
-  if (!hasAssets) {
-    beg.campaigns = beg.campaigns.filter(c => !c[0].includes('Performance Max'));
-    if (beg.campaigns.length === 0) {
-      beg.campaigns = [['搜尋廣告', 100]];
-    } else {
-      const total = beg.campaigns.reduce((a,b) => a+b[1], 0);
-      beg.campaigns = beg.campaigns.map(c => [c[0], Math.round(c[1] * 100 / total)]);
-    }
-  }
+  // 用新的動態建構函式覆蓋 campaigns
+  beg.campaigns = buildBeginnerCampaigns(state.industry, state.goal, state.assets, state.budget);
 
   // 一句話
   document.getElementById('b-oneliner').textContent = beg.oneLiner;
@@ -1788,10 +1895,12 @@ const renderBeginnerStrategy = () => {
 
   // 推薦組合（含人話翻譯）
   const translations = {
-    'Performance Max': '全自動廣告',
-    '購物廣告（Shopping）': '電商必備（顯示商品圖片+價格）',
-    'Google 商家檔案': '免費！設定後出現在地圖搜尋',
-    '搜尋廣告（地區）': '搜尋廣告（限定 5-10 公里內）',
+    'PMax': '全自動廣告（一個活動跑遍 Google 全平台）',
+    'PMax（購物廣告）': '電商版 PMax（顯示商品圖片+價格）',
+    'PMax（地區廣告）': '在地版 PMax（鎖定店面周邊客群）',
+    '多媒體廣告（再行銷）': '追蹤廣告（追看過你網站的人）',
+    '需求廣告': '在 YouTube／Discover 動態觸及潛在客群',
+    'YouTube 影片廣告': 'YouTube 觀看前的影片廣告',
   };
   const dailyTotal = Math.round(bud.amount / 30);
   document.getElementById('b-combo-list').innerHTML = beg.campaigns.map(c => {
