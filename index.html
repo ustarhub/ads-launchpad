@@ -84,7 +84,7 @@
         30 秒幫你做出第一版投放策略
       </p>
       <p class="text-lg text-slate-600 mb-8 leading-relaxed">
-        輸入 4 個基本資訊<br/>
+        輸入 5 個基本資訊<br/>
         幫你規劃「廣告類型 × 預算 × 投放順序」<br/>
         不用學很久，也能開始投廣告
       </p>
@@ -294,7 +294,7 @@
     <p id="loading-hint" class="text-sm text-slate-500 mb-8 transition-opacity">正在比對 3,000+ 真實投放案例…</p>
 
     <!-- 底部小字 -->
-    <p class="text-xs text-slate-400">約需 8 秒，AI 正在認真幫你做策略規劃</p>
+    <p class="text-xs text-slate-400">約需 10–15 秒，依實戰投放經驗為你做策略規劃</p>
   </div>
 </section>
 
@@ -306,7 +306,7 @@
         ✅ 策略已生成
       </div>
       <h2 class="text-3xl md:text-4xl font-black mb-3">📋 你的專屬投放策略</h2>
-      <p class="text-slate-600">根據你的條件，AI 為你客製化的第一版投放規劃</p>
+      <p class="text-slate-600">根據你的條件，依實戰經驗為你客製的第一版投放規劃</p>
     </div>
 
     <!-- Mode Toggle -->
@@ -2253,7 +2253,7 @@ document.getElementById('btn-generate').addEventListener('click', async () => {
     '正在比對你產業的成功案例…',
   ];
 
-  const TOTAL_MS = 8000;
+  const TOTAL_MS = 12000;
   const startTime = Date.now();
   let currentStage = -1;
   const stageEl = document.getElementById('loading-stage');
