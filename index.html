@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ads Launchpad｜Google Ads 新手投放生成器</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  body { font-family: 'Noto Sans TC', 'Inter', sans-serif; }
+  .fade-in { animation: fadeIn 0.6s ease-out forwards; opacity: 0; }
+  .fade-in-1 { animation-delay: 0.1s; }
+  .fade-in-2 { animation-delay: 0.25s; }
+  .fade-in-3 { animation-delay: 0.4s; }
+  .fade-in-4 { animation-delay: 0.55s; }
+  .fade-in-5 { animation-delay: 0.7s; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .option-card { transition: all 0.2s; }
+  .option-card.selected {
+    border-color: #2563EB;
+    background: #EFF6FF;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+  }
+  .option-card.selected .emoji { transform: scale(1.15); }
+  .emoji { transition: transform 0.2s; display: inline-block; }
+  .progress-bar { transition: width 0.4s ease; }
+  .tab-btn.active {
+    color: #2563EB;
+    border-bottom-color: #2563EB;
+    font-weight: 700;
+  }
+  .toast {
+    animation: toastIn 0.3s ease-out, toastOut 0.3s ease-in 1.7s forwards;
+  }
+  @keyframes toastIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes toastOut { from { opacity: 1; } to { opacity: 0; transform: translateY(20px); } }
+  .loading-dots span {
+    animation: dotPulse 1.4s infinite;
+    display: inline-block;
+  }
+  .loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes dotPulse {
+    0%, 80%, 100% { opacity: 0.3; }
+    40% { opacity: 1; }
+  }
+  .scroll-smooth { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; }
+</style>
+</head>
+<body class="bg-white text-slate-900">
+
+<!-- ============ NAV ============ -->
+<nav class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+    <a href="#" class="flex items-center gap-2">
+      <img src="logo-02.png" alt="Ads Launchpad" class="h-8 w-auto" />
+    </a>
+    <div class="hidden md:flex gap-8 text-sm text-slate-600">
+      <a href="#tool" class="hover:text-blue-600">工具</a>
+      <a href="#trust" class="hover:text-blue-600">案例</a>
+      <a href="#trust" class="hover:text-blue-600">課程</a>
+      <a href="#trust" class="hover:text-blue-600">聯絡我</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="px-6 py-20 md:py-28">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+    <div>
+      <div class="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm font-medium mb-6">
+        🚀 專為 Google Ads 新手設計
+      </div>
+      <h1 class="text-4xl md:text-5xl font-black leading-tight mb-6">
+        搜尋？PMax？購物？<br/>
+        <span class="text-blue-600">Google 廣告該怎麼投，AI 告訴你</span>
+      </h1>
+      <p class="text-lg text-slate-600 mb-8 leading-relaxed">
+        輸入 4 個資訊，30 秒產出「可以直接照做」的 Google Ads 投放規劃。<br/>
+        含廣告類型、預算分配、出價策略、關鍵字建議、新手地雷一次給你。
+      </p>
+      <a href="#tool" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-bold text-lg shadow-lg shadow-blue-200 transition">
+        🚀 立即產生策略
+      </a>
+      <p class="text-sm text-slate-500 mt-4">完全免費 ・ 無須註冊 ・ 30 秒完成</p>
+    </div>
+    <div class="hidden md:block">
+      <div class="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-8 shadow-xl">
+        <div class="bg-white rounded-xl p-6 shadow-md">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-2 h-2 bg-red-400 rounded-full"></div>
+            <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
+            <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+          </div>
+          <div class="space-y-3">
+            <div class="h-3 bg-slate-200 rounded w-3/4"></div>
+            <div class="h-3 bg-slate-200 rounded w-1/2"></div>
+            <div class="grid grid-cols-2 gap-2 mt-4">
+              <div class="h-12 bg-blue-100 rounded border-2 border-blue-500"></div>
+              <div class="h-12 bg-slate-100 rounded"></div>
+            </div>
+            <div class="h-10 bg-blue-600 rounded mt-4 flex items-center justify-center">
+              <span class="text-white text-sm font-bold">產生策略 ✨</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TOOL INPUT ============ -->
+<section id="tool" class="px-6 py-20 bg-slate-50">
+  <div class="max-w-2xl mx-auto">
+    <div class="text-center mb-10">
+      <h2 class="text-3xl md:text-4xl font-black mb-3">建立你的 Google Ads 策略</h2>
+      <p class="text-slate-600">不用想太多，照直覺選就好。每一題都有「最接近就好」的選項。</p>
+    </div>
+
+    <!-- Progress -->
+    <div class="mb-6">
+      <div class="flex justify-between text-sm text-slate-600 mb-2">
+        <span>填寫進度</span>
+        <span><span id="progress-text">0</span>/4</span>
+      </div>
+      <div class="h-2 bg-slate-200 rounded-full overflow-hidden">
+        <div id="progress-bar" class="h-full bg-blue-600 progress-bar" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <!-- Form Card -->
+    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 space-y-8">
+
+      <!-- Q1: Industry -->
+      <div>
+        <label class="flex items-center gap-2 font-bold text-lg mb-3">
+          <span class="w-7 h-7 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center text-sm">1</span>
+          你的產業是？
+        </label>
+        <select id="q-industry" class="w-full px-4 py-3 border border-slate-300 rounded-lg bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100">
+          <option value="">請選擇產業</option>
+          <option value="ecommerce">電商（賣實體商品）</option>
+          <option value="beauty">醫美 / 保養</option>
+          <option value="course">課程 / 服務</option>
+          <option value="other">其他</option>
+        </select>
+        <p class="text-sm text-slate-500 mt-2">💡 選擇最接近的類型即可，不用 100% 對應</p>
+      </div>
+
+      <!-- Q2: Goal -->
+      <div>
+        <label class="flex items-center gap-2 font-bold text-lg mb-3">
+          <span class="w-7 h-7 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center text-sm">2</span>
+          你最想達成什麼？
+        </label>
+        <div class="grid grid-cols-3 gap-3">
+          <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4 text-center" data-q="goal" data-value="awareness">
+            <div class="emoji text-3xl mb-1">👀</div>
+            <div class="font-bold">曝光</div>
+            <div class="text-xs text-slate-500 mt-1">讓更多人看到</div>
+          </div>
+          <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4 text-center" data-q="goal" data-value="leads">
+            <div class="emoji text-3xl mb-1">📩</div>
+            <div class="font-bold">名單</div>
+            <div class="text-xs text-slate-500 mt-1">主動來詢問</div>
+          </div>
+          <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4 text-center" data-q="goal" data-value="purchase">
+            <div class="emoji text-3xl mb-1">💰</div>
+            <div class="font-bold">購買</div>
+            <div class="text-xs text-slate-500 mt-1">直接成交</div>
+          </div>
+        </div>
+        <p class="text-sm text-slate-500 mt-2">💡 選「現在最缺的那一個」</p>
+      </div>
+
+      <!-- Q3: Budget -->
+      <div>
+        <label class="flex items-center gap-2 font-bold text-lg mb-3">
+          <span class="w-7 h-7 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center text-sm">3</span>
+          每月預算大概多少？
+        </label>
+        <select id="q-budget" class="w-full px-4 py-3 border border-slate-300 rounded-lg bg-white focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100">
+          <option value="">請選擇預算範圍</option>
+          <option value="under1">1 萬以下</option>
+          <option value="1to5">1–5 萬</option>
+          <option value="5to10">5–10 萬</option>
+          <option value="over10">10 萬以上</option>
+        </select>
+        <p class="text-sm text-slate-500 mt-2">💡 不用精準，抓大概即可。預算不同，策略會不一樣。</p>
+      </div>
+
+      <!-- Q4: Assets -->
+      <div>
+        <label class="flex items-center gap-2 font-bold text-lg mb-3">
+          <span class="w-7 h-7 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center text-sm">4</span>
+          你手上有素材嗎？
+        </label>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4 text-center" data-q="assets" data-value="yes">
+            <div class="emoji text-3xl mb-1">🎬</div>
+            <div class="font-bold">已有圖片 / 影片</div>
+            <div class="text-xs text-slate-500 mt-1">商品照、Logo、短影音都算</div>
+          </div>
+          <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4 text-center" data-q="assets" data-value="no">
+            <div class="emoji text-3xl mb-1">📭</div>
+            <div class="font-bold">幾乎沒有素材</div>
+            <div class="text-xs text-slate-500 mt-1">會給你補救方案</div>
+          </div>
+        </div>
+        <p class="text-sm text-slate-500 mt-2">💡 目前手上有什麼素材？</p>
+      </div>
+
+      <!-- Submit -->
+      <div class="text-center pt-4">
+        <button id="btn-generate" disabled class="bg-slate-300 text-white px-10 py-4 rounded-lg font-bold text-lg w-full transition cursor-not-allowed">
+          ✨ 產生我的投放策略
+        </button>
+        <p class="text-sm text-slate-500 mt-3">不用會操作，也能開始投廣告 ・ 30 秒內完成</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOADING ============ -->
+<section id="loading" class="hidden px-6 py-20">
+  <div class="max-w-2xl mx-auto text-center">
+    <div class="inline-block w-16 h-16 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin mb-6"></div>
+    <h3 class="text-2xl font-bold mb-2">AI 思考中<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span></h3>
+    <p id="loading-msg" class="text-slate-600">正在分析你的產業特性…</p>
+  </div>
+</section>
+
+<!-- ============ STRATEGY RESULT ============ -->
+<section id="result" class="hidden px-6 py-20">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-12">
+      <div class="inline-flex items-center gap-2 bg-green-50 text-green-700 px-3 py-1 rounded-full text-sm font-medium mb-4">
+        ✅ 策略已生成
+      </div>
+      <h2 class="text-3xl md:text-4xl font-black mb-3">📋 你的專屬投放策略</h2>
+      <p class="text-slate-600">以下是根據你的條件，AI 為你客製化的第一版投放規劃</p>
+    </div>
+
+    <!-- 轉換追蹤前置提醒 -->
+    <div class="fade-in fade-in-1 bg-blue-50 border border-blue-200 rounded-xl p-5 mb-6 flex items-start gap-3">
+      <div class="text-2xl">🎯</div>
+      <div class="text-sm text-blue-900 leading-relaxed">
+        <strong>投廣告前必做（Week 0）：</strong>安裝 Google Tag、設定 GA4 + Google Ads 轉換追蹤<span id="r-conv-extra"></span>。沒設轉換，等於讓 AI 蒙著眼睛幫你出價。
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-5 mb-5">
+      <!-- Card 1: 投放組合 -->
+      <div class="fade-in fade-in-1 bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+        <div class="text-3xl mb-3">📊</div>
+        <h3 class="font-bold text-lg mb-2">建議廣告活動組合</h3>
+        <p id="r-combo" class="text-slate-700 text-sm leading-relaxed"></p>
+      </div>
+      <!-- Card 2: 預算分配 -->
+      <div class="fade-in fade-in-2 bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+        <div class="text-3xl mb-3">💰</div>
+        <h3 class="font-bold text-lg mb-2">預算分配 & 出價</h3>
+        <div id="r-budget" class="text-slate-700 text-sm leading-relaxed"></div>
+      </div>
+      <!-- Card 3: 投放順序 -->
+      <div class="fade-in fade-in-3 bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+        <div class="text-3xl mb-3">🚀</div>
+        <h3 class="font-bold text-lg mb-2">投放時程（4 週）</h3>
+        <div id="r-order" class="text-slate-700 text-sm leading-relaxed space-y-2"></div>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-5 mb-8">
+      <!-- Card 4: 關鍵字策略 -->
+      <div class="fade-in fade-in-4 bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+        <div class="text-3xl mb-3">🔑</div>
+        <h3 class="font-bold text-lg mb-3">關鍵字策略</h3>
+        <div id="r-keywords" class="text-slate-700 text-sm leading-relaxed space-y-3"></div>
+      </div>
+      <!-- Card 5: 操作重點 -->
+      <div class="fade-in fade-in-5 bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+        <div class="text-3xl mb-3">🧠</div>
+        <h3 class="font-bold text-lg mb-3">操作重點</h3>
+        <ul id="r-tips" class="text-slate-700 text-sm space-y-2"></ul>
+      </div>
+      <!-- Card 6: 新手地雷 -->
+      <div class="fade-in fade-in-5 bg-red-50 border border-red-200 rounded-xl p-6">
+        <div class="text-3xl mb-3">⚠️</div>
+        <h3 class="font-bold text-lg mb-3 text-red-900">Google Ads 新手地雷</h3>
+        <ul id="r-traps" class="text-red-900 text-sm space-y-2"></ul>
+      </div>
+    </div>
+
+    <!-- Warning Banner -->
+    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center text-yellow-900 text-sm mb-8">
+      ⚠️ 這是第一版策略，實際成效需透過數據持續優化。建議跑滿 14 天再做大幅調整。
+    </div>
+
+    <!-- Next CTA -->
+    <div class="text-center">
+      <button id="btn-copy-gen" class="inline-flex items-center gap-2 border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-8 py-4 rounded-lg font-bold text-lg transition">
+        📝 產生我的廣告文案 →
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COPY LOADING ============ -->
+<section id="copy-loading" class="hidden px-6 py-16">
+  <div class="max-w-2xl mx-auto text-center">
+    <div class="inline-block w-12 h-12 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin mb-4"></div>
+    <p class="text-slate-600">正在生成你的廣告文案…</p>
+  </div>
+</section>
+
+<!-- ============ COPYWRITING RESULT ============ -->
+<section id="copy-result" class="hidden px-6 py-20 bg-slate-50">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-black mb-3">✍️ 你的廣告文案包</h2>
+      <p class="text-slate-600">直接複製、稍作調整就能上架使用</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="flex gap-1 border-b border-slate-200 mb-6 overflow-x-auto">
+      <button class="tab-btn active px-5 py-3 border-b-2 border-transparent text-slate-600 whitespace-nowrap" data-tab="titles">搜尋標題 (15)</button>
+      <button class="tab-btn px-5 py-3 border-b-2 border-transparent text-slate-600 whitespace-nowrap" data-tab="descs">搜尋描述 (4)</button>
+      <button class="tab-btn px-5 py-3 border-b-2 border-transparent text-slate-600 whitespace-nowrap" data-tab="extras">額外資訊</button>
+      <button class="tab-btn px-5 py-3 border-b-2 border-transparent text-slate-600 whitespace-nowrap" data-tab="angles">三種角度</button>
+      <button class="tab-btn px-5 py-3 border-b-2 border-transparent text-slate-600 whitespace-nowrap" data-tab="script">YouTube 腳本</button>
+    </div>
+
+    <!-- Tab: Titles -->
+    <div id="tab-titles" class="tab-content bg-white rounded-xl border border-slate-200 p-6">
+      <div class="flex justify-between items-center mb-4">
+        <div>
+          <h3 class="font-bold">搜尋廣告標題</h3>
+          <p class="text-xs text-slate-500 mt-1">Google Ads 規格：每則限 30 字元，至少需提供 3 則、建議填滿 15 則供機器輪播</p>
+        </div>
+        <button class="copy-btn text-sm text-blue-600 hover:text-blue-700 font-medium" data-copy="titles">📋 複製全部</button>
+      </div>
+      <ol id="list-titles" class="grid md:grid-cols-2 gap-x-6 gap-y-2 text-sm text-slate-700 list-decimal list-inside"></ol>
+    </div>
+
+    <!-- Tab: Descriptions -->
+    <div id="tab-descs" class="tab-content hidden bg-white rounded-xl border border-slate-200 p-6">
+      <div class="flex justify-between items-center mb-4">
+        <div>
+          <h3 class="font-bold">搜尋廣告描述</h3>
+          <p class="text-xs text-slate-500 mt-1">Google Ads 規格：每則限 90 字元，至少需提供 2 則、建議填滿 4 則</p>
+        </div>
+        <button class="copy-btn text-sm text-blue-600 hover:text-blue-700 font-medium" data-copy="descs">📋 複製全部</button>
+      </div>
+      <div id="list-descs" class="space-y-4 text-sm"></div>
+    </div>
+
+    <!-- Tab: Extras (Sitelinks / Callouts / Snippets) -->
+    <div id="tab-extras" class="tab-content hidden bg-white rounded-xl border border-slate-200 p-6">
+      <h3 class="font-bold mb-1">額外資訊（資產）</h3>
+      <p class="text-xs text-slate-500 mb-4">在搜尋結果增加版面、提升 CTR 10–20%，<strong>新手必設</strong></p>
+      <div id="list-extras" class="space-y-5 text-sm"></div>
+    </div>
+
+    <!-- Tab: Angles -->
+    <div id="tab-angles" class="tab-content hidden bg-white rounded-xl border border-slate-200 p-6">
+      <h3 class="font-bold mb-1">三種文案角度</h3>
+      <p class="text-xs text-slate-500 mb-4">把同一個產品從三種觀點寫，A/B 測試找出最有效的</p>
+      <div id="list-angles" class="space-y-4 text-sm"></div>
+    </div>
+
+    <!-- Tab: Script -->
+    <div id="tab-script" class="tab-content hidden bg-white rounded-xl border border-slate-200 p-6">
+      <div class="flex justify-between items-center mb-4">
+        <div>
+          <h3 class="font-bold">YouTube 30 秒影片腳本</h3>
+          <p class="text-xs text-slate-500 mt-1">適用：YouTube 可略過串流廣告（前 5 秒必須抓住注意力）</p>
+        </div>
+        <button class="copy-btn text-sm text-blue-600 hover:text-blue-700 font-medium" data-copy="script">📋 複製腳本</button>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="bg-slate-50 text-slate-600">
+              <th class="text-left p-3 font-medium">秒數</th>
+              <th class="text-left p-3 font-medium">畫面</th>
+              <th class="text-left p-3 font-medium">旁白／字卡</th>
+            </tr>
+          </thead>
+          <tbody id="list-script" class="divide-y divide-slate-100"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST & FOOTER ============ -->
+<section id="trust" class="px-6 py-20">
+  <div class="max-w-4xl mx-auto text-center">
+    <h2 class="text-3xl md:text-4xl font-black mb-4">這不是亂算的，是 Google Ads 實戰邏輯</h2>
+    <p class="text-slate-600 text-lg leading-relaxed mb-12">
+      這套策略來自實際 Google Ads 操盤經驗，<br/>
+      累積超過 3,000 萬廣告預算、橫跨電商／醫美／課程三大產業。<br/>
+      我們把「老手才知道的判斷」（廣告組合、出價時機、關鍵字結構）做成工具，<br/>
+      幫助新手少走冤枉路、少燒一筆學費。
+    </p>
+
+    <div class="grid md:grid-cols-3 gap-6 mb-12">
+      <div class="bg-slate-50 rounded-xl p-6">
+        <div class="text-4xl mb-3">🎯</div>
+        <h4 class="font-bold mb-1">3,000 萬+</h4>
+        <p class="text-sm text-slate-600">Google Ads 實戰預算</p>
+      </div>
+      <div class="bg-slate-50 rounded-xl p-6">
+        <div class="text-4xl mb-3">📚</div>
+        <h4 class="font-bold mb-1">200+ 品牌</h4>
+        <p class="text-sm text-slate-600">電商／醫美／課程實際案例</p>
+      </div>
+      <div class="bg-slate-50 rounded-xl p-6">
+        <div class="text-4xl mb-3">🚀</div>
+        <h4 class="font-bold mb-1">6 大廣告類型</h4>
+        <p class="text-sm text-slate-600">搜尋／購物／PMax／YouTube／Demand Gen／再行銷</p>
+      </div>
+    </div>
+
+    <h3 class="text-xl font-bold mb-6">想要更完整教學？</h3>
+    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+      <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-bold transition">
+        🎓 加入新手實戰課程
+      </a>
+      <a href="#" class="border-2 border-slate-300 hover:border-blue-600 hover:text-blue-600 px-8 py-4 rounded-lg font-bold transition">
+        📞 預約 1 對 1 顧問
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="border-t border-slate-200 py-8 px-6 text-center text-sm text-slate-500">
+  <p>© 2026 Ads Launchpad ・ <a href="#" class="hover:text-blue-600">隱私權政策</a> ・ <a href="#" class="hover:text-blue-600">服務條款</a></p>
+</footer>
+
+<!-- Toast -->
+<div id="toast" class="hidden fixed bottom-8 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-5 py-3 rounded-lg shadow-lg z-50">
+  <span id="toast-msg">已複製 ✓</span>
+</div>
+
+<script>
+// ============ STATE ============
+const state = { industry: '', goal: '', budget: '', assets: '' };
+let currentResult = null;
+
+// ============ FORM HANDLING ============
+const updateProgress = () => {
+  const filled = Object.values(state).filter(v => v !== '').length;
+  document.getElementById('progress-text').textContent = filled;
+  document.getElementById('progress-bar').style.width = (filled / 4 * 100) + '%';
+
+  const btn = document.getElementById('btn-generate');
+  if (filled === 4) {
+    btn.disabled = false;
+    btn.classList.remove('bg-slate-300', 'cursor-not-allowed');
+    btn.classList.add('bg-blue-600', 'hover:bg-blue-700', 'shadow-lg', 'shadow-blue-200', 'cursor-pointer');
+  } else {
+    btn.disabled = true;
+    btn.classList.add('bg-slate-300', 'cursor-not-allowed');
+    btn.classList.remove('bg-blue-600', 'hover:bg-blue-700', 'shadow-lg', 'shadow-blue-200', 'cursor-pointer');
+  }
+};
+
+document.getElementById('q-industry').addEventListener('change', e => { state.industry = e.target.value; updateProgress(); });
+document.getElementById('q-budget').addEventListener('change', e => { state.budget = e.target.value; updateProgress(); });
+
+document.querySelectorAll('.option-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const q = card.dataset.q;
+    document.querySelectorAll(`[data-q="${q}"]`).forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    state[q] = card.dataset.value;
+    updateProgress();
+  });
+});
+
+// ============ STRATEGY GENERATION (mock) ============
+const industryName = { ecommerce:'電商', beauty:'醫美 / 保養', course:'課程 / 服務', other:'其他' };
+const goalName = { awareness:'曝光', leads:'名單', purchase:'購買' };
+const budgetMap = {
+  under1: { label:'1 萬以下', amount:8000 },
+  '1to5': { label:'1–5 萬', amount:30000 },
+  '5to10': { label:'5–10 萬', amount:75000 },
+  over10: { label:'10 萬以上', amount:150000 },
+};
+
+// 產業 × 目標 → Google Ads 廣告類型組合矩陣
+const comboMatrix = {
+  ecommerce: {
+    purchase: { campaigns:[['購物廣告（Shopping）',45],['Performance Max',35],['搜尋廣告（品牌字+商品字）',20]], note:'電商衝購買的黃金組合：購物廣告抓比價買家、PMax 自動拓量、搜尋廣告守品牌字。前提是要先設好 Google Merchant Center。' },
+    leads:    { campaigns:[['搜尋廣告',60],['Demand Gen（探索廣告）',40]], note:'用搜尋抓主動找產品的高意圖客戶，Demand Gen 觸及 YouTube／Discover／Gmail 上的潛在買家。' },
+    awareness:{ campaigns:[['YouTube 影片廣告（可略過）',55],['Demand Gen',45]], note:'品牌曝光走影音 + 動態素材的組合，搭配再行銷把看過的人引回站。' },
+  },
+  beauty: {
+    purchase: { campaigns:[['搜尋廣告（地區設定）',50],['Demand Gen',30],['再行銷（Display）',20]], note:'醫美保養多為高客單，搜尋抓「療程名+地區」高意圖字，Demand Gen 觸及保養族，再行銷催單。' },
+    leads:    { campaigns:[['搜尋廣告 + 表單擴充',55],['Demand Gen',30],['YouTube 在地廣告',15]], note:'重點是抓「想諮詢」的人，搜尋廣告務必開啟「潛在客戶表單擴充功能」直接收名單。' },
+    awareness:{ campaigns:[['YouTube 影片廣告（在地）',60],['Demand Gen',40]], note:'用在地版位的 YouTube 觸及周邊客群，Demand Gen 補充 Discover 流量。' },
+  },
+  course: {
+    purchase: { campaigns:[['搜尋廣告',55],['Performance Max',25],['再行銷（Display）',20]], note:'課程多為決策型購買，搜尋抓「課程名稱+評價」字，再行銷催落單，PMax 後期加碼。' },
+    leads:    { campaigns:[['搜尋廣告 + 表單擴充',60],['Demand Gen',40]], note:'課程／服務最有效是「先收名單再轉單」，搜尋廣告開表單擴充直接帶 LP 留資。' },
+    awareness:{ campaigns:[['YouTube 影片廣告',55],['Demand Gen',45]], note:'用知識型短影音建立信任，搭配 Demand Gen 在 YouTube 動態觸及學習族群。' },
+  },
+  other: {
+    purchase: { campaigns:[['搜尋廣告',55],['Performance Max',45]], note:'通用組合：搜尋廣告抓高意圖、PMax 自動找新客。等資料夠再加碼。' },
+    leads:    { campaigns:[['搜尋廣告 + 表單擴充',65],['Demand Gen',35]], note:'搜尋負責抓主動詢問的人，Demand Gen 拓展潛在客群。' },
+    awareness:{ campaigns:[['YouTube 影片廣告',55],['Demand Gen',45]], note:'影音 + 動態素材組合，用最低成本換最大觸及。' },
+  },
+};
+
+// 出價策略對應
+const bidStrategy = {
+  purchase: { primary:'目標 ROAS（轉換量 50+ 後切換）', start:'最大化轉換（0–50 筆轉換期）', why:'新帳戶轉換不足時用最大化轉換衝量，累積 50 筆以上再切目標 ROAS 控成本。' },
+  leads:    { primary:'目標單次客戶開發出價（目標 CPA）', start:'最大化轉換', why:'名單目標重視「每筆名單成本」，先用最大化轉換累積資料，30 筆名單後切目標 CPA。' },
+  awareness:{ primary:'目標千次曝光出價（tCPM）', start:'最大化曝光次數', why:'品牌曝光看的是觸及，用 CPM 邏輯出價最划算。' },
+};
+
+// 產業關鍵字範例
+const keywordExamples = {
+  ecommerce: ['品牌名 + 商品', '商品 + 推薦', '商品 + 比較', '商品 + 優惠'],
+  beauty:    ['療程名 + 地區', '療程 + 推薦', '療程 + 價格', '品牌 + 諮詢'],
+  course:    ['課程主題 + 課程', '主題 + 推薦', '主題 + 學習', '老師／品牌名'],
+  other:     ['品牌名', '服務名 + 推薦', '服務 + 價格', '產品 + 比較'],
+};
+
+const generateStrategy = () => {
+  const ind = industryName[state.industry];
+  const goal = goalName[state.goal];
+  const bud = budgetMap[state.budget];
+  const hasAssets = state.assets === 'yes';
+  const isEcom = state.industry === 'ecommerce';
+  const isLowBudget = state.budget === 'under1';
+
+  // ===== 投放組合 =====
+  const matrix = comboMatrix[state.industry][state.goal];
+  const comboDetail = `<strong class="text-blue-600 block mb-2">推薦：${matrix.campaigns.map(c=>c[0]).join(' + ')}</strong>${matrix.note}`;
+
+  // ===== 預算分配 =====
+  const dailyTotal = Math.round(bud.amount / 30);
+  const allocList = matrix.campaigns.map(c => {
+    const monthly = Math.round(bud.amount * c[1] / 100);
+    return `<li class="flex justify-between"><span>・ ${c[0]}</span><span class="font-mono text-slate-600">${c[1]}% / ${monthly.toLocaleString()}</span></li>`;
+  }).join('');
+  const bid = bidStrategy[state.goal];
+  const budgetHTML = `
+    <p class="font-medium mb-2">總預算 ${bud.label}（每日約 ${dailyTotal.toLocaleString()} 元）</p>
+    <ul class="space-y-1 mb-3">${allocList}</ul>
+    <div class="bg-slate-50 rounded-lg p-3 text-xs space-y-1">
+      <div><strong>起手出價策略：</strong>${bid.start}</div>
+      <div><strong>進階切換：</strong>${bid.primary}</div>
+      <div class="text-slate-500 mt-1">📌 ${bid.why}</div>
+    </div>
+    ${isLowBudget ? '<p class="text-xs text-orange-600 mt-2">⚠️ 預算 1 萬以下不建議跑 PMax，集中搜尋廣告效果最好</p>' : ''}
+  `;
+
+  // ===== 投放時程 =====
+  const week0Items = [
+    '安裝 Google Tag、設定 GA4',
+    '建立 Google Ads 轉換追蹤',
+    isEcom ? '設定 Google Merchant Center + 商品動態饋給' : '準備到達網頁（LP）+ 表單',
+  ];
+  const orderHTML = `
+    <div class="border-l-4 border-blue-500 pl-3"><strong>Week 0（準備）：</strong><br/>${week0Items.map(i=>`・ ${i}`).join('<br/>')}</div>
+    <div><strong>Week 1–2：</strong>先跑搜尋廣告，累積關鍵字數據與否定字</div>
+    <div><strong>Week 3：</strong>${isEcom?'開購物廣告 + PMax':'加入 Demand Gen 或 PMax'}，上傳全部素材</div>
+    <div><strong>Week 4：</strong>建立再行銷名單、檢視搜尋詞報告、優化出價</div>
+  `;
+
+  // ===== 關鍵字策略 =====
+  const kwExamples = keywordExamples[state.industry];
+  const keywordsHTML = `
+    <div>
+      <strong class="block mb-1">建議比對類型</strong>
+      <span class="text-xs text-slate-600">先用「<strong>詞組比對</strong>」為主（70%）+「<strong>完全比對</strong>」高意圖字（30%），<strong>避開廣泛比對</strong>除非搭配智慧出價。</span>
+    </div>
+    <div>
+      <strong class="block mb-1">關鍵字結構</strong>
+      <span class="text-xs text-slate-600">每個廣告群組 <strong>10–20 個</strong>同主題關鍵字，不要塞 50 個進一個群組。</span>
+    </div>
+    <div>
+      <strong class="block mb-1">${ind}範例字根</strong>
+      <div class="flex flex-wrap gap-1 mt-1">
+        ${kwExamples.map(k=>`<span class="bg-blue-50 text-blue-700 text-xs px-2 py-0.5 rounded">${k}</span>`).join('')}
+      </div>
+    </div>
+    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-2 text-xs text-yellow-900">
+      ⚠️ <strong>必設否定關鍵字：</strong>免費、ptt、教學、職缺、二手
+    </div>
+  `;
+
+  // ===== 操作重點 =====
+  const tips = [
+    '✅ <strong>1 廣告活動 = 1 主題</strong>，不要把搜尋／購物／PMax 混在同一個',
+    '✅ 轉換目標<strong>只設 1 個主要轉換</strong>，其他設次要，否則機器抓不到方向',
+    '✅ 至少跑 <strong>14 天 + 30 筆轉換</strong>再調整，太早優化會打亂機器學習',
+    isEcom
+      ? '✅ 商品標題塞滿關鍵字（規格／顏色／材質），Merchant Center 才能配對到搜尋'
+      : '✅ 搜尋廣告必填 <strong>15 個標題 + 4 個描述</strong>，少於這個數量機器無法輪播',
+    hasAssets
+      ? '✅ 上傳<strong>多尺寸圖片（1200x628 / 1200x1200 / 960x1200）</strong>給 PMax 自動配版位'
+      : '✅ 沒素材先用 Canva 做 <strong>3 張橫圖 + 3 張方圖</strong>，搜尋廣告 + 動態素材就能跑',
+    '✅ 第 4 週開始建立<strong>「網站訪客」與「加入購物車」再行銷名單</strong>',
+  ];
+
+  // ===== Google Ads 新手地雷 =====
+  const traps = [
+    '❌ <strong>用「廣泛比對」+ 手動 CPC</strong> → 預算 24 小時內燒光（最常見）',
+    '❌ <strong>沒設轉換追蹤就開智慧出價</strong> → 機器沒目標亂出價',
+    isLowBudget
+      ? '❌ <strong>預算 1 萬以下卻押 PMax</strong> → 機器學習資料不夠，跑不出效果'
+      : '❌ <strong>把全部預算丟 PMax</strong> → 黑盒子難優化、搜尋詞報告看不到',
+    '❌ <strong>一個廣告群組塞 50 個關鍵字</strong> → 廣告與關鍵字無法精準配對',
+    '❌ <strong>每天看數據改設定</strong> → 機器學習被重置，永遠跑不穩',
+    state.goal === 'awareness'
+      ? '❌ <strong>用展示廣告衝銷售</strong> → 那是做品牌的，CTR 0.3% 是常態'
+      : '❌ <strong>沒開「搜尋詞報告」加否定字</strong> → 預算被無關搜尋字偷走',
+  ];
+
+  // 轉換追蹤額外提醒
+  const convExtra = isEcom ? '、Merchant Center 商品饋給' : '';
+
+  return { comboDetail, budgetHTML, orderHTML, keywordsHTML, tips, traps, ind, goal, bud, hasAssets, convExtra };
+};
+
+// ============ COPY GENERATION (mock) ============
+const generateCopy = (s) => {
+  const titles = [
+    `新手也能投的 Google 廣告`,
+    `30 秒產出投放策略`,
+    `免費試算你的廣告預算`,
+    `${s.ind}老闆必看廣告攻略`,
+    `不會投廣告？我們幫你想`,
+    `AI 幫你寫廣告策略`,
+    `第一次投 ${s.ind} 廣告必備`,
+    `月預算 ${s.bud.label} 也能投`,
+    `為什麼你的廣告沒成效？`,
+    `真實實戰廣告投放邏輯`,
+    `${s.ind}廣告新手避雷指南`,
+    `一鍵產出投放規劃`,
+    `不用懂行銷也能上手`,
+    `立刻取得免費策略`,
+    `投廣告前 30 秒先做這個`,
+  ];
+  const descs = [
+    { type:'痛點', text:`不知道該投搜尋還是 PMax？預算怎麼分？這個免費工具 30 秒幫你規劃好。` },
+    { type:'成果', text:`已幫助 10,000+ 新手老闆做出第一版投放策略，照著做就能開始跑。` },
+    { type:'信任', text:`由實際操盤千萬預算的廣告投手設計，避開新手最常見的 5 大地雷。` },
+    { type:'行動', text:`完全免費、無須註冊。輸入 4 個資訊，立刻取得你的專屬投放策略。` },
+  ];
+
+  // 額外資訊（Sitelink / Callout / Snippet）— Google Ads 特有資產
+  const extras = {
+    sitelinks: [
+      { title:'立即產生策略', desc1:'30 秒完成', desc2:'完全免費' },
+      { title:'廣告新手地雷', desc1:'5 大常見錯誤', desc2:'避開冤枉錢' },
+      { title:'預算試算', desc1:'1 萬也能投', desc2:'抓對分配比例' },
+      { title:'實戰課程', desc1:'從 0 到上線', desc2:'手把手帶做' },
+    ],
+    callouts: ['完全免費', '無須註冊', '30 秒完成', '實戰邏輯', '新手友善', '中文介面', '即時產出', '可直接照做'],
+    snippets: {
+      type: '服務',
+      values: ['投放策略規劃', '廣告類型建議', '預算分配試算', '關鍵字方向', '新手地雷提醒', '文案產出'],
+    },
+  };
+
+  const angles = [
+    { type:'🔥 痛點型', color:'red', text:`「投了三個月 Google Ads 還是沒單？問題不在預算，是在『你選錯廣告類型』。」` },
+    { type:'🏆 成果型', color:'green', text:`「同樣月預算 ${s.bud.label}，他用對廣告組合 ROAS 做到 5.8。差別就在帳戶結構。」` },
+    { type:'🛡️ 信任型', color:'blue', text:`「這套策略來自操盤過 3,000 萬 Google Ads 預算的實戰邏輯，不是教科書理論。」` },
+  ];
+  const script = [
+    { time:'0–5s', visual:'老闆盯著 Google Ads 後台皺眉，預算燒完但無轉換', voice:'「燒了 3 萬，怎麼一張單都沒有？」（Hook：5 秒前必說痛點）' },
+    { time:'5–10s', visual:'切換到 Ads Launchpad 介面', voice:'「不是你不會投，是沒人告訴你怎麼開始。」' },
+    { time:'10–18s', visual:'工具 4 題輸入畫面（產業、目標、預算、素材）', voice:'「輸入 4 個資訊，AI 幫你規劃廣告組合、預算、關鍵字。」' },
+    { time:'18–25s', visual:'結果頁 6 張策略卡片淡入', voice:'「搜尋怎麼設、PMax 開不開、出價策略怎麼選——一次給你。」' },
+    { time:'25–30s', visual:'LOGO + CTA「立即產生」', voice:'「免費試一次，30 秒就有你的第一版策略。」' },
+  ];
+  return { titles, descs, extras, angles, script };
+};
+
+// ============ RENDER STRATEGY ============
+const renderStrategy = (r) => {
+  document.getElementById('r-combo').innerHTML = r.comboDetail;
+  document.getElementById('r-budget').innerHTML = r.budgetHTML;
+  document.getElementById('r-order').innerHTML = r.orderHTML;
+  document.getElementById('r-keywords').innerHTML = r.keywordsHTML;
+  document.getElementById('r-tips').innerHTML = r.tips.map(t => `<li>${t}</li>`).join('');
+  document.getElementById('r-traps').innerHTML = r.traps.map(t => `<li>${t}</li>`).join('');
+  document.getElementById('r-conv-extra').textContent = r.convExtra;
+};
+
+// ============ RENDER COPY ============
+const renderCopy = (c) => {
+  document.getElementById('list-titles').innerHTML = c.titles.map(t => `<li>${t}<span class="text-xs text-slate-400 ml-1">(${t.length}字)</span></li>`).join('');
+  document.getElementById('list-descs').innerHTML = c.descs.map(d => `
+    <div class="border-l-4 border-blue-500 pl-4 py-1">
+      <div class="text-xs text-blue-600 font-medium mb-1">${d.type} <span class="text-slate-400">(${d.text.length}/90字)</span></div>
+      <div class="text-slate-700">${d.text}</div>
+    </div>
+  `).join('');
+
+  // 額外資訊
+  const e = c.extras;
+  document.getElementById('list-extras').innerHTML = `
+    <div>
+      <h4 class="font-bold text-sm mb-2 flex items-center gap-2">🔗 網站連結（Sitelinks）<span class="text-xs font-normal text-slate-500">建議至少 4 個</span></h4>
+      <div class="grid md:grid-cols-2 gap-2">
+        ${e.sitelinks.map(s => `
+          <div class="border border-slate-200 rounded-lg p-3">
+            <div class="font-medium text-blue-600 text-sm">${s.title}</div>
+            <div class="text-xs text-slate-600 mt-0.5">${s.desc1} ・ ${s.desc2}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    <div>
+      <h4 class="font-bold text-sm mb-2 flex items-center gap-2">📌 標註資訊（Callouts）<span class="text-xs font-normal text-slate-500">建議至少 6 個・每則限 25 字元</span></h4>
+      <div class="flex flex-wrap gap-2">
+        ${e.callouts.map(c => `<span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs">${c}</span>`).join('')}
+      </div>
+    </div>
+    <div>
+      <h4 class="font-bold text-sm mb-2 flex items-center gap-2">📋 結構化摘要（Structured Snippets）</h4>
+      <div class="border border-slate-200 rounded-lg p-3">
+        <div class="text-xs text-slate-500 mb-1">標題：${e.snippets.type}</div>
+        <div class="text-sm text-slate-700">${e.snippets.values.join(' ・ ')}</div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3 text-xs text-yellow-900">
+      💡 <strong>新手提醒：</strong>這 3 種「資產」在 Google Ads 後台的「廣告活動 → 資產」設定，不額外收費，但能讓你的廣告版面變大、CTR 提升 10–20%。
+    </div>
+  `;
+
+  document.getElementById('list-angles').innerHTML = c.angles.map(a => `
+    <div class="bg-${a.color}-50 border border-${a.color}-200 rounded-lg p-4">
+      <div class="font-bold mb-2">${a.type}</div>
+      <div class="text-slate-700 leading-relaxed">${a.text}</div>
+    </div>
+  `).join('');
+  document.getElementById('list-script').innerHTML = c.script.map(s => `
+    <tr>
+      <td class="p-3 font-mono text-slate-500 align-top whitespace-nowrap">${s.time}</td>
+      <td class="p-3 align-top">${s.visual}</td>
+      <td class="p-3 text-slate-700 align-top">${s.voice}</td>
+    </tr>
+  `).join('');
+};
+
+// ============ GENERATE BUTTON ============
+document.getElementById('btn-generate').addEventListener('click', async () => {
+  if (Object.values(state).some(v => !v)) return;
+
+  document.getElementById('result').classList.add('hidden');
+  document.getElementById('copy-result').classList.add('hidden');
+  document.getElementById('loading').classList.remove('hidden');
+  document.getElementById('loading').scrollIntoView({ behavior:'smooth', block:'start' });
+
+  const msgs = ['正在分析你的產業適配的 Google Ads 類型…', '比對 3,000+ 真實 Google Ads 投放案例…', '計算搜尋／PMax／Demand Gen 預算配比…', '整理出價策略與關鍵字方向…', '彙整 Google Ads 新手地雷…'];
+  let i = 0;
+  const msgEl = document.getElementById('loading-msg');
+  const interval = setInterval(() => {
+    i = (i+1) % msgs.length;
+    msgEl.textContent = msgs[i];
+  }, 700);
+
+  await new Promise(r => setTimeout(r, 2800));
+  clearInterval(interval);
+
+  currentResult = generateStrategy();
+  renderStrategy(currentResult);
+
+  document.getElementById('loading').classList.add('hidden');
+  const result = document.getElementById('result');
+  result.classList.remove('hidden');
+  // Re-trigger fade-in
+  result.querySelectorAll('.fade-in').forEach(el => {
+    el.style.animation = 'none';
+    el.offsetHeight;
+    el.style.animation = '';
+  });
+  result.scrollIntoView({ behavior:'smooth', block:'start' });
+});
+
+// ============ COPY GENERATION BUTTON ============
+document.getElementById('btn-copy-gen').addEventListener('click', async () => {
+  if (!currentResult) return;
+  document.getElementById('copy-loading').classList.remove('hidden');
+  document.getElementById('copy-result').classList.add('hidden');
+  document.getElementById('copy-loading').scrollIntoView({ behavior:'smooth', block:'start' });
+
+  await new Promise(r => setTimeout(r, 1500));
+
+  const c = generateCopy(currentResult);
+  renderCopy(c);
+  window._copy = c;
+
+  document.getElementById('copy-loading').classList.add('hidden');
+  const cr = document.getElementById('copy-result');
+  cr.classList.remove('hidden');
+  cr.scrollIntoView({ behavior:'smooth', block:'start' });
+});
+
+// ============ TABS ============
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+    document.getElementById('tab-' + btn.dataset.tab).classList.remove('hidden');
+  });
+});
+
+// ============ COPY TO CLIPBOARD ============
+const showToast = (msg) => {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.remove('hidden');
+  t.classList.add('toast');
+  setTimeout(() => { t.classList.add('hidden'); t.classList.remove('toast'); }, 2000);
+};
+
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (!window._copy) return;
+    const type = btn.dataset.copy;
+    let text = '';
+    if (type === 'titles') text = window._copy.titles.map((t,i)=>`${i+1}. ${t}`).join('\n');
+    if (type === 'descs') text = window._copy.descs.map(d=>`【${d.type}】${d.text}`).join('\n\n');
+    if (type === 'script') text = window._copy.script.map(s=>`${s.time} | ${s.visual} | ${s.voice}`).join('\n');
+    navigator.clipboard.writeText(text).then(() => showToast('已複製 ✓'));
+  });
+});
+</script>
+</body>
+</html>
