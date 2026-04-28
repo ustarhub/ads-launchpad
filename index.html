@@ -273,10 +273,28 @@
 
 <!-- ============ LOADING ============ -->
 <section id="loading" class="hidden px-6 py-20">
-  <div class="max-w-2xl mx-auto text-center">
+  <div class="max-w-xl mx-auto text-center">
     <div class="inline-block w-16 h-16 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin mb-6"></div>
-    <h3 class="text-2xl font-bold mb-2">AI 思考中<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span></h3>
-    <p id="loading-msg" class="text-slate-600">正在分析你的產業特性…</p>
+
+    <h3 class="text-2xl md:text-3xl font-black mb-2 text-slate-900">正在為你客製專屬投放策略</h3>
+    <p class="text-sm text-slate-500 mb-6">根據你的回答，挑出最適合的廣告組合</p>
+
+    <!-- 進度條 -->
+    <div class="max-w-sm mx-auto mb-6">
+      <div class="h-2 bg-slate-200 rounded-full overflow-hidden">
+        <div id="loading-progress" class="h-full bg-gradient-to-r from-blue-500 to-blue-700 transition-all duration-200" style="width: 0%"></div>
+      </div>
+      <div class="text-xs text-slate-400 mt-2 font-mono"><span id="loading-percent">0</span>%</div>
+    </div>
+
+    <!-- 主階段文案 -->
+    <p id="loading-stage" class="text-base md:text-lg text-blue-700 font-bold mb-2 transition-opacity">正在解讀你的客戶決策模式…</p>
+
+    <!-- 隨機補充文案 -->
+    <p id="loading-hint" class="text-sm text-slate-500 mb-8 transition-opacity">正在比對 3,000+ 真實投放案例…</p>
+
+    <!-- 底部小字 -->
+    <p class="text-xs text-slate-400">約需 8 秒，AI 正在認真幫你做策略規劃</p>
   </div>
 </section>
 
@@ -1155,7 +1173,7 @@ const generateStrategy = () => {
   // 轉換追蹤額外提醒
   const convExtra = isEcom ? '、Merchant Center 商品饋給' : '';
 
-  return { comboDetail, budgetHTML, orderHTML, keywordsHTML, tips, traps, ind, goal, bud, hasAssets, convExtra };
+  return { comboDetail, budgetHTML, orderHTML, keywordsHTML, tips, traps, decision, goal, bud, hasAssets, convExtra };
 };
 
 // ============ COPY TEMPLATES (industry × goal) ============
@@ -2218,16 +2236,62 @@ document.getElementById('btn-generate').addEventListener('click', async () => {
   document.getElementById('loading').classList.remove('hidden');
   document.getElementById('loading').scrollIntoView({ behavior:'smooth', block:'start' });
 
-  const msgs = ['正在分析你的產業適配的 Google Ads 類型…', '比對 3,000+ 真實 Google Ads 投放案例…', '計算搜尋／PMax／Demand Gen 預算配比…', '整理出價策略與關鍵字方向…', '彙整 Google Ads 新手地雷…'];
-  let i = 0;
-  const msgEl = document.getElementById('loading-msg');
-  const interval = setInterval(() => {
-    i = (i+1) % msgs.length;
-    msgEl.textContent = msgs[i];
-  }, 700);
+  // 4 個階段（依進度切換）
+  const stages = [
+    { from: 0,  msg: '正在解讀你的客戶決策模式…' },
+    { from: 30, msg: '正在挑選適合的廣告類型組合…' },
+    { from: 60, msg: '正在配置每日預算與出價策略…' },
+    { from: 90, msg: '正在整理你的專屬策略…' },
+  ];
+  // 隨機補充（每 1.4 秒輪播）
+  const hints = [
+    '正在比對 3,000+ 真實投放案例…',
+    '正在優化關鍵字字根方向…',
+    '正在彙整 Google Ads 新手地雷…',
+    '正在配對最適合的素材策略…',
+    '正在計算每日預算最佳配比…',
+    '正在比對你產業的成功案例…',
+  ];
 
-  await new Promise(r => setTimeout(r, 2800));
-  clearInterval(interval);
+  const TOTAL_MS = 8000;
+  const startTime = Date.now();
+  let currentStage = -1;
+  const stageEl = document.getElementById('loading-stage');
+  const hintEl = document.getElementById('loading-hint');
+  const progEl = document.getElementById('loading-progress');
+  const pctEl = document.getElementById('loading-percent');
+
+  const fadeText = (el, newText) => {
+    el.style.opacity = '0';
+    setTimeout(() => { el.textContent = newText; el.style.opacity = '1'; }, 200);
+  };
+
+  const progInterval = setInterval(() => {
+    const elapsed = Date.now() - startTime;
+    const pct = Math.min(100, Math.round((elapsed / TOTAL_MS) * 100));
+    progEl.style.width = pct + '%';
+    pctEl.textContent = pct;
+    // 切換主階段文案
+    let stageIdx = 0;
+    for (let i = stages.length - 1; i >= 0; i--) {
+      if (pct >= stages[i].from) { stageIdx = i; break; }
+    }
+    if (stageIdx !== currentStage) {
+      currentStage = stageIdx;
+      fadeText(stageEl, stages[stageIdx].msg);
+    }
+    if (pct >= 100) clearInterval(progInterval);
+  }, 100);
+
+  let hintIdx = 0;
+  const hintInterval = setInterval(() => {
+    hintIdx = (hintIdx + 1) % hints.length;
+    fadeText(hintEl, hints[hintIdx]);
+  }, 1400);
+
+  await new Promise(r => setTimeout(r, TOTAL_MS));
+  clearInterval(progInterval);
+  clearInterval(hintInterval);
 
   currentResult = generateStrategy();
   renderStrategy(currentResult);
