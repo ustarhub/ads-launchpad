@@ -646,13 +646,19 @@
       <p class="text-slate-600">直接複製、稍作調整就能上架使用</p>
     </div>
 
+    <!-- 策略對應提示 -->
+    <div id="copy-strategy-hint" class="bg-blue-50 border border-blue-200 rounded-lg px-4 py-3 mb-4 text-sm text-blue-900">
+      💡 <span id="copy-strategy-text">這份文案會依你的策略，自動產出對應的 Search／PMax 文案</span>
+    </div>
+
     <!-- Tabs -->
     <div class="flex gap-1 border-b border-slate-200 mb-6 overflow-x-auto">
-      <button class="tab-btn active px-5 py-3 border-b-2 border-transparent text-slate-600 whitespace-nowrap" data-tab="titles">搜尋標題 (15)</button>
-      <button class="tab-btn px-5 py-3 border-b-2 border-transparent text-slate-600 whitespace-nowrap" data-tab="descs">搜尋描述 (4)</button>
-      <button class="tab-btn px-5 py-3 border-b-2 border-transparent text-slate-600 whitespace-nowrap" data-tab="extras">額外資訊</button>
+      <button class="tab-btn active px-5 py-3 border-b-2 border-transparent text-slate-600 whitespace-nowrap" data-tab="titles">🔍 搜尋標題</button>
+      <button class="tab-btn px-5 py-3 border-b-2 border-transparent text-slate-600 whitespace-nowrap" data-tab="descs">🔍 搜尋說明</button>
+      <button class="tab-btn px-5 py-3 border-b-2 border-transparent text-slate-600 whitespace-nowrap" data-tab="pmax">🎯 PMax 廣告</button>
+      <button class="tab-btn px-5 py-3 border-b-2 border-transparent text-slate-600 whitespace-nowrap" data-tab="extras">📌 額外資訊</button>
       <button class="tab-btn px-5 py-3 border-b-2 border-transparent text-slate-600 whitespace-nowrap" data-tab="angles">三種角度</button>
-      <button class="tab-btn px-5 py-3 border-b-2 border-transparent text-slate-600 whitespace-nowrap" data-tab="script">YouTube 腳本</button>
+      <button class="tab-btn px-5 py-3 border-b-2 border-transparent text-slate-600 whitespace-nowrap" data-tab="script">🎬 YouTube 腳本</button>
     </div>
 
     <!-- Tab: Titles -->
@@ -677,6 +683,34 @@
         <button class="copy-btn text-sm text-blue-600 hover:text-blue-700 font-medium" data-copy="descs">📋 複製全部</button>
       </div>
       <div id="list-descs" class="space-y-4 text-sm"></div>
+    </div>
+
+    <!-- Tab: PMax 廣告 -->
+    <div id="tab-pmax" class="tab-content hidden bg-white rounded-xl border border-slate-200 p-6 space-y-6">
+      <div>
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="font-bold">短標題（5 則）</h3>
+          <button class="copy-btn text-sm text-blue-600 hover:text-blue-700 font-medium" data-copy="pmax-short">📋 複製</button>
+        </div>
+        <p class="text-xs text-slate-500 mb-3">每則限 30 字元・吸引注意、快速傳達</p>
+        <ol id="list-pmax-short" class="grid md:grid-cols-2 gap-x-6 gap-y-2 text-sm text-slate-700 list-decimal list-inside"></ol>
+      </div>
+      <div class="border-t border-slate-100 pt-5">
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="font-bold">長標題（3 則）</h3>
+          <button class="copy-btn text-sm text-blue-600 hover:text-blue-700 font-medium" data-copy="pmax-long">📋 複製</button>
+        </div>
+        <p class="text-xs text-slate-500 mb-3">每則限 90 字元・說明價值與情境</p>
+        <ol id="list-pmax-long" class="space-y-3 text-sm"></ol>
+      </div>
+      <div class="border-t border-slate-100 pt-5">
+        <div class="flex justify-between items-center mb-2">
+          <h3 class="font-bold">說明（3 則）</h3>
+          <button class="copy-btn text-sm text-blue-600 hover:text-blue-700 font-medium" data-copy="pmax-descs">📋 複製</button>
+        </div>
+        <p class="text-xs text-slate-500 mb-3">每則限 90 字元・補充信任與行動</p>
+        <ol id="list-pmax-descs" class="space-y-3 text-sm"></ol>
+      </div>
     </div>
 
     <!-- Tab: Extras (Sitelinks / Callouts / Snippets) -->
@@ -1228,7 +1262,7 @@ const generateStrategy = () => {
   // 轉換追蹤額外提醒
   const convExtra = isEcom ? '、Merchant Center 商品饋給' : '';
 
-  return { comboDetail, budgetHTML, orderHTML, keywordsHTML, tips, traps, decision, goal, bud, hasAssets, convExtra };
+  return { comboDetail, budgetHTML, orderHTML, keywordsHTML, tips, traps, decision, goal, bud, hasAssets, convExtra, campaigns: matrix.campaigns };
 };
 
 // ============ COPY TEMPLATES (industry × goal) ============
@@ -2264,7 +2298,7 @@ const setMode = (newMode) => {
 };
 
 const updateCopyTabsForMode = () => {
-  const advancedTabs = ['extras', 'angles', 'script'];
+  const advancedTabs = ['extras', 'angles']; // pmax 跟 script 由策略決定，不限模式
   document.querySelectorAll('.tab-btn').forEach(btn => {
     if (advancedTabs.includes(btn.dataset.tab)) {
       btn.style.display = currentMode === 'beginner' ? 'none' : '';
@@ -2288,6 +2322,47 @@ const renderCopy = (c) => {
       <div class="text-slate-700">${d.text}</div>
     </div>
   `).join('');
+
+  // ===== PMax 廣告（自動從現有資料產出）=====
+  const pmaxShort = c.titles.filter(t => t.length <= 12).slice(0, 5);
+  const pmaxLong = c.angles.map(a => a.text.replace(/[「」]/g, '').slice(0, 60)).slice(0, 3);
+  const pmaxDescs = c.descs.slice(0, 3);
+  document.getElementById('list-pmax-short').innerHTML = pmaxShort.map(t => `<li>${t}<span class="text-xs text-slate-400 ml-1">(${t.length}/30字)</span></li>`).join('');
+  document.getElementById('list-pmax-long').innerHTML = pmaxLong.map(t => `
+    <div class="border-l-4 border-purple-500 pl-4 py-1">
+      <div class="text-xs text-purple-600 font-medium mb-1">長標題 <span class="text-slate-400">(${t.length}/90字)</span></div>
+      <div class="text-slate-700">${t}</div>
+    </div>
+  `).join('');
+  document.getElementById('list-pmax-descs').innerHTML = pmaxDescs.map(d => `
+    <div class="border-l-4 border-purple-500 pl-4 py-1">
+      <div class="text-xs text-purple-600 font-medium mb-1">${d.type} <span class="text-slate-400">(${d.text.length}/90字)</span></div>
+      <div class="text-slate-700">${d.text}</div>
+    </div>
+  `).join('');
+  // 暫存給複製按鈕用
+  window._copy._pmaxShort = pmaxShort;
+  window._copy._pmaxLong = pmaxLong;
+  window._copy._pmaxDescs = pmaxDescs;
+
+  // ===== 依策略動態顯示 / 隱藏分頁 =====
+  const campaigns = (currentResult && currentResult.campaigns) || [];
+  const hasPMax = campaigns.some(x => x[0].includes('PMax') || x[0].includes('多媒體') || x[0].includes('需求'));
+  const hasYouTube = campaigns.some(x => x[0].includes('YouTube'));
+
+  // 策略對應提示
+  const adTypes = [];
+  if (campaigns.some(x => x[0].includes('搜尋'))) adTypes.push('Search');
+  if (hasPMax) adTypes.push('PMax');
+  if (hasYouTube) adTypes.push('YouTube');
+  const hintEl = document.getElementById('copy-strategy-text');
+  if (hintEl) hintEl.textContent = `這份文案對應你的策略：${adTypes.join(' + ')}。直接複製貼上 Google Ads 後台即可使用。`;
+
+  // 切換 tab 顯示
+  const pmaxBtn = document.querySelector('.tab-btn[data-tab="pmax"]');
+  const ytBtn = document.querySelector('.tab-btn[data-tab="script"]');
+  if (pmaxBtn) pmaxBtn.style.display = hasPMax ? '' : 'none';
+  if (ytBtn) ytBtn.style.display = hasYouTube ? '' : 'none';
 
   // 額外資訊
   const e = c.extras;
@@ -2512,6 +2587,9 @@ document.querySelectorAll('.copy-btn').forEach(btn => {
     if (type === 'titles') text = window._copy.titles.map((t,i)=>`${i+1}. ${t}`).join('\n');
     if (type === 'descs') text = window._copy.descs.map(d=>`【${d.type}】${d.text}`).join('\n\n');
     if (type === 'script') text = window._copy.script.map(s=>`${s.time} | ${s.visual} | ${s.voice}`).join('\n');
+    if (type === 'pmax-short') text = (window._copy._pmaxShort||[]).map((t,i)=>`${i+1}. ${t}`).join('\n');
+    if (type === 'pmax-long') text = (window._copy._pmaxLong||[]).map((t,i)=>`${i+1}. ${t}`).join('\n');
+    if (type === 'pmax-descs') text = (window._copy._pmaxDescs||[]).map(d=>`【${d.type}】${d.text}`).join('\n\n');
     navigator.clipboard.writeText(text).then(() => showToast('已複製 ✓'));
   });
 });
