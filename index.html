@@ -75,41 +75,55 @@
   <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
     <div>
       <div class="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm font-medium mb-6">
-        🚀 專為 Google Ads 新手設計
+        🚀 6+ 年廣告投手設計｜專為 Google Ads 新手
       </div>
       <h1 class="text-4xl md:text-5xl font-black leading-tight mb-4">
         Google 廣告不知道怎麼開始？
       </h1>
       <p class="text-2xl md:text-3xl text-blue-600 font-bold mb-6 leading-snug">
-        30 秒幫你做出第一版投放策略
+        30 秒告訴你<br class="sm:hidden"/>「該投哪種廣告 + 預算怎麼分」
       </p>
-      <p class="text-lg text-slate-600 mb-8 leading-relaxed">
-        輸入 5 個基本資訊<br/>
-        幫你規劃「廣告類型 × 預算 × 投放順序」<br/>
-        不用學很久，也能開始投廣告
+      <p class="text-lg text-slate-600 mb-3 leading-relaxed">
+        輸入 5 個基本資訊，幫你規劃<br/>
+        <strong class="text-slate-900">廣告類型 × 預算 × 投放順序</strong>
+      </p>
+      <p class="text-base text-slate-500 mb-8">
+        👤 給：第一次想投 Google Ads 的老闆 / 行銷新手
       </p>
       <a href="#tool" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-bold text-lg shadow-lg shadow-blue-200 transition">
         🚀 幫我做一份投放策略
       </a>
-      <p class="text-sm text-slate-500 mt-4">免費使用｜不用註冊｜新手也能直接用</p>
+      <p class="text-sm text-slate-500 mt-4">6+ 年實戰投手設計｜30 秒看完｜可以直接照做</p>
     </div>
     <div class="hidden md:block">
-      <div class="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-8 shadow-xl">
-        <div class="bg-white rounded-xl p-6 shadow-md">
-          <div class="flex items-center gap-2 mb-4">
-            <div class="w-2 h-2 bg-red-400 rounded-full"></div>
-            <div class="w-2 h-2 bg-yellow-400 rounded-full"></div>
-            <div class="w-2 h-2 bg-green-400 rounded-full"></div>
-          </div>
-          <div class="space-y-3">
-            <div class="h-3 bg-slate-200 rounded w-3/4"></div>
-            <div class="h-3 bg-slate-200 rounded w-1/2"></div>
-            <div class="grid grid-cols-2 gap-2 mt-4">
-              <div class="h-12 bg-blue-100 rounded border-2 border-blue-500"></div>
-              <div class="h-12 bg-slate-100 rounded"></div>
+      <div class="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-5 shadow-xl">
+        <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg p-3 mb-3">
+          <div class="text-xs opacity-80 mb-0.5">📊 顧問建議</div>
+          <div class="text-sm font-bold">你屬於「名單型」<br/>建議優先收諮詢名單</div>
+        </div>
+        <div class="bg-white rounded-xl p-4 shadow-md mb-3">
+          <div class="text-xs text-blue-700 font-bold mb-1">📢 一句話聽懂</div>
+          <div class="text-xs text-slate-800 mb-3 leading-relaxed">先把「詢問名單」做出來最重要</div>
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between bg-slate-50 rounded p-2">
+              <span class="text-xs font-semibold text-slate-700">📌 搜尋廣告</span>
+              <span class="text-xs text-blue-600 font-bold">60%</span>
             </div>
-            <div class="h-10 bg-blue-600 rounded mt-4 flex items-center justify-center">
-              <span class="text-white text-sm font-bold">產生策略 ✨</span>
+            <div class="flex items-center justify-between bg-slate-50 rounded p-2">
+              <span class="text-xs font-semibold text-slate-700">📌 PMax（地區廣告）</span>
+              <span class="text-xs text-blue-600 font-bold">40%</span>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-xl p-3 shadow-md">
+          <div class="grid grid-cols-2 gap-2">
+            <div class="bg-slate-50 rounded p-2 text-center">
+              <div class="text-[10px] text-slate-500">每日預算</div>
+              <div class="text-sm font-bold text-blue-600">1,000 元</div>
+            </div>
+            <div class="bg-slate-50 rounded p-2 text-center">
+              <div class="text-[10px] text-slate-500">至少跑多久</div>
+              <div class="text-sm font-bold text-blue-600">14 天</div>
             </div>
           </div>
         </div>
@@ -130,7 +144,7 @@
     <div class="mb-6">
       <div class="flex justify-between text-sm text-slate-600 mb-2">
         <span>填寫進度</span>
-        <span><span id="progress-text">0</span>/5</span>
+        <span id="progress-text">0%</span>
       </div>
       <div class="h-2 bg-slate-200 rounded-full overflow-hidden">
         <div id="progress-bar" class="h-full bg-blue-600 progress-bar" style="width: 0%"></div>
@@ -144,23 +158,23 @@
       <div>
         <label class="flex items-center gap-2 font-bold text-lg mb-3">
           <span class="w-7 h-7 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center text-sm">1</span>
-          你的客戶通常會怎麼「決定要不要買」？
+          你的客戶看到廣告後，會怎麼做？
         </label>
         <div class="grid sm:grid-cols-3 gap-3">
           <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4" data-q="decision" data-value="impulse">
             <div class="emoji text-3xl mb-2">💨</div>
-            <div class="font-bold mb-1">很快就會直接購買</div>
-            <div class="text-xs text-slate-500 leading-relaxed">低單價 / 衝動型商品</div>
+            <div class="font-bold mb-1">看到就買</div>
+            <div class="text-xs text-slate-500 leading-relaxed">直接下單（低單價／衝動商品）</div>
           </div>
           <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4" data-q="decision" data-value="research">
             <div class="emoji text-3xl mb-2">🔍</div>
-            <div class="font-bold mb-1">會先比較、看評價再決定</div>
-            <div class="text-xs text-slate-500 leading-relaxed">課程 / 保養 / 多數電商</div>
+            <div class="font-bold mb-1">會先研究</div>
+            <div class="text-xs text-slate-500 leading-relaxed">看評價、比較規格再決定</div>
           </div>
           <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4" data-q="decision" data-value="consult">
             <div class="emoji text-3xl mb-2">💬</div>
-            <div class="font-bold mb-1">需要先詢問 / 諮詢才會成交</div>
-            <div class="text-xs text-slate-500 leading-relaxed">診所 / 顧問 / 客製服務</div>
+            <div class="font-bold mb-1">想先問問</div>
+            <div class="text-xs text-slate-500 leading-relaxed">諮詢、預約後才決定</div>
           </div>
         </div>
         <p class="text-sm text-slate-500 mt-2">💡 選最接近的即可（這題會影響整體投放方式）</p>
@@ -294,7 +308,7 @@
     <p id="loading-hint" class="text-sm text-slate-500 mb-8 transition-opacity">正在比對 3,000+ 真實投放案例…</p>
 
     <!-- 底部小字 -->
-    <p class="text-xs text-slate-400">約需 10–15 秒，依實戰投放經驗為你做策略規劃</p>
+    <p class="text-xs text-slate-400">約需 8 秒，依實戰投放經驗為你做策略規劃</p>
   </div>
 </section>
 
@@ -338,14 +352,8 @@
       </div>
     </div>
 
-    <!-- 轉換追蹤前置提醒（雙模式都顯示） -->
-    <div class="fade-in fade-in-1 bg-blue-50 border border-blue-200 rounded-xl p-5 mb-6 flex items-start gap-3">
-      <div class="text-2xl">🎯</div>
-      <div class="text-sm text-blue-900 leading-relaxed">
-        <strong>投廣告前必做（Week 0）：</strong>安裝 Google Tag、設定 GA4 + Google Ads 轉換追蹤<span id="r-conv-extra"></span>。
-        <span class="block mt-1 text-blue-700"><strong>人話：</strong>如果沒做這件事，你會不知道哪個廣告有效。</span>
-      </div>
-    </div>
+    <!-- 轉換追蹤前置提醒已移到 Card 3 雷區，這裡留 r-conv-extra 隱藏元素供舊邏輯參考 -->
+    <span id="r-conv-extra" class="hidden"></span>
 
     <!-- ============ Awareness Redirect（選曝光時顯示）============ -->
     <div id="awareness-redirect" class="hidden bg-amber-50 border border-amber-300 rounded-xl p-6 mb-8">
@@ -415,9 +423,10 @@
           </div>
         </div>
         <div class="text-sm">
-          <strong>🎯 出價策略：</strong>新帳戶先用「<strong class="text-blue-600">盡量爭取點擊</strong>」，累積數據後再交給系統優化轉換
-          <div class="mt-2 bg-amber-50 border-l-2 border-amber-400 rounded px-3 py-2 text-xs text-amber-900">
-            <strong>人話翻譯：</strong>先衝流量 → 有數據 → 再優化轉換
+          <strong>🎯 出價策略：</strong>新帳戶先用「<strong class="text-blue-600">自動衝流量模式</strong>」
+          <div class="text-xs text-slate-500 mt-1">（後台選「盡量爭取點擊」）</div>
+          <div class="mt-3 bg-amber-50 border-l-2 border-amber-400 rounded px-3 py-2 text-xs text-amber-900">
+            <strong>人話翻譯：</strong>先衝流量 → 累積 10+ 轉換後 → 切「自動找買家」（後台選「盡量爭取轉換」）
           </div>
         </div>
       </div>
@@ -500,12 +509,28 @@
         </div>
         <ul id="r-traps" class="text-red-900 text-sm space-y-2"></ul>
       </div>
+
+      <!-- Card 7: 效果預估 -->
+      <div class="fade-in fade-in-5 bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+        <div class="flex items-center gap-3 mb-4 pb-3 border-b border-slate-100">
+          <div class="text-3xl">📊</div>
+          <h3 class="font-bold text-xl">7️⃣ 效果預估（典型範圍）</h3>
+        </div>
+        <div id="r-estimate" class="text-slate-700 text-sm leading-relaxed space-y-3"></div>
+      </div>
+
+      <!-- Card 8: 優化里程碑 -->
+      <div class="fade-in fade-in-5 bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+        <div class="flex items-center gap-3 mb-4 pb-3 border-b border-slate-100">
+          <div class="text-3xl">🎯</div>
+          <h3 class="font-bold text-xl">8️⃣ 優化里程碑（已開始投放後）</h3>
+        </div>
+        <div id="r-milestones" class="text-slate-700 text-sm leading-relaxed space-y-3"></div>
+      </div>
     </div>
 
-    <!-- Warning Banner -->
-    <div id="result-warning" class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center text-yellow-900 text-sm mb-8">
-      💬 這是第一版策略，先跑 14 天再調整，效果會更準
-    </div>
+    <!-- Warning Banner（已合併到 Card 2／時程，這裡留隱藏元素避免 setMode 報錯）-->
+    <div id="result-warning" class="hidden"></div>
 
     <!-- Inline Product Type Picker（產文案前選產品類型）-->
     <div id="result-industry-picker" class="bg-amber-50 border border-amber-200 rounded-2xl p-6 mb-6">
@@ -666,6 +691,9 @@
           <p class="text-xs text-slate-500 mt-1">Google Ads 規格：每則限 30 字元，至少需提供 3 則、建議填滿 15 則供機器輪播</p>
         </div>
         <button class="copy-btn text-sm text-blue-600 hover:text-blue-700 font-medium" data-copy="titles">📋 複製全部</button>
+      </div>
+      <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-4 text-xs text-amber-900 leading-relaxed">
+        💡 <strong>使用提示：</strong>把以下標題加上你的<strong>品牌名</strong>（例：「<strong>[你的品牌]</strong>｜醫美諮詢免費預約」），或調整一兩個字成你的品牌語氣。前 3 則 ⭐ 標記是建議優先使用的版本。
       </div>
       <ol id="list-titles" class="grid md:grid-cols-2 gap-x-6 gap-y-2 text-sm text-slate-700 list-decimal list-inside"></ol>
     </div>
@@ -894,8 +922,9 @@ const updateProgress = () => {
   // 不算 industry（那個是產生文案時才填）
   const requiredFields = ['decision', 'business', 'goal', 'budget', 'assets'];
   const filled = requiredFields.filter(k => state[k] !== '').length;
-  document.getElementById('progress-text').textContent = filled;
-  document.getElementById('progress-bar').style.width = (filled / 5 * 100) + '%';
+  const pct = Math.round(filled / 5 * 100);
+  document.getElementById('progress-text').textContent = pct + '%';
+  document.getElementById('progress-bar').style.width = pct + '%';
 
   const btn = document.getElementById('btn-generate');
   if (filled === 5) {
@@ -1143,24 +1172,24 @@ const comboMatrix = {
   },
 };
 
-// 出價策略對應（用 Google Ads 後台官方名稱，3 階段進化）
+// 出價策略對應（人話 + 後台官方名稱，3 階段進化）
 const bidStrategy = {
   purchase: {
-    phase1: '盡量爭取點擊',
-    phase2: '盡量爭取轉換',
-    phase3: '盡量提高轉換價值（可加目標 ROAS）',
-    why: '新帳戶 0 轉換資料時用「盡量爭取點擊」衝流量＋累積關鍵字數據；累積 10+ 轉換後切「盡量爭取轉換」；30+ 轉換後再切「盡量提高轉換價值」控 ROAS。'
+    phase1: '自動衝流量（後台選「盡量爭取點擊」）',
+    phase2: '自動找買家（後台選「盡量爭取轉換」）',
+    phase3: '優化 ROAS（後台選「盡量提高轉換價值」可加目標 ROAS）',
+    why: '0 轉換時用「衝流量」累積關鍵字數據；10+ 轉換切「找買家」讓系統優化；30+ 轉換後切「優化 ROAS」控成本帶營收。'
   },
   leads: {
-    phase1: '盡量爭取點擊',
-    phase2: '盡量爭取轉換',
-    phase3: '盡量爭取轉換（可加目標 CPA）',
-    why: '名單目標看「每筆名單成本」，先用「盡量爭取點擊」累積流量、再切「盡量爭取轉換」、30 筆名單後加「目標 CPA」控成本。'
+    phase1: '自動衝流量（後台選「盡量爭取點擊」）',
+    phase2: '自動找名單（後台選「盡量爭取轉換」）',
+    phase3: '優化每筆名單成本（後台「盡量爭取轉換」+ 目標 CPA）',
+    why: '名單目標重視「每筆名單多少錢」，先衝流量累積資料，10+ 名單後切自動找名單，30 筆後設目標 CPA 控成本。'
   },
   awareness: {
-    phase1: '目標曝光比重',
-    phase2: '目標曝光比重',
-    phase3: '目標曝光比重',
+    phase1: '優化曝光比重（後台選「目標曝光比重」）',
+    phase2: '同上',
+    phase3: '同上',
     why: '品牌曝光直接用「目標曝光比重」設定希望多少比例的搜尋場景出現你的廣告。'
   },
 };
@@ -1302,7 +1331,67 @@ const generateStrategy = () => {
   // 轉換追蹤額外提醒
   const convExtra = isEcom ? '、Merchant Center 商品饋給' : '';
 
-  return { comboDetail, budgetHTML, orderHTML, keywordsHTML, tips, traps, decision, goal, bud, hasAssets, convExtra, campaigns: matrix.campaigns };
+  // ===== 效果預估（依目標 + 預算）=====
+  const estimateHTML = (() => {
+    if (state.goal === 'leads') {
+      return `
+        <div class="grid grid-cols-2 gap-3">
+          <div class="bg-slate-50 rounded p-3">
+            <div class="text-xs text-slate-500">CTR（搜尋）</div>
+            <div class="font-bold text-slate-900">3-8%</div>
+          </div>
+          <div class="bg-slate-50 rounded p-3">
+            <div class="text-xs text-slate-500">CPC（點擊成本）</div>
+            <div class="font-bold text-slate-900">8-30 元</div>
+          </div>
+          <div class="bg-slate-50 rounded p-3">
+            <div class="text-xs text-slate-500">CVR（名單轉換率）</div>
+            <div class="font-bold text-slate-900">5-15%</div>
+          </div>
+          <div class="bg-slate-50 rounded p-3">
+            <div class="text-xs text-slate-500">CPL（每筆名單）</div>
+            <div class="font-bold text-blue-600">100-500 元</div>
+          </div>
+        </div>
+        <p class="text-xs text-slate-500">📌 第 14 天看：CPL 是否在範圍內。超過上限 = 文案／TP 要調整。</p>
+      `;
+    }
+    if (state.goal === 'purchase') {
+      return `
+        <div class="grid grid-cols-2 gap-3">
+          <div class="bg-slate-50 rounded p-3">
+            <div class="text-xs text-slate-500">CTR（搜尋）</div>
+            <div class="font-bold text-slate-900">3-8%</div>
+          </div>
+          <div class="bg-slate-50 rounded p-3">
+            <div class="text-xs text-slate-500">CTR（PMax）</div>
+            <div class="font-bold text-slate-900">0.5-2%</div>
+          </div>
+          <div class="bg-slate-50 rounded p-3">
+            <div class="text-xs text-slate-500">CVR（購買轉換率）</div>
+            <div class="font-bold text-slate-900">2-5%</div>
+          </div>
+          <div class="bg-slate-50 rounded p-3">
+            <div class="text-xs text-slate-500">ROAS（投報率）</div>
+            <div class="font-bold text-blue-600">2-5x</div>
+          </div>
+        </div>
+        <p class="text-xs text-slate-500">📌 第 14 天看：ROAS &lt; 2 = 廣告與商品有問題；ROAS &gt; 5 可加碼預算。</p>
+      `;
+    }
+    return `<p class="text-sm text-slate-600">曝光型廣告以「觸及人數」為主指標，第 14 天看 CPM（千次曝光成本）是否符合產業範圍。</p>`;
+  })();
+
+  // ===== 優化里程碑 =====
+  const milestonesHTML = `
+    <div class="border-l-4 border-slate-300 pl-3"><strong class="text-slate-700">Week 1-2（觀察期）</strong><br/><span class="text-xs text-slate-600">不要動。讓系統累積學習資料，每天看花費＋預算進度即可。</span></div>
+    <div class="border-l-4 border-blue-500 pl-3"><strong class="text-slate-700">Week 3（首次優化）</strong><br/><span class="text-xs text-slate-600">檢視「搜尋詞報告」加否定關鍵字，停掉 CTR &lt; 1% 的關鍵字。</span></div>
+    <div class="border-l-4 border-blue-500 pl-3"><strong class="text-slate-700">Week 4-5（切換出價）</strong><br/><span class="text-xs text-slate-600">若累積 30+ 轉換，切換到「自動找買家」（盡量爭取轉換）＋ 設定目標 CPA / ROAS。</span></div>
+    <div class="border-l-4 border-green-500 pl-3"><strong class="text-slate-700">Week 6+（A/B 測試）</strong><br/><span class="text-xs text-slate-600">同活動建立 2-3 種文案版本對打（痛點 vs 成果 vs 信任），跑 7 天決定 winner。</span></div>
+    <div class="border-l-4 border-amber-500 pl-3"><strong class="text-slate-700">Week 8+（擴張期）</strong><br/><span class="text-xs text-slate-600">CTR / ROAS 穩定後可加 20-30% 預算；同步建立品牌字搜尋廣告防競品搶字。</span></div>
+  `;
+
+  return { comboDetail, budgetHTML, orderHTML, keywordsHTML, tips, traps, decision, goal, bud, hasAssets, convExtra, campaigns: matrix.campaigns, estimateHTML, milestonesHTML };
 };
 
 // ============ COPY TEMPLATES (industry × goal) ============
@@ -2220,6 +2309,11 @@ const renderStrategy = (r) => {
   document.getElementById('r-tips').innerHTML = r.tips.map(t => `<li>${t}</li>`).join('');
   document.getElementById('r-traps').innerHTML = r.traps.map(t => `<li>${t}</li>`).join('');
   document.getElementById('r-conv-extra').textContent = r.convExtra;
+  // 新增的進階卡片
+  const estEl = document.getElementById('r-estimate');
+  const milEl = document.getElementById('r-milestones');
+  if (estEl) estEl.innerHTML = r.estimateHTML || '';
+  if (milEl) milEl.innerHTML = r.milestonesHTML || '';
 };
 
 // 每個廣告類型的「為什麼配這 %」白話解釋
@@ -2355,7 +2449,11 @@ const updateCopyTabsForMode = () => {
 
 // ============ RENDER COPY ============
 const renderCopy = (c) => {
-  document.getElementById('list-titles').innerHTML = c.titles.map(t => `<li>${t}<span class="text-xs text-slate-400 ml-1">(${t.length}字)</span></li>`).join('');
+  const titleTags = ['含 CTA、最高 CTR', '直接打中痛點', '強調差異化'];
+  document.getElementById('list-titles').innerHTML = c.titles.map((t, i) => {
+    const tag = i < 3 ? `<span class="ml-2 inline-block bg-amber-100 text-amber-800 text-[10px] font-bold px-1.5 py-0.5 rounded">⭐ ${titleTags[i]}</span>` : '';
+    return `<li>${t}<span class="text-xs text-slate-400 ml-1">(${t.length}字)</span>${tag}</li>`;
+  }).join('');
   document.getElementById('list-descs').innerHTML = c.descs.map(d => `
     <div class="border-l-4 border-blue-500 pl-4 py-1">
       <div class="text-xs text-blue-600 font-medium mb-1">${d.type} <span class="text-slate-400">(${d.text.length}/90字)</span></div>
@@ -2506,7 +2604,7 @@ document.getElementById('btn-generate').addEventListener('click', async () => {
     '正在比對你產業的成功案例…',
   ];
 
-  const TOTAL_MS = 12000;
+  const TOTAL_MS = 8000;
   const startTime = Date.now();
   let currentStage = -1;
   const stageEl = document.getElementById('loading-stage');
