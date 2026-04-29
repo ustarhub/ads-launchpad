@@ -1197,8 +1197,131 @@
 </section>
 
 <footer class="border-t border-slate-200 py-8 px-6 text-center text-sm text-slate-500">
-  <p>© 2026 Ads Launchpad</p>
+  <p>
+    © 2026 Ads Launchpad
+    ・<button data-modal-open="privacy" class="hover:text-blue-600 underline cursor-pointer">隱私權政策</button>
+    ・<button data-modal-open="terms" class="hover:text-blue-600 underline cursor-pointer">服務條款</button>
+  </p>
 </footer>
+
+<!-- ============ PRIVACY MODAL ============ -->
+<div id="privacy-modal" class="hidden fixed inset-0 z-50 overflow-y-auto">
+  <div class="fixed inset-0 bg-black/50 backdrop-blur-sm" data-modal-close="privacy"></div>
+  <div class="relative min-h-screen flex items-center justify-center p-4">
+    <div class="relative bg-white rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl">
+      <div class="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between rounded-t-2xl">
+        <h2 class="text-xl font-black">📄 隱私權政策</h2>
+        <button class="text-2xl text-slate-400 hover:text-slate-900 transition" data-modal-close="privacy" aria-label="關閉">✕</button>
+      </div>
+      <div class="px-6 py-6 text-sm text-slate-700 leading-relaxed space-y-5">
+        <p class="text-xs text-slate-500">最後更新：2026-04-29</p>
+
+        <div>
+          <h3 class="font-bold text-base text-slate-900 mb-2">📌 我們不收集個資</h3>
+          <p>你在工具填的 5 題答案（產業／目標／預算等）<strong>只存在你自己的瀏覽器</strong>，不會送到任何伺服器，<strong>關掉網頁就消失</strong>。</p>
+          <p class="mt-2">我們<strong>不收集</strong>：</p>
+          <ul class="list-disc list-inside ml-2 mt-1 space-y-0.5 text-slate-600">
+            <li>姓名、Email、手機號碼</li>
+            <li>你的廣告帳號或客戶名單</li>
+            <li>任何能識別你身份的資料</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-base text-slate-900 mb-2">🌐 主機商會看到什麼</h3>
+          <p>本網站架在 Cloudflare Pages。Cloudflare 為了安全與流量統計，會記錄存取者的 <strong>IP 位址、瀏覽器類型、訪問時間、訪問頁面</strong>。</p>
+          <p class="mt-2">我們無法取得個別使用者資料，僅作為流量統計參考。</p>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-base text-slate-900 mb-2">🔗 外部連結</h3>
+          <p>工具中的「加入新手實戰課程」按鈕會帶你離開本站到第三方網站，該網站有自己的隱私政策，與本站無關。</p>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-base text-slate-900 mb-2">⚠️ 工具產出僅供參考</h3>
+          <p>工具產出的廣告策略與文案是依據 6+ 年實戰經驗整理的<strong>範本</strong>，<strong>不保證投放成效</strong>。實際結果依產業、預算、市場狀況而異，請自行評估後使用。</p>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-base text-slate-900 mb-2">©️ 智慧財產權</h3>
+          <ul class="list-disc list-inside ml-2 space-y-0.5">
+            <li>工具產出的<strong>文案範本</strong>：你可自由使用、改寫、商用</li>
+            <li>工具本身（程式碼、視覺設計、邏輯）：著作權歸製作者所有</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-base text-slate-900 mb-2">🔄 政策變更</h3>
+          <p>本政策可能隨時更新，最後更新日期會標示在頁首。</p>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-base text-slate-900 mb-2">📮 聯絡我們</h3>
+          <p>如有疑問，歡迎透過<a href="https://ubmg.xyz/study/google_ads/" target="_blank" rel="noopener" class="text-blue-600 hover:underline">課程平台</a>聯繫。</p>
+        </div>
+
+        <div class="border-t border-slate-200 pt-4 text-xs text-slate-500">
+          簡單說：我們不收你的個資，工具產出僅供參考，你的計畫只在你自己的瀏覽器裡。
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TERMS MODAL ============ -->
+<div id="terms-modal" class="hidden fixed inset-0 z-50 overflow-y-auto">
+  <div class="fixed inset-0 bg-black/50 backdrop-blur-sm" data-modal-close="terms"></div>
+  <div class="relative min-h-screen flex items-center justify-center p-4">
+    <div class="relative bg-white rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto shadow-2xl">
+      <div class="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between rounded-t-2xl">
+        <h2 class="text-xl font-black">📋 服務條款</h2>
+        <button class="text-2xl text-slate-400 hover:text-slate-900 transition" data-modal-close="terms" aria-label="關閉">✕</button>
+      </div>
+      <div class="px-6 py-6 text-sm text-slate-700 leading-relaxed space-y-5">
+        <p class="text-xs text-slate-500">最後更新：2026-04-29</p>
+
+        <p>使用本工具即代表你同意以下條款：</p>
+
+        <div class="space-y-4">
+          <div class="bg-slate-50 rounded-lg p-4">
+            <h3 class="font-bold text-slate-900 mb-1">1. 本工具為免費提供</h3>
+            <p class="text-slate-600">使用前後不收任何費用。註冊、填表、產出策略與文案皆免費。</p>
+          </div>
+
+          <div class="bg-slate-50 rounded-lg p-4">
+            <h3 class="font-bold text-slate-900 mb-1">2. 產出內容僅供參考</h3>
+            <p class="text-slate-600">廣告策略、文案、預算建議皆為範本，<strong>不保證實際投放成效</strong>。實際成效依你的產業、預算、市場狀況、執行品質而異，請自行評估後再使用。</p>
+          </div>
+
+          <div class="bg-slate-50 rounded-lg p-4">
+            <h3 class="font-bold text-slate-900 mb-1">3. 不得用於違法用途</h3>
+            <p class="text-slate-600">本工具產出內容不得用於：詐騙釣魚、虛假廣告、侵犯他人權益、違反當地廣告法規等行為。</p>
+          </div>
+
+          <div class="bg-slate-50 rounded-lg p-4">
+            <h3 class="font-bold text-slate-900 mb-1">4. 服務可能調整</h3>
+            <p class="text-slate-600">我們保留隨時修改、暫停、終止本服務的權利，無須事前通知。</p>
+          </div>
+
+          <div class="bg-slate-50 rounded-lg p-4">
+            <h3 class="font-bold text-slate-900 mb-1">5. 免責聲明</h3>
+            <p class="text-slate-600">因使用本工具產出內容而導致的任何損失或法律問題（包括但不限於廣告成效不如預期、預算超支、帳戶被停權等），<strong>本站概不負責</strong>。</p>
+          </div>
+
+          <div class="bg-slate-50 rounded-lg p-4">
+            <h3 class="font-bold text-slate-900 mb-1">6. 智慧財產權</h3>
+            <p class="text-slate-600">工具產出的<strong>文案範本</strong>你可自由使用、改寫、商用。<strong>工具本身（程式碼、設計、邏輯）</strong>著作權歸製作者所有。</p>
+          </div>
+        </div>
+
+        <div class="border-t border-slate-200 pt-4 text-xs text-slate-500">
+          有任何疑問，請透過<a href="https://ubmg.xyz/study/google_ads/" target="_blank" rel="noopener" class="text-blue-600 hover:underline">課程平台</a>聯繫。
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Toast -->
 <div id="toast" class="hidden fixed bottom-8 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-5 py-3 rounded-lg shadow-lg z-50">
@@ -3344,6 +3467,30 @@ const showToast = (msg) => {
   t.classList.add('toast');
   setTimeout(() => { t.classList.add('hidden'); t.classList.remove('toast'); }, 2000);
 };
+
+// ============ MODAL（隱私政策／服務條款）============
+document.querySelectorAll('[data-modal-open]').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const id = btn.dataset.modalOpen + '-modal';
+    document.getElementById(id)?.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  });
+});
+document.querySelectorAll('[data-modal-close]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const id = btn.dataset.modalClose + '-modal';
+    document.getElementById(id)?.classList.add('hidden');
+    document.body.style.overflow = '';
+  });
+});
+// ESC 關閉所有 modal
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('#privacy-modal, #terms-modal').forEach(m => m.classList.add('hidden'));
+    document.body.style.overflow = '';
+  }
+});
 
 document.querySelectorAll('.copy-btn').forEach(btn => {
   btn.addEventListener('click', () => {
