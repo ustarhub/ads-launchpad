@@ -769,13 +769,27 @@
 
     <!-- Tab: Titles -->
     <div id="tab-titles" class="tab-content bg-white rounded-xl border border-slate-200 p-6">
-      <div class="flex justify-between items-center mb-4">
+      <div class="flex justify-between items-start mb-4">
         <div>
           <h3 class="font-bold">搜尋廣告標題</h3>
           <p class="text-xs text-slate-500 mt-1">Google Ads 規格：每則限 30 字元，至少需提供 3 則、建議填滿 15 則供機器輪播</p>
         </div>
-        <button class="copy-btn text-sm text-blue-600 hover:text-blue-700 font-medium" data-copy="titles">📋 複製全部</button>
+        <button class="copy-btn text-sm text-blue-600 hover:text-blue-700 font-medium flex-shrink-0" data-copy="titles">📋 複製全部</button>
       </div>
+
+      <!-- 標記說明 + 篩選 -->
+      <div class="bg-slate-50 border border-slate-200 rounded-lg p-3 mb-4 text-xs">
+        <div class="flex flex-wrap items-center gap-3 mb-2">
+          <span class="text-slate-700"><strong>🆕</strong> 新品牌也能用（不需折扣）</span>
+          <span class="text-slate-500">|</span>
+          <span class="text-slate-700"><strong>💰</strong> 需要有優惠才能用</span>
+        </div>
+        <div class="flex gap-2 mt-2">
+          <button class="title-filter-btn active text-xs px-3 py-1 rounded font-medium bg-blue-600 text-white" data-filter="all">全部 (<span id="title-count-all">15</span>)</button>
+          <button class="title-filter-btn text-xs px-3 py-1 rounded font-medium bg-white border border-slate-300 text-slate-700 hover:border-blue-500" data-filter="newbie">🆕 只看新品牌適用 (<span id="title-count-newbie">0</span>)</button>
+        </div>
+      </div>
+
       <ol id="list-titles" class="grid md:grid-cols-2 gap-x-6 gap-y-2 text-sm text-slate-700 list-decimal list-inside"></ol>
     </div>
 
@@ -2596,6 +2610,23 @@ const renderStrategy = (r) => {
   if (milEl) milEl.innerHTML = r.milestonesHTML || '';
 };
 
+// 偵測標題是否依賴優惠折扣（給「沒折扣的新品牌」用的篩選依據）
+const isPromoTitle = (text) => {
+  const patterns = [
+    /\d+\s*折/,              // 9 折、8 折
+    /優惠|折扣|促銷|特價|出清|現折/,
+    /限時|限量/,              // 急迫感（多數搭折扣）
+    /早鳥|首購|首單/,         // 首次福利
+    /滿\s*[\d千]|滿額/,       // 滿千折百
+    /領\s*\d+\s*[元券]/,      // 領 100 元
+    /領\s*\d{2,}/,            // 領 200
+    /送好禮|送贈品|贈品/,
+    /首次體驗\s*\d+|體驗價|體驗只要/,
+    /免費送/,
+  ];
+  return patterns.some(p => p.test(text));
+};
+
 // 每個廣告類型的「為什麼配這 %」白話解釋
 const explainPercentReason = (campaignName, decision, goal) => {
   if (campaignName.includes('搜尋廣告')) {
@@ -2730,10 +2761,21 @@ const updateCopyTabsForMode = () => {
 // ============ RENDER COPY ============
 const renderCopy = (c) => {
   const titleTags = ['含 CTA、最高 CTR', '直接打中痛點', '強調差異化'];
+  let newbieCount = 0;
   document.getElementById('list-titles').innerHTML = c.titles.map((t, i) => {
+    const isPromo = isPromoTitle(t);
+    if (!isPromo) newbieCount++;
+    const promoBadge = isPromo
+      ? `<span class="ml-1.5 text-[10px] text-amber-700">💰</span>`
+      : `<span class="ml-1.5 text-[10px] text-emerald-700">🆕</span>`;
     const tag = i < 3 ? `<span class="ml-2 inline-block bg-amber-100 text-amber-800 text-[10px] font-bold px-1.5 py-0.5 rounded">⭐ ${titleTags[i]}</span>` : '';
-    return `<li>${t}<span class="text-xs text-slate-400 ml-1">(${t.length}字)</span>${tag}</li>`;
+    return `<li class="title-item" data-promo="${isPromo}">${t}<span class="text-xs text-slate-400 ml-1">(${t.length}字)</span>${promoBadge}${tag}</li>`;
   }).join('');
+  // 更新計數
+  const countAllEl = document.getElementById('title-count-all');
+  const countNewbieEl = document.getElementById('title-count-newbie');
+  if (countAllEl) countAllEl.textContent = c.titles.length;
+  if (countNewbieEl) countNewbieEl.textContent = newbieCount;
   document.getElementById('list-descs').innerHTML = c.descs.map(d => `
     <div class="border-l-4 border-blue-500 pl-4 py-1">
       <div class="text-xs text-blue-600 font-medium mb-1">${d.type} <span class="text-slate-400">(${d.text.length}/90字)</span></div>
@@ -2763,8 +2805,11 @@ const renderCopy = (c) => {
   c._pmaxLong = pmaxLong;
   c._pmaxDescs = pmaxDescs;
 
-  // ===== 依策略動態顯示 / 隱藏分頁 =====
-  const campaigns = (currentResult && currentResult.campaigns) || [];
+  // ===== 依「當前模式」對應的策略動態顯示 / 隱藏分頁 =====
+  // 修正：原本永遠用 advanced campaigns，導致新手模式選 60/40 但文案出多媒體＋需求
+  const campaigns = (currentMode === 'beginner')
+    ? buildBeginnerCampaigns(state.decision, state.goal, state.assets, state.budget, state.business)
+    : ((currentResult && currentResult.campaigns) || []);
   const hasPMax = campaigns.some(x => x[0].includes('PMax') || x[0].includes('多媒體') || x[0].includes('需求'));
   const hasYouTube = campaigns.some(x => x[0].includes('YouTube'));
 
@@ -3033,6 +3078,25 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.classList.add('active');
     document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
     document.getElementById('tab-' + btn.dataset.tab).classList.remove('hidden');
+  });
+});
+
+// ============ TITLE FILTER ============
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.title-filter-btn');
+  if (!btn) return;
+  const filter = btn.dataset.filter;
+  // 切換 active 樣式
+  document.querySelectorAll('.title-filter-btn').forEach(b => {
+    b.classList.remove('active', 'bg-blue-600', 'text-white');
+    b.classList.add('bg-white', 'border', 'border-slate-300', 'text-slate-700');
+  });
+  btn.classList.add('active', 'bg-blue-600', 'text-white');
+  btn.classList.remove('bg-white', 'border', 'border-slate-300', 'text-slate-700');
+  // 過濾顯示
+  document.querySelectorAll('.title-item').forEach(li => {
+    if (filter === 'all') li.style.display = '';
+    else if (filter === 'newbie') li.style.display = li.dataset.promo === 'true' ? 'none' : '';
   });
 });
 
