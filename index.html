@@ -771,8 +771,8 @@
     <div id="tab-titles" class="tab-content bg-white rounded-xl border border-slate-200 p-6">
       <div class="flex justify-between items-start mb-4">
         <div>
-          <h3 class="font-bold">搜尋廣告標題</h3>
-          <p class="text-xs text-slate-500 mt-1">Google Ads 規格：每則限 30 字元，至少需提供 3 則、建議填滿 15 則供機器輪播</p>
+          <h3 class="font-bold">搜尋廣告標題（共 25 則供你挑選）</h3>
+          <p class="text-xs text-slate-500 mt-1">Google Ads 規格：每則限 30 字元，後台最多放 15 則。我們提供 25 則讓你挑最適合的。</p>
         </div>
         <button class="copy-btn text-sm text-blue-600 hover:text-blue-700 font-medium flex-shrink-0" data-copy="titles">📋 複製全部</button>
       </div>
@@ -797,8 +797,8 @@
     <div id="tab-descs" class="tab-content hidden bg-white rounded-xl border border-slate-200 p-6">
       <div class="flex justify-between items-center mb-4">
         <div>
-          <h3 class="font-bold">搜尋廣告描述</h3>
-          <p class="text-xs text-slate-500 mt-1">Google Ads 規格：每則限 90 字元，至少需提供 2 則、建議填滿 4 則</p>
+          <h3 class="font-bold">搜尋廣告描述（共 10 則供你挑選）</h3>
+          <p class="text-xs text-slate-500 mt-1">Google Ads 規格：每則限 90 字元，後台最多放 4 則。我們提供 10 則讓你挑最適合的。</p>
         </div>
         <button class="copy-btn text-sm text-blue-600 hover:text-blue-700 font-medium" data-copy="descs">📋 複製全部</button>
       </div>
@@ -1689,6 +1689,95 @@ const generateStrategy = () => {
   return { comboDetail, budgetHTML, orderHTML, keywordsHTML, tips, traps, decision, goal, bud, hasAssets, convExtra, campaigns: matrix.campaigns, estimateHTML, milestonesHTML };
 };
 
+// ============ 通用補充標題／描述（每個產業 10 個 🆕 非優惠標題 + 6 個多角度描述）============
+// 設計原則：所有都是「新品牌也能用」（不依賴折扣、優惠、限時）
+const titleExtras = {
+  ecommerce: ['官方旗艦店 唯一通路', '24 小時客服回覆', 'SGS 認證商品', '評論破萬 真實口碑', '全台快速到貨', '售後保固 1 年', '不滿意 7 天可退', '多重檢驗合格', '用戶真實開箱', '千則五星評論'],
+  beauty:    ['醫師團隊執業 10 年+', '院所 GDP 認證', '原廠正貨儀器', '真實案例公開可看', '諮詢免費 不勉強', '安全為第一優先', '院長親自評估', '隱私空間 安心做', '服務 5,000+ 客戶', '衛福部認證項目'],
+  course:    ['名師執業 10 年+', '學員轉職率 70%', '30 天無條件退費', '學員作品公開', '助教 24h 回覆', '終身觀看不限次', '結業頒發證書', '專屬學員社群', '從 0 到上線教學', '學員見證真實'],
+  food:      ['產地直送新鮮', 'SGS 檢驗合格', '24 小時內出貨', '原料來源透明', '無添加防腐劑', '在地小農契作', '冷鏈配送品質', '過敏原清楚標示', '5,000+ 家庭選擇', '創辦人親自把關'],
+  b2b:       ['ISO 27001 認證', '客戶平均省 30%', '24h 技術支援', '免費 ROI 試算', '案例研究公開', '30 天免費試用', 'API 完整文件', '專屬客戶經理', '5,000+ 企業客戶', '業界 10 年實戰'],
+  local:     ['在地經營 10 年+', 'Google 4.9 顆星', '師傅執業 30 年', '5,000+ 客戶見證', '原廠認證儀器', '技術保固 1 年', '到府免費評估', '加 LINE 即時諮詢', '彈性預約時段', '隱私保密承諾'],
+  travel:    ['官方授權通路', '在地導遊團隊', '20 年深耕經驗', '50,000+ 旅人見證', '24h 緊急協助', '行程客製規劃', '彈性取消政策', '專屬顧問服務', '多語在地人員', '飯店原廠合作'],
+  media:     ['創立 20 年品牌', '500+ 獲獎作品', '獨立編輯精選', '30,000+ 訂閱讀者', '可隨時退訂', '不發垃圾信件', '作者親簽限量', '創辦人親自把關', '深度內容承諾', '讀者社群共讀'],
+  other:     ['在地經營 10 年+', '4.9 顆星評價', '24h 客服回覆', '專業團隊服務', '滿意度 95%', '不滿意可退費', '客製化方案', '案例公開可看', '5,000+ 客戶見證', '創辦人親自把關'],
+};
+
+const descExtras = {
+  ecommerce: [
+    { type:'教育', text:'不知道哪款最適合你？我們的選購指南幫你 3 分鐘搞定，避免買錯。' },
+    { type:'比較', text:'跟其他通路比一比：官方授權＋價格直降，省去中間商加價。' },
+    { type:'服務', text:'24h 客服真人回覆，購買、運送、退換貨任何問題都能立刻解決。' },
+    { type:'物流', text:'全台快速到貨，下單後 24 小時內出貨，黑貓宅配安全送達。' },
+    { type:'會員', text:'加入會員享生日禮金、點數加倍、新品優先購等專屬權益。' },
+    { type:'使用', text:'真實用戶開箱影片＋使用心得，看完再決定也不會後悔。' },
+  ],
+  beauty: [
+    { type:'教育', text:'不知道適合哪種療程？專業顧問用 30 分鐘幫你評估膚況、推薦方案。' },
+    { type:'比較', text:'同樣的療程，差別在「儀器」與「醫師」——我們堅持原廠正貨＋執業 10 年。' },
+    { type:'服務', text:'諮詢全程免費、不推銷、不勉強。適合再做，不適合也不會被刁難。' },
+    { type:'案例', text:'真實術前術後對比照公開可看，讓你下決定前先看到真實效果。' },
+    { type:'隱私', text:'院所有獨立諮詢空間、保密承諾，敏感問題也能放心討論。' },
+    { type:'安全', text:'衛福部認證項目、醫師親自操刀、原廠認證儀器，安全是第一優先。' },
+  ],
+  course: [
+    { type:'教育', text:'不確定這個領域能不能轉職？先看免費試聽 30 分鐘，看完再決定。' },
+    { type:'比較', text:'跟其他課程比一比：我們不教理論、只教業界實戰，學完能直接接案。' },
+    { type:'服務', text:'助教 24 小時內回覆問題，學習路上不孤單。終身觀看不限次。' },
+    { type:'成果', text:'學員平均轉職率 70%、薪資多 1.5 倍。學員作品集公開可看。' },
+    { type:'證書', text:'結業頒發官方認證證書，履歷上的硬實力，面試直接加分。' },
+    { type:'社群', text:'專屬學員社群，同學跟你一起進步，業界資源互相分享。' },
+  ],
+  food: [
+    { type:'教育', text:'不知道哪款最新鮮？我們的選購建議幫你看包裝日期、產地、認證一目了然。' },
+    { type:'來源', text:'在地小農契作直送，產地到餐桌不超過 48 小時，新鮮看得見。' },
+    { type:'檢驗', text:'SGS 檢驗合格、過敏原清楚標示、無添加防腐劑，吃得安心。' },
+    { type:'服務', text:'客服 24h 回覆，配送、退換貨、過敏原問題一通電話搞定。' },
+    { type:'家庭', text:'5,000+ 家庭選擇我們，孩子愛吃、媽媽放心，回購率 75%。' },
+    { type:'環保', text:'採用環保可回收包裝，吃美食也不傷地球。' },
+  ],
+  b2b: [
+    { type:'案例', text:'已協助 800+ 企業導入，客戶平均第 1 年省下 30% 成本，3 個月回本。' },
+    { type:'試用', text:'30 天免費試用、不綁約、可隨時取消，零風險試試看效果。' },
+    { type:'整合', text:'完整 API 文件＋技術整合服務，無痛接入你現有系統。' },
+    { type:'服務', text:'專屬客戶經理 + 24h 技術支援，導入後不怕沒人理。' },
+    { type:'認證', text:'ISO 27001 資安認證、GDPR 合規，企業級安全標準。' },
+    { type:'報價', text:'加 LINE 索取客製方案＋ROI 試算，48 小時內專人回覆。' },
+  ],
+  local: [
+    { type:'在地', text:'在地經營 10 年，5,000+ 客戶選擇我們，社區口碑見證。' },
+    { type:'預約', text:'加 LINE 即時預約，30 秒完成、24h 內確認。' },
+    { type:'技術', text:'師傅執業 30 年、原廠認證、技術保固 1 年，安心交給我們。' },
+    { type:'環境', text:'隱私空間設計、舒適等候區，環境衛生通過認證。' },
+    { type:'評估', text:'到府免費評估＋報價，沒問題再開始服務，不收評估費。' },
+    { type:'彈性', text:'預約時段彈性、可協調早晚加班時間，方便上班族。' },
+  ],
+  travel: [
+    { type:'官方', text:'官方授權通路、價格直降比 OTA 平台便宜 30%，無隱藏費用。' },
+    { type:'在地', text:'在地導遊團隊、深度行程設計，看見不一樣的風景。' },
+    { type:'彈性', text:'彈性取消政策、24h 緊急協助，讓你出發前後都安心。' },
+    { type:'客製', text:'1 對 1 顧問為你客製行程，不用塞團體公版套裝。' },
+    { type:'口碑', text:'50,000+ 旅人選擇我們，回客率 70%，旅遊好朋友推推。' },
+    { type:'語言', text:'多語在地人員（中／英／日／韓），語言不通也能玩得盡興。' },
+  ],
+  media: [
+    { type:'品味', text:'獨立編輯精選、堅持選書品味，30,000+ 讀者跟著我們看好書。' },
+    { type:'試讀', text:'7 天免費試讀，看完滿意再決定要不要訂閱，零負擔。' },
+    { type:'作者', text:'作者親自撰寫、創辦人把關內容深度，每篇都值得讀。' },
+    { type:'社群', text:'專屬讀者社群，跟同好一起讀書、討論、分享，閱讀更有趣。' },
+    { type:'限量', text:'作者親簽限量精裝版，收藏與閱讀兩相宜。' },
+    { type:'環保', text:'採用 FSC 認證紙張、永續印刷，享受閱讀也愛地球。' },
+  ],
+  other: [
+    { type:'口碑', text:'在地經營 10 年、滿意度 95%、回購率 70%，讓客戶用行動投票。' },
+    { type:'服務', text:'24h 客服真人回覆、加 LINE 立即諮詢，問題馬上解決。' },
+    { type:'彈性', text:'客製方案、彈性付款，依你的需求量身設計。' },
+    { type:'團隊', text:'專業團隊、創辦人親自把關，每個案子都用心做。' },
+    { type:'評估', text:'免費評估、免費諮詢、不滿意可退費，零風險試試看。' },
+    { type:'案例', text:'案例研究公開，看別人怎麼跟我們合作、得到什麼成果。' },
+  ],
+};
+
 // ============ COPY TEMPLATES (industry × goal) ============
 // 重要：這裡產出的是「給使用者拿去投放的廣告文案」，目標客群是使用者的「終端客人」
 // 例如：醫美店家 + 名單目標 → 寫給「想做醫美的潛在顧客」看的文案
@@ -2552,9 +2641,12 @@ const adContextData = {
 const generateCopy = (s) => {
   const key = `${state.industry}_${state.goal}`;
   const ctx = adContextData[key] || adContextData.other_purchase;
+  // 合併基本 + 通用補充（增加新手選擇空間，全部為 🆕 不依賴折扣）
+  const extraTitles = titleExtras[state.industry] || titleExtras.other;
+  const extraDescs = descExtras[state.industry] || descExtras.other;
   return {
-    titles: ctx.titles,
-    descs: ctx.descs,
+    titles: [...ctx.titles, ...extraTitles],         // 15 + 10 = 25
+    descs: [...ctx.descs, ...extraDescs],            // 4 + 6 = 10
     extras: ctx.extras,
     angles: ctx.angles,
     script: ctx.script,
