@@ -674,10 +674,80 @@
       </div>
     </div>
 
-    <!-- 使用提示（所有分頁通用） -->
-    <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-4 text-xs text-amber-900 leading-relaxed">
-      💡 <strong>使用提示：</strong>所有文案請<strong>替換成你的品牌名</strong>（例：「[你的品牌]｜醫美諮詢免費預約」），或調整一兩個字成你的品牌語氣。<br/>
-      ⭐ 標題前 3 則是建議優先使用的版本（其他可作為輪播備份）。
+    <!-- 客製化指南（取代原本簡短的使用提示） -->
+    <div class="bg-gradient-to-br from-amber-50 to-orange-50 border-2 border-amber-300 rounded-2xl p-5 mb-6">
+      <div class="flex items-start gap-3 mb-4">
+        <div class="text-3xl flex-shrink-0">⚠️</div>
+        <div>
+          <h3 class="font-bold text-amber-900 text-lg mb-1">別直接複製貼上！這 5 個地方要換成你的品牌資訊</h3>
+          <p class="text-sm text-amber-800">每個品牌的素材／案例／聯絡方式都不同，調整這些細節才能跟競品做出區隔，不然每家廣告都長一樣。</p>
+        </div>
+      </div>
+
+      <!-- 5 個必換項目 -->
+      <div class="grid sm:grid-cols-2 gap-2 mb-4">
+        <div class="bg-white rounded-lg p-3 border border-amber-200">
+          <div class="font-bold text-amber-900 text-sm mb-0.5">1. 品牌／店名（必換）</div>
+          <div class="text-xs text-slate-600 leading-relaxed">每則標題開頭都加上你的品牌名（例：[X 醫美]、[X 嚴選]）</div>
+        </div>
+        <div class="bg-white rounded-lg p-3 border border-amber-200">
+          <div class="font-bold text-amber-900 text-sm mb-0.5">2. 真實數字（替換）</div>
+          <div class="text-xs text-slate-600 leading-relaxed">把模板裡的數字換成你的（年資、客戶數、評價分數）</div>
+        </div>
+        <div class="bg-white rounded-lg p-3 border border-amber-200">
+          <div class="font-bold text-amber-900 text-sm mb-0.5">3. 服務／產品名（替換）</div>
+          <div class="text-xs text-slate-600 leading-relaxed">把通用詞（療程、課程、商品）換成你實際的名稱</div>
+        </div>
+        <div class="bg-white rounded-lg p-3 border border-amber-200">
+          <div class="font-bold text-amber-900 text-sm mb-0.5">4. 地區／聯絡方式（建議）</div>
+          <div class="text-xs text-slate-600 leading-relaxed">在地服務加區域名、加 LINE ID、留電話、留地址</div>
+        </div>
+        <div class="bg-white rounded-lg p-3 border border-amber-200 sm:col-span-2">
+          <div class="font-bold text-amber-900 text-sm mb-0.5">5. 獨家賣點 USP（最重要）</div>
+          <div class="text-xs text-slate-600 leading-relaxed">挑 1-2 個你跟競品不同的優勢補進去（例：免費到府、終身保固、台灣製造、創始人親自把關、免費試用 60 天）</div>
+        </div>
+      </div>
+
+      <!-- Before / After 對比範例 -->
+      <div class="bg-slate-900 rounded-lg p-4">
+        <div class="text-xs text-slate-400 font-bold mb-3">📝 範例：通用模板 → 加上品牌資訊</div>
+        <div class="space-y-2.5 text-sm">
+          <div class="flex items-start gap-2">
+            <span class="text-red-300 flex-shrink-0 font-bold">❌</span>
+            <div>
+              <span class="text-slate-400 text-xs">通用版：</span>
+              <span class="text-slate-300 line-through">醫師親自評估</span>
+            </div>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="text-emerald-300 flex-shrink-0 font-bold">✅</span>
+            <div>
+              <span class="text-emerald-400 text-xs">客製版：</span>
+              <span class="text-white"><strong>X 醫美｜陳院長親自評估｜板橋站 5 分鐘</strong></span>
+            </div>
+          </div>
+          <div class="border-t border-slate-700 my-2"></div>
+          <div class="flex items-start gap-2">
+            <span class="text-red-300 flex-shrink-0 font-bold">❌</span>
+            <div>
+              <span class="text-slate-400 text-xs">通用版：</span>
+              <span class="text-slate-300 line-through">立即購買 限時優惠</span>
+            </div>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="text-emerald-300 flex-shrink-0 font-bold">✅</span>
+            <div>
+              <span class="text-emerald-400 text-xs">客製版：</span>
+              <span class="text-white"><strong>X 嚴選｜會員專屬 9 折｜免運送到家</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-xs text-amber-700 mt-4 leading-relaxed">
+        💡 ⭐ <strong>標題前 3 則</strong>是建議優先使用的版本（其他可作為輪播備份）｜
+        <strong>🆕</strong> 標記的是新品牌也能用、不需要折扣的版本
+      </p>
     </div>
 
     <!-- 沒素材補救建議（state.assets === 'none' 才顯示） -->
