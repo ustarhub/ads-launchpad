@@ -94,7 +94,7 @@
       <a href="#tool" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-bold text-lg shadow-lg shadow-blue-200 transition">
         🚀 幫我做一份廣告計畫
       </a>
-      <p class="text-sm text-slate-500 mt-4">6+ 年實戰投手設計｜30 秒看完｜可以直接照做</p>
+      <p class="text-sm text-slate-500 mt-4">6+ 年實戰投手設計｜30 秒填完｜可以直接照做</p>
     </div>
     <div class="hidden md:block">
       <div class="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-5 shadow-xl">
@@ -216,21 +216,25 @@
         <div class="grid grid-cols-3 gap-3">
           <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4 text-center" data-q="goal" data-value="awareness">
             <div class="emoji text-3xl mb-1">👀</div>
-            <div class="font-bold">讓更多人看到</div>
-            <div class="text-xs text-slate-500 mt-1">曝光</div>
+            <div class="font-bold">增加品牌曝光</div>
+            <div class="text-xs text-slate-500 mt-1">讓更多人看到</div>
           </div>
           <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4 text-center" data-q="goal" data-value="leads">
             <div class="emoji text-3xl mb-1">📩</div>
-            <div class="font-bold">增加詢問 / 名單</div>
+            <div class="font-bold">增加詢問名單</div>
             <div class="text-xs text-slate-500 mt-1">諮詢／預約／加 LINE</div>
           </div>
           <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4 text-center" data-q="goal" data-value="purchase">
             <div class="emoji text-3xl mb-1">💰</div>
-            <div class="font-bold">提高成交 / 訂單</div>
+            <div class="font-bold">提高成交訂單</div>
             <div class="text-xs text-slate-500 mt-1">直接成交</div>
           </div>
         </div>
         <p class="text-sm text-slate-500 mt-2">💡 選目前最卡的那一個就好（不用選最完美）</p>
+        <!-- Q1+Q3 衝突智能提示（依組合動態顯示）-->
+        <div id="goal-conflict-warning" class="hidden mt-3 bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm text-amber-900 leading-relaxed">
+          <span id="goal-conflict-text"></span>
+        </div>
       </div>
 
       <!-- Q4: Budget -->
@@ -253,7 +257,7 @@
       <div>
         <label class="flex items-center gap-2 font-bold text-lg mb-3">
           <span class="w-7 h-7 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center text-sm">5</span>
-          你目前有什麼素材可以直接用？
+          你手上能拿來投廣告的素材有？
         </label>
         <div class="grid grid-cols-3 gap-3">
           <div class="option-card cursor-pointer border-2 border-slate-200 rounded-lg p-4 text-center" data-q="assets" data-value="full">
@@ -671,9 +675,46 @@
     </div>
 
     <!-- 使用提示（所有分頁通用） -->
-    <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-6 text-xs text-amber-900 leading-relaxed">
+    <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-4 text-xs text-amber-900 leading-relaxed">
       💡 <strong>使用提示：</strong>所有文案請<strong>替換成你的品牌名</strong>（例：「[你的品牌]｜醫美諮詢免費預約」），或調整一兩個字成你的品牌語氣。<br/>
       ⭐ 標題前 3 則是建議優先使用的版本（其他可作為輪播備份）。
+    </div>
+
+    <!-- 沒素材補救建議（state.assets === 'none' 才顯示） -->
+    <div id="no-assets-tip" class="hidden bg-orange-50 border border-orange-200 rounded-2xl p-5 mb-6">
+      <div class="flex items-start gap-3 mb-3">
+        <div class="text-3xl flex-shrink-0">🎨</div>
+        <div>
+          <h3 class="font-bold text-orange-900 mb-1">沒素材怎麼辦？這 3 招最快補上</h3>
+          <p class="text-xs text-orange-700">先用搜尋廣告（純文字）開跑，這 3 招在 Week 2-3 補齊，就能加碼多媒體 + 需求廣告</p>
+        </div>
+      </div>
+      <div class="space-y-3 text-sm text-orange-900">
+        <div class="bg-white rounded-lg p-3 border border-orange-200">
+          <div class="font-bold mb-1">1️⃣ 圖片：用 Canva 做 10 張</div>
+          <ul class="text-xs text-slate-700 leading-relaxed space-y-0.5 ml-4 list-disc">
+            <li><strong>5 張橫圖</strong>（1200×628）給多媒體再行銷用</li>
+            <li><strong>5 張方圖</strong>（1200×1200）給 PMax / 需求廣告用</li>
+            <li>每張 5 分鐘搞定（用 Canva 既有版型直接套）</li>
+          </ul>
+        </div>
+        <div class="bg-white rounded-lg p-3 border border-orange-200">
+          <div class="font-bold mb-1">2️⃣ 商品 / 場景照：手機拍即可</div>
+          <ul class="text-xs text-slate-700 leading-relaxed space-y-0.5 ml-4 list-disc">
+            <li>白底拍 3 張商品照（自然光下窗邊）</li>
+            <li>使用情境拍 2 張（人＋產品）</li>
+            <li>如果是<strong>實體店</strong>：拍 1-2 張店面外觀＋環境</li>
+          </ul>
+        </div>
+        <div class="bg-white rounded-lg p-3 border border-orange-200">
+          <div class="font-bold mb-1">3️⃣ 影片：CapCut／剪映 10 分鐘剪</div>
+          <ul class="text-xs text-slate-700 leading-relaxed space-y-0.5 ml-4 list-disc">
+            <li>抓 3-5 個產品特寫片段（每段 3 秒）</li>
+            <li>拼接成 <strong>15 秒短片</strong>（YouTube 廣告基本長度）</li>
+            <li>結尾加品牌 LOGO ＋ CTA「立即了解」</li>
+          </ul>
+        </div>
+      </div>
     </div>
 
     <!-- Tabs -->
@@ -915,6 +956,30 @@ const comboMatrixBeginner = {
 };
 
 // ============ FORM HANDLING ============
+// Q1+Q3 衝突組合提示（不擋送出，只給溫馨提醒）
+const checkGoalConflict = () => {
+  const warningEl = document.getElementById('goal-conflict-warning');
+  const textEl = document.getElementById('goal-conflict-text');
+  if (!warningEl || !textEl) return;
+  const { decision, goal } = state;
+  let message = '';
+
+  if (decision === 'consult' && goal === 'purchase') {
+    message = '💡 你選了「想先問問」（諮詢型）+「提高成交訂單」——這類客戶通常需要<strong>先收諮詢名單再轉單</strong>。建議先選「增加詢問名單」效果會更好，要繼續也 OK。';
+  } else if (decision === 'impulse' && goal === 'leads') {
+    message = '💡 你選了「看到就買」（衝動型）+「增加詢問名單」——這類客戶不愛填表。建議改用「<strong>加 LINE 領券</strong>」當作收名單方式，比 Email 表單有效。';
+  } else if (decision === 'research' && goal === 'awareness') {
+    message = '💡 你選了「會先研究」（比較型）+「增加品牌曝光」——這類客戶會主動 Google 找你。建議改選「增加詢問名單」，先抓研究階段的人會比純曝光更快有成效。';
+  }
+
+  if (message) {
+    textEl.innerHTML = message;
+    warningEl.classList.remove('hidden');
+  } else {
+    warningEl.classList.add('hidden');
+  }
+};
+
 const updateProgress = () => {
   // 不算 industry（那個是產生文案時才填）
   const requiredFields = ['decision', 'business', 'goal', 'budget', 'assets'];
@@ -922,6 +987,7 @@ const updateProgress = () => {
   const pct = Math.round(filled / 5 * 100);
   document.getElementById('progress-text').textContent = pct + '%';
   document.getElementById('progress-bar').style.width = pct + '%';
+  checkGoalConflict();
 
   const btn = document.getElementById('btn-generate');
   if (filled === 5) {
@@ -1274,25 +1340,19 @@ const generateStrategy = () => {
     <div><strong>Week 4：</strong>建立再行銷名單、檢視搜尋詞報告、優化出價</div>
   `;
 
-  // ===== 關鍵字策略 =====
+  // ===== 關鍵字策略（精簡版：3 條核心 + 範例字根） =====
   const kwExamples = decisionKeywords[state.decision];
   const keywordsHTML = `
-    <div>
-      <strong class="block mb-1">建議比對類型</strong>
-      <span class="text-xs text-slate-600">先用「<strong>詞組比對</strong>」為主（70%）+「<strong>完全比對</strong>」高意圖字（30%），<strong>避開廣泛比對</strong>除非搭配「盡量爭取轉換」自動出價。</span>
-    </div>
-    <div>
-      <strong class="block mb-1">關鍵字結構</strong>
-      <span class="text-xs text-slate-600">每個廣告群組 <strong>10–20 個</strong>同主題關鍵字，不要塞 50 個進一個群組。</span>
-    </div>
-    <div>
-      <strong class="block mb-1">${decision}客戶範例字根</strong>
-      <div class="flex flex-wrap gap-1 mt-1">
-        ${kwExamples.map(k=>`<span class="bg-blue-50 text-blue-700 text-xs px-2 py-0.5 rounded">${k}</span>`).join('')}
+    <ul class="space-y-2 mb-3 text-sm text-slate-700">
+      <li>✅ <strong>用「詞組比對」</strong>為主（避開廣泛比對，會燒錢）</li>
+      <li>✅ <strong>每個廣告群組 10-20 字</strong>，同主題分群（別塞 50 個）</li>
+      <li>✅ <strong>必設否定字</strong>：免費、ptt、教學、職缺、二手</li>
+    </ul>
+    <div class="bg-blue-50 rounded-lg p-3">
+      <div class="text-xs text-blue-700 font-bold mb-1.5">📌 ${decision}客戶範例字根</div>
+      <div class="flex flex-wrap gap-1">
+        ${kwExamples.map(k=>`<span class="bg-white text-blue-700 text-xs px-2 py-0.5 rounded border border-blue-200">${k}</span>`).join('')}
       </div>
-    </div>
-    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-2 text-xs text-yellow-900">
-      ⚠️ <strong>必設否定關鍵字：</strong>免費、ptt、教學、職缺、二手
     </div>
   `;
 
@@ -2524,6 +2584,13 @@ const renderCopy = (c) => {
   const ytBtn = document.querySelector('.tab-btn[data-tab="script"]');
   if (pmaxBtn) pmaxBtn.style.display = hasPMax ? '' : 'none';
   if (ytBtn) ytBtn.style.display = hasYouTube ? '' : 'none';
+
+  // 沒素材補救建議（只有 state.assets === 'none' 顯示）
+  const noAssetsTip = document.getElementById('no-assets-tip');
+  if (noAssetsTip) {
+    if (state.assets === 'none') noAssetsTip.classList.remove('hidden');
+    else noAssetsTip.classList.add('hidden');
+  }
 
   // 額外資訊
   const e = c.extras;
